@@ -1,0 +1,58 @@
+<template>
+  <div style="height: 44px; width: 100%; transform: translate(7px, -9px)">
+    <el-form
+      :inline="true"
+      :model="formInline"
+      :rules="rules"
+      class="demo-form-inline"
+      ref="ruleForm"
+    >
+      <el-form-item label="" prop="id">
+        <el-input v-model="formInline.id" placeholder="设备编号或名称" style="width: 310px"></el-input>
+      </el-form-item>
+      <!-- <el-form-item label="" prop="name">
+         <el-input v-model="formInline.name" placeholder="设备名称"  style="width: 158px"> </el-input> -->
+      <!-- </el-form-item> --> 
+      <el-form-item>
+        <el-button type="primary" @click="submitForm('ruleForm')"
+          >搜索</el-button
+        >
+        <el-button @click="resetForm('ruleForm')">重置</el-button>
+      </el-form-item>
+    </el-form>
+  </div>
+</template>
+<script>
+import {searchModel} from "@/model";
+export default {
+  data() {
+    return {
+
+      rules: {
+        id: [{ required: true, message: "输入不能为空", trigger: "blur" }],
+        // name: [{ required: true, message: "输入不能为空 ", trigger: "blur" }],
+      },
+      formInline: {
+        id: "",
+        // name: "",
+      },
+    };
+  },
+  methods: {
+    submitForm(formName) {
+     
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+         searchModel(this.formInline.id);
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    },
+  },
+};
+</script>

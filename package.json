@@ -7,7 +7,16 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@jiaminghi/data-view": "^2.10.0",
+    "babylonjs": "^6.23.0",
+    "babylonjs-gui": "^6.23.0",
+    "babylonjs-loaders": "^6.23.0",
     "core-js": "^3.8.3",
+    "echarts": "^5.4.3",
+    "element-ui": "^2.15.14",
+    "moment": "^2.29.4",
+    "paho-mqtt": "^1.1.0",
+    "path-browserify": "^1.0.1",
     "vue": "^2.6.14",
     "vue-router": "^3.5.1",
     "vuex": "^3.6.2"
@@ -17,6 +26,15 @@
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-plugin-vuex": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
+    "postcss": "^8.4.31",
+    "postcss-focus": "^7.0.0",
+    "postcss-preset-env": "^9.1.4",
+    "postcss-px-to-viewport": "^1.1.1",
+    "postcss-px-viewport": "^0.0.4",
+    "postcss-viewport-units": "^0.1.6",
     "vue-template-compiler": "^2.6.14"
+  },
+  "peerDependencies": {
+    "postcss": "^8.4.31"
   }
 }

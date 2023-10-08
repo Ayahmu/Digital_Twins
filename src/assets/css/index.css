@@ -1,0 +1,294 @@
+@font-face {
+  font-family: "Digital-7";
+  src: url("../font/digital-7.ttf") format("truetype");
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  font-size: 62.5%;
+  /* 设置过根节点的文字,所有子节点的文字大小全部相对于根节点计算，html为10px */
+}
+body,
+input,
+button,
+a,
+textarea,
+select {
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB",
+    "Microsoft YaHei", Arial, sans-serif;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  color: #333;
+  z-index: 0;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+a:hover,
+a:focus {
+  text-decoration: none;
+}
+a:hover {
+  filter: alpha(opacity=90);
+  opacity: 0.9;
+}
+
+.tc {
+  text-align: center;
+}
+
+.tr {
+  text-align: right;
+}
+
+.tl {
+  text-align: left;
+}
+
+.content {
+  color: #fff;
+  background: #000;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+.place {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  /* 标题的样式 */
+}
+.text {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translate(-50%, -144px);
+  font-family: "Arial", sans-serif;
+  text-transform: uppercase;
+  font-size: 20px;
+  color: rgba(0, 255, 255, 1);
+  display: inline-block;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.8), 0 0 10px rgba(0, 255, 255, 0.8),
+    0 0 20px rgba(0, 255, 255, 0.8), 0 0 30px rgba(0, 255, 255, 0.8),
+    0 0 50px rgba(0, 255, 255, 0.8), 0 0 70px rgba(0, 255, 255, 0.8),
+    0 0 90px rgba(0, 255, 255, 0.8), 0 0 110px rgba(0, 255, 255, 0.8),
+    0 0 5px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 0, 0, 0.4),
+    0 0 15px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+.text:after,
+.text:before {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.text:after {
+  color: rgba(0, 0, 255, 0.8);
+  z-index: -2;
+  transform: translate3d(2px, 2px, 0);
+}
+
+.text:before {
+  color: rgba(0, 0, 255, 0.4);
+  z-index: -1;
+  transform: translate3d(-2px, -2px, 0);
+}
+.bg {
+  /*background: url("../img/R-C.jpg") no-repeat center center;*/
+  background-size: cover;
+}
+.module-box {
+  display: flex;
+  justify-content: space-between;
+}
+.unitname {
+  /* text-fill-color: transparent; */
+  letter-spacing: 0.1em;
+
+  position: absolute;
+  top: 176px;
+  left: 333px;
+  font-size: 26px;
+  width: 150px;
+  color: #48c8ff;
+
+  font-family: "Arial";
+}
+.bigtable {
+  padding: 3px;
+
+  width: 100%;
+  height: 99%;
+  display: flex;
+  flex-wrap: wrap;
+  /* align-content: center; */
+}
+.block {
+  flex: 0 1 32.7%;
+  /* width: 33%; */
+
+  height: 48%;
+}
+.title {
+  background-image: linear-gradient(to bottom, white, #00ffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: absolute;
+  font-size: 36px;
+  width: 150px;
+
+  top: 15px;
+  left: 29px;
+  font-family: "Arial";
+}
+.max {
+  width: 100%;
+  transform: translate(1px, 20px);
+}
+.first {
+  width: 105%;
+  height: 30px;
+  display: flex;
+  align-content: space-between;
+  padding-left: 30px;
+}
+.second {
+  width: 98%;
+  height: 30px;
+  display: flex;
+  align-content: space-between;
+  padding-left: 30px;
+}
+.button{
+  right: 27%;
+  top: 12px;
+  visibility: hidden;
+  position: absolute;
+  width: 10px;
+  z-index: 2;
+}
+
+.icon{
+  margin: 2px;
+  height: 20px;
+  visibility: visible;
+  cursor: pointer;
+  z-index: 2;
+}
+
+
+.container {
+  --color: #a5a5b0;
+  --size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  font-size: var(--size);
+  user-select: none;
+}
+
+.container .bell-solid {
+  position: absolute;
+  display: none;
+  animation: keyframes-fill .5s;
+  animation-iteration-count: infinite;
+  fill: crimson;
+}
+
+
+/* ------ On check event ------ */
+
+.container input:checked ~ .bell-solid {
+  display: block;
+}
+
+/* ------ Hide the default checkbox ------ */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.solid{
+  animation-name: keyframes-fill;
+  animation-duration: .5s;
+}
+
+.container{
+  z-index: 2;
+  display: none;
+}
+
+@keyframes right-slide-in {
+  0%{
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  100%{
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes right-slide-out {
+  0%{
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100%{
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+.right-slide-in {
+  animation-name: right-slide-in;
+  animation-duration: 1s;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+}
+.right-slide-out {
+  animation-name: right-slide-out;
+  animation-duration: 1s;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+}
+
+/*报警图标动画*/
+@keyframes keyframes-fill {
+  0% {
+    /*opacity: 0;*/
+  }
+
+  25% {
+    transform: rotate(25deg);
+  }
+
+  50% {
+    transform: rotate(-20deg) scale(1.2);
+  }
+
+  75% {
+    transform: rotate(15deg);
+  }
+}
