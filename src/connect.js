@@ -1,4 +1,12 @@
-import {objectArray,pipeArray, idToIndexMap1,idToIndexMap2, createWarningMessage, deleteWarningMessage} from './model.js'
+import {
+    objectArray,
+    pipeArray,
+    idToIndexMap1,
+    idToIndexMap2,
+    createWarningMessage,
+    deleteWarningMessage,
+    warningIntervalID
+} from './model.js'
 import path from 'path-browserify'
 import {mqtt_config, http_config} from "./config.js";
 

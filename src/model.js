@@ -28,7 +28,7 @@ idToDoor["Mesh.1898"] = 1;
 idToDoor["Mesh.633"] = 2;
 //读取json数据
 
-function MyObject(ID, Name, Info, Manual, Url, State, LocID, SpareParts, Animation) {
+function MyObject(ID, Name, Info, Manual, Url, State, SpareParts, LocID, Animation) {
     this.ID = ID;
     this.Name = Name;
     this.Info = Info;
@@ -143,7 +143,7 @@ actionManager.registerAction(
                     removeLabel(rmLabelBuild);
                     highLight(event.meshUnderPointer,event.meshUnderPointer.id);
                     console.log(event.meshUnderPointer.id)
-                    createLabel(event);
+                    // createLabel(event);
                     break;
             }
         }
@@ -155,7 +155,7 @@ nullManager.registerAction(
         function (event){
             switch (event.meshUnderPointer.id){
                 default:
-                    console.log(event.meshUnderPointer.id)
+                    // console.log(event.meshUnderPointer.id)
                     break;
             }
         }
@@ -196,14 +196,43 @@ actionManager.registerAction(
     )
 );
 
+let intervalID;
 function displayLabel(event){
     let infoLabelElm = document.getElementById("info-label");
 
-    infoLabelElm.onblur = function (){
-        infoLabelElm.style.display = 'none';
-    }
+    canvas.addEventListener('click',function (event){
+        if(infoLabelElm.style.display === 'block'){
+            console.log("123");
+            // infoLabelElm.style.display = 'none';
+        }
+    })
 
     infoLabelElm.style.display = 'block';
+
+    let nameElm = document.getElementById("modelName");
+    let idElm = document.getElementById("modelID");
+    let infoElm = document.getElementById("modelInfo");
+    let stateElm = document.getElementById("modelState");
+    let manualElm = document.getElementById("modelManual");
+    let spareElm = document.getElementById("modelSpare");
+
+    let targetModel = objectArray[idToIndexMap1[event.meshUnderPointer.id]]
+
+    nameElm.innerHTML = targetModel.Name;
+    idElm.innerHTML = targetModel.ID;
+    infoElm.innerHTML = targetModel.Info;
+    stateElm.innerHTML = targetModel.State;
+    manualElm.innerHTML = targetModel.Manual;
+    spareElm.innerHTML = targetModel.SpareParts;
+
+    if(!intervalID){
+        intervalID = setInterval(()=>{
+            setUiPosition(infoLabelElm, event.meshUnderPointer, 20, -10);
+        },100);
+    }else {
+        clearInterval(intervalID);
+        intervalID = undefined;
+    }
 
 
 }
@@ -633,12 +662,12 @@ BABYLON.SceneLoader.ImportMesh(
             }else {
                 mesh.actionManeger = nullManager;
             }
-            if(getPipeJson(mesh.id) !== '暂无设备信息'){
-                childMesh.push(mesh);
-                mesh.actionManager = nullManager;
-            }else {
-                mesh.actionManeger = nullManager;
-            }
+            // if(getPipeJson(mesh.id) !== '暂无设备信息'){
+            //     childMesh.push(mesh);
+            //     mesh.actionManager = nullManager;
+            // }else {
+            //     mesh.actionManeger = nullManager;
+            // }
 
         });
     });
@@ -712,6 +741,8 @@ export function createWarningMessage(modelID,url){
     clonedIcon.addEventListener("mouseover", function (){
         //createLabel();
     });
+    
+    setWarningPosition(warningModels);
 }
 
 export function deleteWarningMessage(modelID){
@@ -727,43 +758,51 @@ let renderHeight = engine.getRenderingCanvas().height;
 let viewport = scene.activeCamera.viewport;
 viewport.toGlobal(renderWidth, renderHeight);
 let worldMatrix = scene.getTransformMatrix();
+
+//定时器id数组，用于结束不必的定时器
 function setWarningPosition(warningModels){
     warningModels.forEach(function (value, key){
         if(!value){
             return;
         }
-        let modelPosition = value.getAbsolutePosition();
-        const transformMatrix = BABYLON.Matrix.Identity();
-        transformMatrix.multiply(worldMatrix);
-        let screenPosition = BABYLON.Vector3.Project(modelPosition, transformMatrix, scene.getTransformMatrix(), viewport);
-
-        key.style.top = screenPosition.y * 100 + "%"
-        key.style.left = screenPosition.x * 100 + "%"
-
+        setInterval(()=>{
+            setUiPosition(key,value,0,0);
+        },100);
     });
 }
 
 export function searchModel(modelID){
     removeLabel(rmLabelBuild);
-    childMesh.forEach(function (mesh){
-       if(mesh.id === modelID){
-           highLightLayer.addMesh(mesh,BABYLON.Color3.Blue());
-           models.push(mesh);
-           camera.position.x = mesh.position.x;
-           camera.position.y = 30;
-           camera.position.z = -45;
-           camera.setTarget(mesh.getAbsolutePosition());
-           // camera.radius = 50;
-           console.log(modelID);
-       }
-    });
+    for(let mesh of childMesh){
+        if(mesh.id === modelID){
+            highLightLayer.addMesh(mesh,BABYLON.Color3.Blue());
+            models.push(mesh);
+            camera.position.x = mesh.position.x;
+            camera.position.y = 30;
+            camera.position.z = -45;
+            camera.setTarget(mesh.getAbsolutePosition());
+            // camera.radius = 50;
+            console.log(modelID);
+            return;
+        }
+    }
+    alert("未查找到指定设备");
+}
 
+function setUiPosition(element, model, topOffset, leftOffset){
+    let modelPosition = model.getAbsolutePosition();
+    const transformMatrix = BABYLON.Matrix.Identity();
+    transformMatrix.multiply(worldMatrix);
+    let screenPosition = BABYLON.Vector3.Project(modelPosition, transformMatrix, scene.getTransformMatrix(), viewport);
+
+    element.style.top = screenPosition.y * 100 - topOffset + "%"
+    element.style.left = screenPosition.x * 100 - leftOffset + "%"
 }
 
 
 scene.registerBeforeRender(function(){
 
-    setWarningPosition(warningModels);
+    // setWarningPosition(warningModels);
     //
     // //计算帧率
     // let fps = engine.getFps().toFixed();

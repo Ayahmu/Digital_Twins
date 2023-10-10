@@ -25,6 +25,7 @@ select {
   line-height: 1.5;
   color: #333;
   z-index: 0;
+  overflow: hidden;
 }
 html,
 body {
@@ -300,7 +301,7 @@ a:hover {
 ::-webkit-scrollbar {
      width: 10px;
      height: 10px;
-   }
+}
 
 ::-webkit-scrollbar-track {
   width: 6px;
@@ -323,4 +324,11 @@ a:hover {
 
 ::-webkit-scrollbar-thumb:hover {
   background-color: rgba(144,147,153,.3);
+}
+
+.info-title{
+  font-size: 2rem;
+}
+.info-content{
+  color: black;
 }
