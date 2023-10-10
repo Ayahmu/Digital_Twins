@@ -10,7 +10,7 @@ export var http_config = {
 }
 
 export var camera_config = {
-    camera_panningSensibility: 120,     //摄像机平移灵敏度
+    camera_panningSensibility: 30,     //摄像机平移灵敏度
     camera_wheelPrecision: 2.5          //摄像机滚轮灵敏度
 }
 

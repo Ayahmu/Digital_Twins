@@ -27,12 +27,15 @@ idToDoor["Mesh.2971"] = 0;
 idToDoor["Mesh.1898"] = 1;
 idToDoor["Mesh.633"] = 2;
 //读取json数据
-function MyObject(ID, Name, Info, Manual, Url, LocID, Animation) {
+
+function MyObject(ID, Name, Info, Manual, Url, State, LocID, SpareParts, Animation) {
     this.ID = ID;
     this.Name = Name;
     this.Info = Info;
     this.Manual = Manual;
     this.Url = Url;
+    this.State = State;
+    this.SpareParts = SpareParts;
     this.LocID = LocID;
     this.Animation = Animation;
 }
@@ -45,6 +48,8 @@ objectArray = data1.map(jsonObject => new MyObject(
     jsonObject.Info,
     jsonObject.Manual,
     jsonObject.Url,
+    jsonObject.State,
+    jsonObject.SpareParts,
     jsonObject.LocID,
     jsonObject.Animation
 ));
@@ -107,6 +112,7 @@ const camera = new BABYLON.ArcRotateCamera(
 camera.panningSensibility = camera_config.camera_panningSensibility; // 增加平移灵敏度
 camera.wheelPrecision = 1 / camera_config.camera_wheelPrecision;
 camera.inertia = 0; //设置为0以禁用移动和旋转的惯性
+camera.panningInertia = 0;
 
 camera.position = new BABYLON.Vector3(-37.99717668174966, 86.58864238456036, 333.38193590224483
 );
@@ -138,6 +144,18 @@ actionManager.registerAction(
                     highLight(event.meshUnderPointer,event.meshUnderPointer.id);
                     console.log(event.meshUnderPointer.id)
                     createLabel(event);
+                    break;
+            }
+        }
+    )
+)
+nullManager.registerAction(
+    new BABYLON.ExecuteCodeAction(
+        BABYLON.ActionManager.OnPickTrigger,//鼠标单机触发
+        function (event){
+            switch (event.meshUnderPointer.id){
+                default:
+                    console.log(event.meshUnderPointer.id)
                     break;
             }
         }
@@ -179,19 +197,14 @@ actionManager.registerAction(
 );
 
 function displayLabel(event){
-    let rightLabel = document.getElementById("rightLabel");
+    let infoLabelElm = document.getElementById("info-label");
 
-    let modelNameElm = document.getElementById("modelName");
-    modelNameElm.innerHTML = getJson(event.meshUnderPointer.id,'Name');
-
-    let modelInfoElm = document.getElementById("modelInfo");
-    modelInfoElm.innerHTML = getJson(event.meshUnderPointer.id,"Info");
-
-    if(!rightLabel.style.display){
-        rightLabel.style.display = "block";
+    infoLabelElm.onblur = function (){
+        infoLabelElm.style.display = 'none';
     }
-    rightLabel.classList.remove("right-slide-out");
-    rightLabel.classList.add("right-slide-in");
+
+    infoLabelElm.style.display = 'block';
+
 
 }
 
@@ -216,30 +229,6 @@ function createLabel(event){
     rmLabelBuild.push(text1);
 }
 
-// function createWarningLabel(modelID,model){
-//     for(let label of rmLabelBuild){
-//         if(label.name === modelID){
-//             return;
-//         }
-//     }
-//     let label = new GUI.Rectangle(modelID);
-//     label.background = "rgba(0, 0, 0, 1)";
-//     label.alpha = 0.6;
-//     label.cornerRadius = 20;
-//     label.thickness = 1;
-//     label.linkOffsetY = -100;
-//     label.width = "500px";
-//     label.height = "300px";
-//     advancedTexture.addControl(label);
-//     label.linkWithMesh(model);
-//     let text1 = new GUI.TextBlock();
-//     text1.text = "报警信息名称:"+getJson(modelID,"Name")  +"\n"+ "报警信息报警信息报警信息报警信息报警信息报警信息";
-//     text1.color = "white";
-//     label.addControl(text1);
-//
-//     rmLabelBuild.push(label);
-//     rmLabelBuild.push(text1);
-// }
 
 let advancedTexture = GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
 advancedTexture.renderScale = 1;
@@ -272,23 +261,7 @@ function resetCamera(){
 export {
     resetCamera
 }
-// play_btn.addEventListener('click', function(){
-//     console.log(camera.position);
-//     console.log(camera.rotation);
-//     console.log(camera.target);
-//     if(selectMesh==null)
-//         console.log("no mesh");
-//     else
-//     {
-//         let animation = getJson(selectName, "Animation");
-//         playAnimation(animation);
-//     }
-//
-// })
 
-// info_btn.addEventListener('click', function (){
-//     getPDF(selectName);
-// });
 
 function removeLabel(arr) {
     //清除面板
@@ -658,17 +631,23 @@ BABYLON.SceneLoader.ImportMesh(
                 childMesh.push(mesh);
                 mesh.actionManager = actionManager;
             }else {
-                mesh.actionManeger = actionManager;
+                mesh.actionManeger = nullManager;
             }
             if(getPipeJson(mesh.id) !== '暂无设备信息'){
                 childMesh.push(mesh);
-                mesh.actionManager = actionManager;
+                mesh.actionManager = nullManager;
             }else {
-                mesh.actionManeger = actionManager;
+                mesh.actionManeger = nullManager;
             }
 
         });
     });
+
+let inputManager = new BABYLON.ArcRotateCameraInputsManager(camera);
+inputManager.addMouseWheel();
+inputManager.addPointers();
+
+camera.inputs = inputManager;
 
 //鼠标按下时取消绑定事件,防止卡顿
 scene.onPointerObservable.add((pointerInfo) => {
@@ -676,16 +655,24 @@ scene.onPointerObservable.add((pointerInfo) => {
         case BABYLON.PointerEventTypes.POINTERDOWN:
         case BABYLON.PointerEventTypes.POINTERWHEEL:
             childMesh.forEach(function (mesh){
+                if(!mesh.actionManager)
+                    return
                 mesh.actionManager = null;
             })
             break;
         case BABYLON.PointerEventTypes.POINTERUP:
+            camera.inputs.clear();
+            camera.inputs = inputManager;
             childMesh.forEach(function (mesh){
+                if(mesh.actionManager)
+                    return
                 mesh.actionManager = actionManager;
             })
             break;
         case BABYLON.PointerEventTypes.POINTERPICK:
             childMesh.forEach(function (mesh){
+                if(mesh.actionManager)
+                    return
                 mesh.actionManager = actionManager;
             })
             break;
@@ -762,8 +749,12 @@ export function searchModel(modelID){
        if(mesh.id === modelID){
            highLightLayer.addMesh(mesh,BABYLON.Color3.Blue());
            models.push(mesh);
+           camera.position.x = mesh.position.x;
+           camera.position.y = 30;
+           camera.position.z = -45;
            camera.setTarget(mesh.getAbsolutePosition());
-           camera.radius = 50;
+           // camera.radius = 50;
+           console.log(modelID);
        }
     });
 
@@ -784,7 +775,7 @@ scene.registerBeforeRender(function(){
 //渲染场景
 engine.runRenderLoop(() => {
     scene.render();
-    //console.log(camera.position);
+    // console.log(camera.position);
 })
 
 //监听窗口大小改变

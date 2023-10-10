@@ -55,6 +55,11 @@ client.onMessageArrived = function (message){
     let messageJSON = JSON.parse(message.payloadString);
     let modelID = messageJSON.id;
     let url = messageJSON.url;
+
+    if(!modelID){
+        return
+    }
+
     if(!warningMessageArray.has(modelID)){
         createWarningMessage(modelID, url);
     }
