@@ -305,7 +305,7 @@ a:hover {
 
 ::-webkit-scrollbar-track {
   width: 6px;
-  background: rgba(#101F1C, 0.1);
+  background: rgb(#101F1C);
   -webkit-border-radius: 2em;
   -moz-border-radius: 2em;
   border-radius: 2em;
