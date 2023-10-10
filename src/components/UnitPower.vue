@@ -57,7 +57,7 @@ export default {
             },
             axisLabel: {
               color: "#7CFFB2",
-              fontSize: 39,
+              fontSize: 0,
 
               distance: 140,
               rotate: "tangential",
@@ -65,7 +65,7 @@ export default {
                 if (value === 0.165) {
                   return "停止";
                 } else if (value === 0.5) {
-                  return "960.18\nMV";
+                  return "960.18MV";
                 } else if (value === 0.835) {
                   return "盘车";
                 }
@@ -75,7 +75,7 @@ export default {
             },
             title: {
               offsetCenter: [0, "37%"],
-              fontSize: 60,
+              fontSize: 0,
               color: "#48c8ff",
 
               fontFamily: "Arial",

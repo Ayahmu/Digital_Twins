@@ -63,12 +63,12 @@ export default {
       //数据
       var XName = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
       var data1 = [
-        [67, 97, 51, 38, 32, 11, 11],
-        [67, 7, 51, 38, 32, 11, 1],
-        [77, 77, 77, 77, 77, 77, 77],
-        [67, 7, 51, 38, 32, 11, 51],
-        [67, 97, 51, 38, 32, 11, 1],
-        [67, 37, 51, 58, 62, 112, 31],
+        [496, 497, 501, 500, 505, 497, 500],
+        [97, 98.4, 99, 97.3, 96.9, 94, 98],
+        [-12.3, -14.7, -13, -16, -15, -14.5, -15.1],
+        [19, 21, 21.2, 20, 19.5, 19.9, 20.1],
+        [5, 4, 5, 4, 5, 5, 4],
+        [49, 48, 51, 50, 52, 51, 50],
       ];
       var img = [
         "image://data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABRCAYAAABFTSEIAAAACXBIWXMAAAsSAAALEgHS3X78AAAEp0lEQVR42u3cz4sjRRTA8W9Vd3Vn8mMmjj9WQWSRZQ+CsH+B7MnDIgiCd0E8CYJ/gOAIelo8ehUP/gF6WLw5/gMueFP2sIcF0dHd2Z1kknR11fOQZJJJMtlZd03H7HtQpNOTnpn+8Lrm1etmjIig8e/DKoECKqACKqCGAiqgAiqghgIqoAIqoIYCKqACKqCGAiqgAiqghgIqoAJudKTr+osZMNPvBUQBHwHsPF9fB9R0DeHMOQ6T6WOrhEzXBM4swDOL0M6CrArRVoq3t2dGUIb9fTvatg8ZZup1PDBgzPmy98mey6qfzjLz2WaWjEUZKEvGyi9nWyneMOvGIyFQo2Sbg4MUSChpU9IeTTUpJdsEajPZOJeJG5uBZj7rLLduWS5dGm6XNLEELOFUFj54ACJCaychkpDSASK3bwsXL0YgVpWJKwM0iy9Zy8HdGru7jvt3Pbu7w0wES7drTwAbjTHMGCsQcIAnYTC1/wRx0wEnl27JNgZI8HQ6Kc1mQq83RNzaMjPzXqDbjTQaJRFLxIyyMSxAXEkWrhrQzAAmo5HOjCQf7jflILxOkohL+aUPgV4vEGNJo+E5PAy02+UIMEwBxo0CPDP7Dg5SnEtpt1PA0e87XO25FOoh8IYIH2Y5b45RzGAQBiIltZoHxqMcjbksXAVgdc2EQMYzzzdotyeZWKuleULXJtwT4SODfC2QCWR+IF9KnjuX1Xbo99Op7LVE8iXlz0YBTk5SyLEEjo5OLuccEoFUvHfO+reuUPx4zftXAIcx1hdcF+/TvFab4A0Bs0VwqyhpVnkJT89/Q4DDQ0e77YCMwIUsFMeFZD856699URRvX4nxE4A/jbnxXp7v4Zw3ReGNSDHI8wFQjIafuoyn58L/fB6sth/Ybg9fez2TRC6QZcZYvgHsazF+MP7YCyLXcM7gvSXLDGBqYDg+NhwdmSpPoTrAkub0W+f4FSB1fDucIunMHSLpO8WAH0rSy8u+19MBCHB4OHzd2pI+CEUhpigEiN+l6WcdY252jLn5s7Wf472ImPcN8pUl/tEHoV4XWq1Ke4KrLmPsTA3oODpytFoOyJKSyzHyMSIxteWngMW5cSEdDJQUhTdZVgxOz3/+jFJm4+bA2e5JpNU6WZ4Fw99JwnWMKccwpeddP+B7GZTNUPKqybJy0O+Hs1YfMz9swwvpB8fbGDG0GuGkkK7V0hxSmZQpABI8l2z0v3sJf50qpAMJCd2qCulql3LD1lRGQjm7lEsDz0rkxTQOfiPPxUBcuJTbbhss/Y1eyi3NwsmKInmkZsKk5gtPUzNhvp11507CSy/X6XYStpvFudpZw1ZWIOF4Cq6SdtbKbioJyAhRTu3u9yMJXerN+ugvaQQsjcZ8Q3VnZwxlSDhe1lB9GjrSw5b+1avT8+Jw+979nNaOI6U3KpTrWAosxVQmygK4ld8X0ZtK/7eViExD7O1NQPb3T7fsl4/4sBpwYzPwjFbTo95Yl9l9Vd1YN1X/147HebSjary1AHyc5qc+XLQEQx9ve8Kg6xr6hKoCKqACKqCGAiqgAiqghgIqoAIqoIYCKqACKqCGAiqgAiqghgIq4JrHP8fEWV8FMTmOAAAAAElFTkSuQmCC",
@@ -84,14 +84,14 @@ export default {
           }),
         },
       ];
-      // const minValue = Math.min(...data1[shunxu]) - 5;  // 最小值减去 5
-      const maxValue = Math.max(...data1[shunxu]) ; // 最大值加上 5
+      const minValue = Math.min(...data1[shunxu]) - 5;  // 最小值减去 5
+      const maxValue = Math.max(...data1[shunxu])+5 ; // 最大值加上 5
       option = {
         backgroundColor: "rgba(255, 255, 255, 0)",
         grid: {
           left: "10%",
           top: "20%",
-          bottom: "10%",
+          bottom: "14%",
           right: "10%",
         },
 
@@ -99,7 +99,7 @@ export default {
           {
             type: "value",
             position: "left",
-            min: 0,
+            min: minValue,
             max: maxValue,
             nameTextStyle: {
               color: "#00FFFF",
@@ -141,7 +141,7 @@ export default {
               textStyle: {
                 color: "rgba(0, 0, 255, 0.8)", // x轴颜色
                 fontWeight: "normal",
-                fontSize: "17",
+                fontSize: "14",
                 lineHeight: 22,
               },
             },
@@ -149,19 +149,7 @@ export default {
           },
         ],
         series: [
-          {
-            symbolSize: 150,
-            symbol: img[2],
-            name: "小灯光",
-            type: "line",
-            data: data1,
-            itemStyle: {
-              normal: {
-                borderWidth: 5,
-                color: "#0696f9",
-              },
-            },
-          },
+     
           {
             name: "滑行的光点",
             type: "lines",

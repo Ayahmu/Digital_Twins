@@ -57,7 +57,7 @@ export default {
             },
             axisLabel: {
               color: "#7CFFB2",
-              fontSize: 39,
+              fontSize: 0,
 
               distance: 140,
               rotate: "tangential",
@@ -75,7 +75,7 @@ export default {
             },
             title: {
               offsetCenter: [0, "37%"],
-              fontSize: 60,
+              fontSize: 0,
               color: "#48c8ff",
             },
             detail: {

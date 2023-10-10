@@ -3,20 +3,25 @@
     <div class="box">电解水制氢成本占比</div>
     <dv-active-ring-chart
       :config="config"
-      style="width: 320px; height: 320px; transform: translate(76px, 1px)"
+      style="width: 14.5944vw; height: 14.5944vw; transform: translate(0.0957vw, 0.5vw)"
     />
-    <div class="pie" ref="pie" style="width: 480px; height: 390px"></div>
+    <div class="pie" ref="pie" style="width: 12.1414vw; height: 19.3513vw"></div>
   </div>
 </template>
 <script>
 import * as echarts from "echarts";
+// import * as chartUtils from '../chartUtils.js';
 export default {
   data() {
     return {
       config: {
-        // 
-        lineWidth:33,
-        activeTimeGap: 5000,
+        // digitalFlopStyle: {
+ digitalFlopStyle: {
+  fontSize: 18,
+  fill: '#fff'
+},
+        lineWidth:25,
+        activeTimeGap: 6000,
         data: [
           {
             name: "电  费",
@@ -40,7 +45,22 @@ export default {
       },
     };
   },
+  methods:{
+    
+      getViewportWidth() {
+        return window.innerWidth || document.documentElement.clientWidth;
+      },
+  
+      calculateLabelSize() {
+        var viewportWidth = this.getViewportWidth();
+        var labelSize = viewportWidth * 0.01; // 假设为视口宽度的1%
+        return labelSize;
+      }
+    
+  },
   mounted() {
+ const ba=this.calculateLabelSize();
+
     const data = [
       {
         name: "电  费",
@@ -63,11 +83,12 @@ export default {
     this.option = {
       color: ['#00ffff','#00cfff','#006ced','#ffe000'],
       legend: {
-        top: "35%",
-        left: "34%",
+        // top: "-3%",
+        left: "41%",
+        orient: 'vertical',
         textStyle: {
           color: "#1563bc",
-          fontSize: 25,
+          fontSize: 1.0556*ba+"px",
         },
         icon: "roundRect",
         data: [
@@ -188,12 +209,11 @@ export default {
 </script>
 <style scoped>
 .pie {
-  position: relative;
+  position: absolute;
   left: 30%;
-  width: 50px;
-  height: 20px;
-  transform: translate(-12px, -195px);
-  //position: relative;
+
+  transform: translate(1vw, -9.236vw);
+ 
 }
 
 .box {
@@ -205,7 +225,7 @@ export default {
   position: absolute;
   top: 10px;
   z-index: 2;
-  font-size: 27px;
+  font-size: 1.3602vw;
   width: 100%;
 
 }

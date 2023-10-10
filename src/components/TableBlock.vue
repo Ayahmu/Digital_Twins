@@ -17,7 +17,7 @@
     <div class="block" ref="childRef">
       <dv-border-box-8 style="width: 100%; height: 100%"
         ><div class="title" data-id="3">氢气湿度</div>
-        <p>12123</p>
+        <p>-14.25</p>
         <span>℃</span></dv-border-box-8
       >
     </div>
@@ -84,9 +84,10 @@ export default {
 }
 p {
   font-family: "Digital-7", Arial, sans-serif;
-  transform: translate(119px, 22px);
-  font-size: 22px;
+  transform: translate(119px, 50%);
+  font-size: 24px;
   color: #fc2e00;
+
 
   display: inline-block;
 }
@@ -94,7 +95,7 @@ span {
   font-family: "Digital-7", Arial, sans-serif;
   font-size: 25px;
   display: inline-block;
-  transform: translate(122px, 23px);
+  transform: translate(122px, 50%);
   color: #51c8ef;
 }
 </style>
