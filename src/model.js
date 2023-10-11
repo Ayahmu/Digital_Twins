@@ -181,6 +181,8 @@ actionManager.registerAction(
         function (event){
             switch (event.meshUnderPointer.id){
                 default:
+                    opendoor(event.meshUnderPointer,event.meshUnderPointer.id);
+                    alphachange(event.meshUnderPointer,event.meshUnderPointer.id);
                     displayLabel(event);
                     let pickInfo = scene.pick(scene.pointerX, scene.pointerY);
 
@@ -251,11 +253,12 @@ advancedTexture.renderScale = 1;
 let selectMesh, selectName;
 let clickPos;
 function highLight(mesh, labelName) {
-
-    selectMesh = mesh;
-    selectName = labelName;
-    highLightLayer.addMesh(mesh,BABYLON.Color3.Blue());
-    models.push(mesh);
+    if((labelName!="Brep")&&labelName!="Brep.091"&&(labelName!="Brep.092")){
+        selectMesh = mesh;
+        selectName = labelName;
+        highLightLayer.addMesh(mesh,BABYLON.Color3.Blue());
+        models.push(mesh);
+    }
 }
 
 let targetPosCamera, targetPosMesh;
@@ -348,12 +351,30 @@ function changematerial(){
     myclapboardMaterial.roughness=0.8 // 粗糙
     myclapboardMaterial.alpha=1;
     clapboard1.material = myclapboardMaterial;
+    clapboard1.alpha = 1;
     clapboard2.material = myclapboardMaterial;
+    clapboard2.alpha = 1;
     clapboard3.material = myclapboardMaterial;
+    clapboard3.alpha = 1;
+    //发动机外壳
+    let machine=scene.getMeshById("Mesh.5924");
+    let mymachineMaterial=new BABYLON.PBRMaterial("mymachineMaterial", scene);
+    mymachineMaterial.albedoColor=new BABYLON.Color3.White(); // 反射颜色
+    mymachineMaterial.metallic=0.2 // 金属
+    mymachineMaterial.roughness=0.8 // 粗糙
+    mymachineMaterial.alpha=0.3;
+    machine.material = mymachineMaterial;
+    //给门设置旋转属性
+    let door1=scene.getMeshById("Mesh.633");
+    let door2=scene.getMeshById("Mesh.1898");
+    let door3=scene.getMeshById("Mesh.2971");
+    door1.ifopen=0;
+    door2.ifopen=0;
+    door3.ifopen=0;
 }
 //flowing流动方案-粒子效果
 let countnum=1;
-function makeparticle(mesh,particleSystem,color1,color2,colorDead,minLifeTime=1.5,maxLifeTime=2.0){
+function makeparticle(mesh,particleSystem,color1,color2,colorDead,minLifeTime=0.75,maxLifeTime=1){
     countnum++;
     //Texture of each particle
     particleSystem.particleTexture = new BABYLON.Texture("/texture/flare.png", scene);
@@ -385,7 +406,7 @@ const slide = function (dist,movdirection) { //after covering dist apply turn
 function moveparticle(track,mesh,x,y,z,time){
     setTimeout(function(){
         let distance = 0;
-        let step = 1;
+        let step = 2;
         let p = 0;
         scene.onBeforeRenderObservable.add(() => {
             if(track[p].movdirection==="left"){
@@ -463,6 +484,11 @@ sphere02152.position=new BABYLON.Vector3(-104.3,142.8,50.64);
 var sphere02152cl1=sphere02152.clone("sphere02152cl1");
 var sphere02152cl2=sphere02152.clone("sphere02152cl2");
 var sphere02152cl3=sphere02152.clone("sphere02152cl3");
+var sphere00552=sphere.clone("sphere00552");
+sphere00552.position=new BABYLON.Vector3(-104.267,142.802,-48.2834);
+var sphere00552cl1=sphere00552.clone("sphere00552cl1");
+var sphere00552cl2=sphere00552.clone("sphere00552cl2");
+var sphere00552cl3=sphere00552.clone("sphere00552cl3");
 // let sphere053cl6=sphere053.clone("sphere053cl6");
 
 
@@ -719,9 +745,43 @@ makeparticle(sphere02152cl3,particleSystem27,
     new BABYLON.Color4(0.81, 0.85, 0.44));
 moveparticle(track02152,sphere02152cl3,-104.3,142.8,50.64,18000);
 
+const track00552 = [];//管道Brep.021+Brep.052的轨迹
+track00552.push(new slide(7.3,"front"));  //first side length 6
+track00552.push(new slide(7.3+35.5,"down")); //at finish of second side distance covered is 18+9
+track00552.push(new slide(7.3+35.5+40,"left")); //at finish of second side distance covered is 18+9
+track00552.push(new slide(7.3+35.5+40+83.23,"down")); //at finish of second side distance covered is 18+9
+track00552.push(new slide(7.3+35.5+40+83.23+1,"left")); //at finish of second side distance covered is 18+9
+track00552.push(new slide(7.3+35.5+40+83.23+1+25.6,"behind")); //at finish of second side distance covered is 18+9
+track00552.push(new slide(7.3+35.5+40+83.23+1+25.6+8.8,"right")); //at finish of second side distance covered is 18+9
+track00552.push(new slide(7.3+35.5+40+83.23+1+25.6+8.8+2.2,"down")); //at finish of second side distance covered is 18+9
+var particleSystem28=new BABYLON.ParticleSystem(`particles28`,10000,scene);
+var particleSystem29=new BABYLON.ParticleSystem(`particles29`,10000,scene);
+var particleSystem30=new BABYLON.ParticleSystem(`particles30`,10000,scene);
+var particleSystem31=new BABYLON.ParticleSystem(`particles31`,10000,scene);
+    //创建一个黄色的粒子系统
+makeparticle(sphere00552,particleSystem28,
+    new BABYLON.Color4(0.85, 1, 0),
+    new BABYLON.Color4(0.77, 0.89, 0.11),
+    new BABYLON.Color4(0.81, 0.85, 0.44));
+moveparticle(track00552,sphere00552,-104.267,142.802,-48.2834,1000);
+makeparticle(sphere00552cl1,particleSystem29,
+    new BABYLON.Color4(0.85, 1, 0),
+    new BABYLON.Color4(0.77, 0.89, 0.11),
+    new BABYLON.Color4(0.81, 0.85, 0.44));
+moveparticle(track00552,sphere00552cl1,-104.267,142.802,-48.2834,6000);
+makeparticle(sphere00552cl2,particleSystem30,
+    new BABYLON.Color4(0.85, 1, 0),
+    new BABYLON.Color4(0.77, 0.89, 0.11),
+    new BABYLON.Color4(0.81, 0.85, 0.44));
+moveparticle(track00552,sphere00552cl2,-104.267,142.802,-48.2834,12000);
+makeparticle(sphere00552cl3,particleSystem31,
+    new BABYLON.Color4(0.85, 1, 0),
+    new BABYLON.Color4(0.77, 0.89, 0.11),
+    new BABYLON.Color4(0.81, 0.85, 0.44));
+moveparticle(track00552,sphere00552cl3,-104.267,142.802,-48.2834,18000);
+
 
 function particlestart(){
-    console.log("执行")
     particleSystem1.start();//Brep044
     // particleSystem2.start();
     particleSystem3.start();//Brep008
@@ -749,11 +809,51 @@ function particlestart(){
     particleSystem25.start();
     particleSystem26.start();
     particleSystem27.start();
+    particleSystem28.start();//Brep00552
+    particleSystem29.start();
+    particleSystem30.start();
+    particleSystem31.start();
+}
+function opendoor(mesh,labelName){//开门/关门
+    if((labelName=="Mesh.633")||(labelName=="Mesh.1898")||(labelName=="Mesh.2971")){
+        console.log("mesh.ifopen",labelName,mesh.ifopen)
+        if(mesh.ifopen==0){
+            mesh.rotate(BABYLON.Axis.Y,-Math.PI*3/4,BABYLON.Space.LOCAL);
+            mesh.ifopen=1;
+        }
+        else{
+            mesh.rotate(BABYLON.Axis.Y,Math.PI*3/4,BABYLON.Space.LOCAL);
+            mesh.ifopen=0;
+        }
+        
+    }
+    
+    // selectMesh.setPivotPoint(new BABYLON.Vector3(-6, 0, 0));
+    
+}
+function alphachange(mesh,labelName){//楼板透明度改变
+    if((labelName=="Brep")||labelName=="Brep.091"||(labelName=="Brep.092")){
+        let myclapboardMaterial=new BABYLON.PBRMaterial("myclapboardMaterial", scene);
+        myclapboardMaterial.albedoColor=new BABYLON.Color3.White(); // 反射颜色
+        myclapboardMaterial.metallic=0.2 // 金属
+        myclapboardMaterial.roughness=0.8 // 粗糙
+        if(mesh.alpha==1){
+            myclapboardMaterial.alpha=0.3;
+            mesh.material = myclapboardMaterial;
+            mesh.alpha=0.3;
+        }
+        else{
+            myclapboardMaterial.alpha=1;
+            mesh.material = myclapboardMaterial;
+            mesh.alpha=1;
+        }
+        
+    }
 }
 BABYLON.SceneLoader.ImportMesh(
     "",
     "model/",
-    "modelv9d.glb",
+    "modelv10d.glb",
     scene,
     function (Meshes) {
         console.log("Meshes:",Meshes)
