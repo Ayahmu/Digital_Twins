@@ -48,8 +48,8 @@ export default {
      
       this.$refs[formName].validate((valid) => {
         if (valid) {
-       
-      this.$emit('child-event');
+        alert("暂无详细设备信息");
+      // this.$emit('child-event');
         } 
         else {
           console.log("error submit!!");

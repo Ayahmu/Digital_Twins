@@ -4,46 +4,32 @@
       class="place"
       :config="status"
       style="width: 97%; height: 95%; top: 8px"
-      @click="dialogVisible = true"
+      @click="openPopup"
     />
-
-    <dv-border-box-13>
-      <el-dialog
-        modal
-        modal-append-to-body
-        append-to-body
-        title="报警信息详情"
-        :visible.sync="dialogVisible"
-        width="50%"
+    <div v-if="showPopup" class="popup-overlay" @click="closePopup"></div>
+    <div v-if="showPopup" class="popup">
+      <dv-border-box-12
+        style="
+          height: 10vw;
+          width: 18vw;
+          position: absolute;
+          padding-left: 0.6vw;
+          padding-top: 0.6vw;
+          z-index: 4;
+          font-size: 1.3vw;
+          line-height: 2.5vw;
+          white-space: pre-wrap;
+          overflow: auto;
+          user-select: none;
+          color: #00ffffcc;
+        "
+        >
+        <p>时    间:  9月10日23:18</p>
+        <p>名    称:  气体控制报警</p>
+        <p>诊断信息:  压力过低</p>
+        <p>优化建议:  重启设备</p></dv-border-box-12
       >
-        <span
-          ><el-table :data="tableData" style="width: 100%">
-            <el-table-column type="expand">
-              <template slot-scope="props">
-                <el-form label-position="left" inline class="demo-table-expand">
-                  <el-form-item label="发生时间">
-                    <span>{{ props.row.id }}</span>
-                  </el-form-item>
-                  <el-form-item label="警报类型">
-                    <span>{{ props.row.name }}</span>
-                  </el-form-item>
-
-                  <el-form-item label="诊断信息">
-                    <span>{{ props.row.desc }}</span>
-                  </el-form-item>
-                  <el-form-item label="优化建议">
-                    <span>{{ props.row.adv }}</span>
-                  </el-form-item>
-                </el-form>
-              </template>
-            </el-table-column>
-            <el-table-column label="时间" prop="id"> </el-table-column>
-            <el-table-column label="名称" prop="name"> </el-table-column>
-            <el-table-column label="诊断信息" prop="desc"> </el-table-column>
-            <el-table-column label="优化建议" prop="adv">
-            </el-table-column> </el-table
-        ></span> </el-dialog
-    ></dv-border-box-13>
+    </div>
   </div>
 </template>
 
@@ -51,26 +37,7 @@
 export default {
   data() {
     return {
-      tableData: [
-    
-        {
-          id: "Mesh.4124",
-          name: "气体控制报警",
-
-          desc: "设备状态异常",
-          adv: "建议重启设备",
-        },
-        {
-          id: "Mesh.1449",
-          name: "净化单元报警",
-
-          desc: "设备参数错误",
-          adv: "建议重启设备",
-        },
-       
-      ],
-      dialogVisible: false,
-
+      showPopup: false,
       status: {
         waitTime: 4000,
         headerBGC: "#3472bb",
@@ -80,7 +47,7 @@ export default {
         header: ["时间", "名称", "诊断信息", "优化建议"],
         row: "",
         rowNum: 2,
-        columnWidth: [159,159,159,159],
+        columnWidth: [159, 159, 159, 159],
         data: [
           [
             "<span style='color: #00ffff;font-size:18px;'>9月10日23:18</span>",
@@ -146,44 +113,64 @@ export default {
       },
     };
   },
-  // methods: {
-  //   handleClose(done) {
-  //     this.$confirm("确认关闭？")
-  //       .then((_) => {
-  //         done();
-  //       })
-  //       .catch((_) => {});
-  //   },
-  // },
-
-  //   methods: {
-  //     chooseModule(module) {
-  //       console.log(module.row);
-  //       alert("111");
-  //       //设备详情界面跳转预留区
-  //       //
-  //       //
-  //       //
-  //       //
-  //     },
-  //   },
+  methods: {
+    openPopup() {
+      this.showPopup = true;
+      // 添加事件监听器，点击任意弹窗外内容时关闭弹窗
+      document.addEventListener("click", this.handleOutsideClick);
+    },
+    closePopup() {
+      this.showPopup = false;
+      // 移除事件监听器
+      document.removeEventListener("click", this.handleOutsideClick);
+    },
+    handleOutsideClick(event) {
+      // 检查点击事件是否发生在弹窗外部
+      if (
+        this.$refs.popup &&
+        !this.$refs.popup.contains(event.target) &&
+        this.showPopup
+      ) {
+        this.closePopup();
+      }
+    },
+  },
+  destroyed() {
+    // 组件销毁时，确保移除事件监听器
+    document.removeEventListener("click", this.handleOutsideClick);
+  },
 };
 </script>
+
 <style scoped>
-.dialog {
-  width: 80%;
-  height: 80%;
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
 }
-.demo-table-expand {
-  font-size: 0;
+
+.popup {
+  position: fixed;
+  top: 45%;
+  left: 55%;
+  transform: translate(-50%, -50%);
+  /* background-color: #fff; */
+  padding: 20px;
+  border-radius: 4px;
 }
-.demo-table-expand label {
-  width: 90px;
-  color: #99a9bf;
-}
-.demo-table-expand .el-form-item {
-  margin-right: 0;
-  margin-bottom: 0;
-  width: 50%;
+
+.popup-content {
+  /* 自定义弹窗内容的样式 */
+  height: 10vw;
+  width: 18vw;
+  position: absolute;
+  left: 1vw;
+  top: 0.5vw;
+  z-index: 4;
+  font-size: 1.2vw;
+  line-height: 1.5vw;
 }
 </style>
