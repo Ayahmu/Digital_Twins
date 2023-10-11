@@ -159,7 +159,6 @@ export default {
             effect: {
               show: true,
               trailLength: 0,
-              symbol: "arrow",
               period: 10, //光点滑动速度
               symbolSize: 150,
               symbol: img[0],

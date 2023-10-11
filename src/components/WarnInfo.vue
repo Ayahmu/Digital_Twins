@@ -76,7 +76,6 @@ export default {
         headerBGC: "#3472bb",
         oddRowBGC: "transparent",
         evenRowBGC: "rgba(122, 202, 236,0.3)",
-        columnWidth: [133, 255, 91],
         align: ["center"],
         header: ["时间", "名称", "诊断信息", "优化建议"],
         row: "",
