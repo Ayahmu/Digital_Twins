@@ -49,7 +49,7 @@ export default {
             },
             axisLabel: {
            
-              fontSize:18,
+              fontSize:14,
             },
           },
         ],
@@ -116,7 +116,7 @@ export default {
               color: "##2baee0",
               position: "outside",
             },
-            data: [12, 23, 32],
+            data:[1,2,2,1,0,1,0],
           },
 
           {
@@ -166,7 +166,7 @@ export default {
               color: "#226cbe",
               position: "outside",
             },
-            data: [23, 55, 65],
+            data: [1,2,2,1,0,1,0],
           },
         ],
       },

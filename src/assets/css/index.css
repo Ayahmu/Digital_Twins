@@ -6,12 +6,12 @@
   margin: 0;
   padding: 0;
 }
-html {
+/* html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   font-size: 62.5%;
   /* 设置过根节点的文字,所有子节点的文字大小全部相对于根节点计算，html为10px */
-}
+/* } */ 
 body,
 input,
 button,
@@ -29,9 +29,12 @@ select {
 }
 html,
 body {
+  
+  user-select: none;
   width: 100%;
   height: 100%;
   margin: 0;
+  overflow: hidden;
 }
 
 a {
@@ -46,7 +49,7 @@ a:hover {
   opacity: 0.9;
 }
 
-.tc {
+.tc {                    
   text-align: center;
 }
 
@@ -73,12 +76,12 @@ a:hover {
 }
 .text {
   position: absolute;
-  top: 30px;
+  top: 3px;
   left: 50%;
   transform: translate(-50%, -144px);
   font-family: "Arial", sans-serif;
   text-transform: uppercase;
-  font-size: 20px;
+  font-size: 1.7vw;
   color: rgba(0, 255, 255, 1);
   display: inline-block;
   letter-spacing: 0.1em;
@@ -117,13 +120,40 @@ a:hover {
   display: flex;
   justify-content: space-between;
 }
+.three{
+  display: flex;
+  align-content: space-around;
+  align-items: center;
+  justify-content: center;
+  width: 25vw;
+  height: 2vw;
+  position: absolute;
+  left: 3vw;
+  top: 4.9vw;
+}
+.one{
+  letter-spacing: 0.1em;
+  flex-basis: 33%;
+  font-size: 1vw;
+  /* width: 150px; */
+  color: #78f4ad;
+}
+.total {
+  display: flex;
+  align-content: space-around;
+  width: 25vw;
+  height: 2vw;
+  position: absolute;
+  left: 1vw;
+  top: 7.9vw;
+}
 .unitname {
   /* text-fill-color: transparent; */
   letter-spacing: 0.1em;
-
-  position: absolute;
-  top: 176px;
-  left: 333px;
+flex-basis: 33%;
+  /* position: absolute; */
+  /* top: 176px; */
+  /* left: 333px; */
   font-size: 26px;
   width: 150px;
   color: #48c8ff;
@@ -294,7 +324,6 @@ a:hover {
     transform: rotate(15deg);
   }
 }
-
 #bell {
   display: none;
 }
