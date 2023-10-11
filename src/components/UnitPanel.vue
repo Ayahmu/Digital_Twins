@@ -137,6 +137,7 @@ export default {
   width: 400px; /* 初始宽度 */
   height: 400px; /* 初始高度 */
   transform: translate(4px, -11px);
+  z-index: 3;
 }
 
 .chart-container canvas {

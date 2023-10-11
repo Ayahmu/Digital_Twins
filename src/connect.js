@@ -5,7 +5,6 @@ import {
     idToIndexMap2,
     createWarningMessage,
     deleteWarningMessage,
-    warningIntervalID
 } from './model.js'
 import path from 'path-browserify'
 import {mqtt_config, http_config} from "./config.js";
@@ -150,11 +149,10 @@ export function getPipeJson(labelName,property){
         return "暂无设备信息"
     }
 }
-export function getPDF(labelName){
-    let Manual = getJson(labelName,'Manual');
+export function getPDF(Manual){
 
-    if(Manual === "暂无设备信息"){
-        alert(Manual);
+    if(!Manual){
+        alert("暂无设备说明书！");
     }else {
         let file_path = path.join(url, Manual);
         file_path = file_path.replace('http:/','http://');

@@ -6,7 +6,7 @@ import * as GUI from "babylonjs-gui";
 import data1 from '../public/json/HydrogenSysInfo.json'
 import data2 from '../public/json/pipe.json'
 import {camera_config} from './config.js';
-import {getJson,getPipeJson} from "./connect.js";
+import {getJson, getPDF} from "./connect.js";
 
 //创建canvas
 const canvas = document.createElement("canvas");
@@ -200,14 +200,16 @@ let intervalID;
 function displayLabel(event){
     let infoLabelElm = document.getElementById("info-label");
 
-    canvas.addEventListener('click',function (event){
-        if(infoLabelElm.style.display === 'block'){
-            console.log("123");
-            // infoLabelElm.style.display = 'none';
+    document.addEventListener('click',function (event){
+        if(infoLabelElm.style.display === 'block' && !infoLabelElm.contains(event.target)){
+            infoLabelElm.style.display = 'none';
         }
     })
 
-    infoLabelElm.style.display = 'block';
+    setTimeout(()=>{
+        infoLabelElm.style.display = 'block';
+    },10)
+
 
     let nameElm = document.getElementById("modelName");
     let idElm = document.getElementById("modelID");
@@ -218,16 +220,20 @@ function displayLabel(event){
 
     let targetModel = objectArray[idToIndexMap1[event.meshUnderPointer.id]]
 
-    nameElm.innerHTML = targetModel.Name;
-    idElm.innerHTML = targetModel.ID;
-    infoElm.innerHTML = targetModel.Info;
-    stateElm.innerHTML = targetModel.State;
-    manualElm.innerHTML = targetModel.Manual;
-    spareElm.innerHTML = targetModel.SpareParts;
+    nameElm.innerHTML = "设备名称:   " + targetModel.Name;
+    idElm.innerHTML = "设备编号:    " + targetModel.ID;
+    infoElm.innerHTML = "设备描述:  " + targetModel.Info;
+    stateElm.innerHTML = "设备状态:  " + targetModel.State;
+    manualElm.innerHTML = "设备资料:    " + targetModel.Manual;
+    spareElm.innerHTML = "备件信息:  " + targetModel.SpareParts;
+
+    manualElm.onclick = function (){
+        getPDF(targetModel.Manual);
+    }
 
     if(!intervalID){
         intervalID = setInterval(()=>{
-            setUiPosition(infoLabelElm, event.meshUnderPointer, 20, -10);
+            setUiPosition(infoLabelElm, event.meshUnderPointer, 20, -10, true);
         },100);
     }else {
         clearInterval(intervalID);
@@ -238,26 +244,6 @@ function displayLabel(event){
 }
 
 let rmLabelBuild = []
-
-function createLabel(event){
-    let label = new GUI.Rectangle();
-    label.background = "rgba(0, 0, 0, 1)";
-    label.height = "60px";
-    label.alpha = 0.6;
-    label.width = "200px";
-    label.cornerRadius = 20;
-    label.thickness = 1;
-    label.linkOffsetY = -100;
-    advancedTexture.addControl(label);
-    label.linkWithMesh(event.meshUnderPointer);
-    let text1 = new GUI.TextBlock();
-    text1.text = getJson(event.meshUnderPointer.id,"Name");
-    text1.color = "white";
-    label.addControl(text1);
-    rmLabelBuild.push(label);
-    rmLabelBuild.push(text1);
-}
-
 
 let advancedTexture = GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
 advancedTexture.renderScale = 1;
@@ -887,7 +873,7 @@ function setWarningPosition(warningModels){
             return;
         }
         setInterval(()=>{
-            setUiPosition(key,value,0,0);
+            setUiPosition(key,value,0,0,false);
         },100);
     });
 }
@@ -910,14 +896,34 @@ export function searchModel(modelID){
     alert("未查找到指定设备");
 }
 
-function setUiPosition(element, model, topOffset, leftOffset){
+function setUiPosition(element, model, topOffset, leftOffset, isLabel){
     let modelPosition = model.getAbsolutePosition();
     const transformMatrix = BABYLON.Matrix.Identity();
     transformMatrix.multiply(worldMatrix);
     let screenPosition = BABYLON.Vector3.Project(modelPosition, transformMatrix, scene.getTransformMatrix(), viewport);
 
-    element.style.top = screenPosition.y * 100 - topOffset + "%"
-    element.style.left = screenPosition.x * 100 - leftOffset + "%"
+    if(isLabel){
+        let top,left;
+        if(screenPosition.y * 100 - topOffset < 0){
+            top = 0;
+        }else if(screenPosition.y * 100 - topOffset > 40){
+            top = 40;
+        }else {
+            top = screenPosition.y * 100 - topOffset;
+        }
+        if(screenPosition.x * 100 - leftOffset < 25){
+            left = 25;
+        }else if(screenPosition.x * 100 - leftOffset > 55){
+            left = 55;
+        }else {
+            left = screenPosition.x * 100 - leftOffset;
+        }
+        element.style.top = top + "%"
+        element.style.left = left + "%"
+    }else {
+        element.style.top = screenPosition.y * 100 - topOffset + "%"
+        element.style.left = screenPosition.x * 100 - leftOffset + "%"
+    }
 }
 
 
