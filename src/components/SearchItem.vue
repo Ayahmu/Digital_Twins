@@ -23,16 +23,11 @@
   </div>
 </template>
 <script>
+import {searchModel} from "@/model";
 export default {
   data() {
     return {
-      // 表单校验规则模块预留修改
-      // 表单校验规则模块预留修改
-      // 表单校验规则模块预留修改
-      // 表单校验规则模块预留修改
-      // 表单校验规则模块预留修改
-      // 表单校验规则模块预留修改
-      // 表单校验规则模块预留修改
+
       rules: {
         id: [{ required: true, message: "输入不能为空", trigger: "blur" }],
         // name: [{ required: true, message: "输入不能为空 ", trigger: "blur" }],
@@ -48,10 +43,8 @@ export default {
      
       this.$refs[formName].validate((valid) => {
         if (valid) {
-        alert("暂无详细设备信息");
-      // this.$emit('child-event');
-        } 
-        else {
+         searchModel(this.formInline.id);
+        } else {
           console.log("error submit!!");
           return false;
         }
