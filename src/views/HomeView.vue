@@ -32,7 +32,7 @@
     <dv-border-box-12
       id="info-label"
       style="
-        height: 10vw;
+        height: 12vw;
         width: 20vw;
         position: absolute;
         left: 0;
@@ -62,6 +62,7 @@
         <p class="info-title" id="modelManual" style="cursor: pointer">
           设备资料:
         </p>
+        <div class="info-title" id="modelUrl" style="cursor: pointer">设备说明书</div>
         <p class="info-title" id="modelSpare">备件信息:</p>
       </div>
     </dv-border-box-12>

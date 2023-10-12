@@ -16,8 +16,8 @@
           padding-left: 0.6vw;
           padding-top: 0.6vw;
           z-index: 4;
-          font-size: 1.3vw;
-          line-height: 2.5vw;
+          font-size: 1vw;
+          line-height: 2vw;
           white-space: pre-wrap;
           overflow: auto;
           user-select: none;
@@ -170,7 +170,7 @@ export default {
   left: 1vw;
   top: 0.5vw;
   z-index: 4;
-  font-size: 1.2vw;
-  line-height: 1.5vw;
+  font-size: 1vw;
+  line-height: 1.2vw;
 }
 </style>

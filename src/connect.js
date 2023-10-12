@@ -7,14 +7,14 @@ import {
     deleteWarningMessage,
 } from './model.js'
 import path from 'path-browserify'
-import {mqtt_config, http_config} from "./config.js";
+import {mqtt_config, getConfig } from "./config.js";
 
 let host = mqtt_config.host;  // MQTT服务器地址
 let port = mqtt_config.port;  // MQTT服务器端口
 let clientId = mqtt_config.clientId;  // 客户端ID
 let topic = mqtt_config.topic; //MQTT服务器订阅主题
 
-let url = http_config.url;
+// let url = http_config.url;
 
 let client = new Paho.MQTT.Client(host, port, clientId);
 
@@ -150,17 +150,30 @@ export function getPipeJson(labelName,property){
     }
 }
 export function getPDF(Manual){
-
-    if(!Manual){
-        alert("暂无设备说明书！");
+ const config = getConfig();
+    if(Manual==""){
+        alert("暂无设备说明书");
     }else {
-        let file_path = path.join(url, Manual);
+        const config = getConfig();
+        let file_path = path.join(config.basePath, Manual);
         file_path = file_path.replace('http:/','http://');
         console.log(file_path);
         window.open(file_path, '_blank');
     }
 }
 
+export function getURL(Url){
+    const config = getConfig();
+       if(Url==""){
+           alert("暂无设备资料");
+       }else {
+           const config = getConfig();
+           let file_path = path.join(config.baseUrl,Url);
+           file_path = file_path.replace('http:/','http://');
+           console.log(file_path);
+           window.open(file_path, '_blank');
+       }
+   }
 export function sendMessage(){
     const message = {id: "Mesh.1449", url: "http://www.baidu.com"};
     client.send("test/topic",JSON.stringify(message),0,false);
