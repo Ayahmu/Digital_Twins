@@ -90,8 +90,8 @@ const engine = new BABYLON.Engine(canvas,true,{stencil:true});
 
 //创建场景
 const scene = new BABYLON.Scene(engine,false);
-// const hdrTexture = BABYLON.CubeTexture.CreateFromPrefilteredData("texture/hdr/environment.env", scene);
-let hdrTexture = new BABYLON.HDRCubeTexture("texture/hdr/env3.hdr", scene, 1024);
+// const hdrTexture = BABYLON.CubeTexture.CreateFromPrefilteredData("texture/hdr/peppermint_powerplant_2_4k.exr", scene);
+let hdrTexture = new BABYLON.HDRCubeTexture("texture/hdr/kloofendal_misty_morning_puresky_4k.hdr", scene, 1024);
 scene.environmentTexture = hdrTexture;
 scene.createDefaultSkybox(hdrTexture, true);
 scene.environmentIntensity = 0.4;
@@ -222,12 +222,12 @@ function displayLabel(event){
 
     let targetModel = objectArray[idToIndexMap1[event.meshUnderPointer.id]]
 
-    nameElm.innerHTML = "设备名称:   " + targetModel.Name;
-    idElm.innerHTML = "设备编号:    " + targetModel.ID;
-    infoElm.innerHTML = "设备描述:  " + targetModel.Info;
-    stateElm.innerHTML = "设备状态:  " + targetModel.State;
-    manualElm.innerHTML = "设备资料:    " + targetModel.Manual;
-    spareElm.innerHTML = "备件信息:  " + targetModel.SpareParts;
+    nameElm.innerHTML = "设备名称:   " + (targetModel.Name ? targetModel.Name : "暂无");
+    idElm.innerHTML = "设备编号:    " + (targetModel.ID ? targetModel.ID : "暂无");
+    infoElm.innerHTML = "设备描述:  " + (targetModel.Info ? targetModel.Info : "暂无")
+    stateElm.innerHTML = "设备状态:  " + (targetModel.State ? targetModel.State : "暂无")
+    manualElm.innerHTML = "设备资料:    " + (targetModel.Manual ? targetModel.Manual : "暂无")
+    spareElm.innerHTML = "备件信息:  " + (targetModel.SpareParts ? targetModel.SpareParts : "暂无")
 
     manualElm.onclick = function (){
         getPDF(targetModel.Manual);
@@ -267,7 +267,7 @@ targetPosMesh= new BABYLON.Vector3(-100,-105,-100);
 
 
 
-function resetCamera(){
+export function resetCamera(){
     camera.rotation = new BABYLON.Vector3(0, 0, 0);
 
     camera.position = initPos;
@@ -276,10 +276,6 @@ function resetCamera(){
 
     console.log("Camera reset");
 }
-export {
-    resetCamera
-}
-
 
 function removeLabel(arr) {
     //清除面板
@@ -866,6 +862,7 @@ BABYLON.SceneLoader.ImportMesh(
             if(getJson(mesh.id) !== '暂无设备信息'){
                 childMesh.push(mesh);
                 mesh.actionManager = actionManager;
+                modelsPosition.set(mesh.id,mesh.position);
             }else {
                 mesh.actionManeger = nullManager;
             }
@@ -875,15 +872,9 @@ BABYLON.SceneLoader.ImportMesh(
             // }else {
             //     mesh.actionManeger = nullManager;
             // }
-
         });
     });
 
-let inputManager = new BABYLON.ArcRotateCameraInputsManager(camera);
-inputManager.addMouseWheel();
-inputManager.addPointers();
-
-camera.inputs = inputManager;
 
 //鼠标按下时取消绑定事件,防止卡顿
 scene.onPointerObservable.add((pointerInfo) => {
@@ -897,8 +888,6 @@ scene.onPointerObservable.add((pointerInfo) => {
             })
             break;
         case BABYLON.PointerEventTypes.POINTERUP:
-            camera.inputs.clear();
-            camera.inputs = inputManager;
             childMesh.forEach(function (mesh){
                 if(mesh.actionManager)
                     return
@@ -978,22 +967,41 @@ function setWarningPosition(warningModels){
     });
 }
 
+let modelsPosition = new Map();
+
 export function searchModel(modelID){
     removeLabel(rmLabelBuild);
-    for(let mesh of childMesh){
-        if(mesh.id === modelID){
-            highLightLayer.addMesh(mesh,BABYLON.Color3.Blue());
-            models.push(mesh);
-            camera.position.x = mesh.position.x;
-            camera.position.y = 30;
-            camera.position.z = -45;
-            camera.setTarget(mesh.getAbsolutePosition());
-            // camera.radius = 50;
-            console.log(modelID);
-            return;
-        }
+    // for(let mesh of childMesh){
+    //     if(mesh.id === modelID){
+    //         resetCamera();
+    //         highLightLayer.addMesh(mesh,BABYLON.Color3.Blue());
+    //         models.push(mesh);
+    //         // camera.position.x = mesh.position.x;
+    //         // camera.position.y = 30;
+    //         // camera.position.z = -45;
+    //         camera.setPosition(new BABYLON.Vector3(mesh.position.x,30,-45));
+    //         camera.setTarget();
+    //         // camera.radius = 50;
+    //         console.log(modelID);
+    //         return;
+    //     }
+    // }
+    let modelPosition = modelsPosition.get(modelID)
+    console.log(modelsPosition)
+    if(modelPosition){
+        resetCamera();
+        let mesh = scene.getMeshById(modelID);
+        highLightLayer.addMesh(mesh,BABYLON.Color3.Blue());
+        // camera.position.x = mesh.position.x;
+        // camera.position.y = 30;
+        // camera.position.z = -45;
+        camera.setTarget(modelPosition.add(new BABYLON.Vector3(0,1,0)));
+        camera.setPosition(new BABYLON.Vector3(modelPosition.x,30,-45));
+        let currentPosition = modelPosition;
+        console.log(modelPosition);
+    }else {
+        alert("未查找到指定设备");
     }
-    alert("未查找到指定设备");
 }
 
 function setUiPosition(element, model, topOffset, leftOffset, isLabel){
@@ -1025,6 +1033,11 @@ function setUiPosition(element, model, topOffset, leftOffset, isLabel){
         element.style.left = screenPosition.x * 100 - leftOffset + "%"
     }
 }
+
+let light1 = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 1), scene);
+light1.intensity = 0.5;
+let light2 = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(-1, -1, -1), scene);
+light2.intensity = 0.5;
 
 
 scene.registerBeforeRender(function(){
