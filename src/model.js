@@ -515,13 +515,12 @@ makeparticle(sphere004cl1,particleSystem2,
 moveparticle(track044,sphere004cl1,51, 25, 91,7500);//间隔时间
 
 const track008 = [];//管道Brep.008的轨迹
-track008.push(new slide(3.4,"up"));  //first side length 6
-track008.push(new slide(3.4+16.5,"behind")); //at finish of second side distance covered is 18+9
-track008.push(new slide(3.4+16.5+0.2,"down")); //at finish of second side distance covered is 18+9
-track008.push(new slide(3.4+16.5+0.2+27.1,"left")); //at finish of second side distance covered is 18+9
-track008.push(new slide(3.4+16.5+0.2+27.1+18.3,"front")); //at finish of second side distance covered is 18+9
-track008.push(new slide(3.4+16.5+0.2+27.1+18.3+3.5,"down")); //最后一条共70.3
-
+track008.push(new slide(2.5,"up"));  //first side length 6
+track008.push(new slide(2.5+16.9,"behind")); //at finish of second side distance covered is 18+9
+// track008.push(new sli2.53.4+96.5+0.2,"down")); //at finish of second side distance covered is 18+9
+track008.push(new slide(2.5+16.9+26.8,"left")); //at finish of second side distance covered is 18+9
+track008.push(new slide(2.5+16.9+26.8+18.3,"front")); //at finish of second side distance covered is 18+9
+track008.push(new slide(2.5+16.9+26.8+18.3+3.5,"down")); //最后一条共70.33
 let particleSystem3=new BABYLON.ParticleSystem(`particles3`,10000,scene);//自动给每个粒子系统编号
 let particleSystem4=new BABYLON.ParticleSystem(`particles4`,10000,scene);//自动给每个粒子系统编号
 //创建一个绿色的粒子系统
@@ -536,14 +535,14 @@ makeparticle(sphere008cl1,particleSystem4,
     new BABYLON.Color4(0, 0.2, 0, 0.8));
 moveparticle(track008,sphere008cl1,3.5, 27.8, 71.8,8000);
 const track049 = [];//管道Brep.049的轨迹
-track049.push(new slide(4.3,"right"));  //first side length 6
-track049.push(new slide(4.3+22,"up")); //at finish of second side distance covered is 18+9
-track049.push(new slide(4.3+22+10.2,"behind")); //at finish of second side distance covered is 18+9
-// track049.push(new slide(4.3+22+10.2+0,"down")); //at finish of second side distance covered is 18+9
-track049.push(new slide(4.3+22+10.2+0+46,"left")); //at finish of second side distance covered is 18+9
-track049.push(new slide(4.3+22+10.2+0+46+23.3,"front"));
-track049.push(new slide(4.3+22+10.2+0+46+23.3+2.5,"right"));
-track049.push(new slide(4.3+22+10.2+0+46+23.3+2.5+3.5,"down")); //最后一条共70.3
+track049.push(new slide(3.5,"right"));  //first side length 6
+track049.push(new slide(3.5+21.2,"up")); //at finish of second side distance covered is 18+9
+track049.push(new slide(3.5+21.2+10.2,"behind")); //at finish of second side distance covered is 18+9
+// track049.push(new sli3.54.1.2+22+10.2+0,"down")); //at finish of second side distance covered is 18+9
+track049.push(new slide(3.5+21.2+10.2+0+47,"left")); //at finish of second side distance covered is 18+9
+track049.push(new slide(3.5+21.2+10.2+0+47+23.3,"front"));
+track049.push(new slide(3.5+21.2+10.2+0+47+23.3+2.5,"right"));
+track049.push(new slide(3.5+21.2+10.2+0+47+23.3+2.5+3.5,"down")); //最后一条共70.3
 
 let particleSystem5=new BABYLON.ParticleSystem(`particles5`,10000,scene);
 let particleSystem6=new BABYLON.ParticleSystem(`particles6`,10000,scene);
@@ -562,13 +561,13 @@ moveparticle(track049,sphere049cl1,-8, 9.57, 79.6,6000);
 const track053 = [];//管道Brep.053的轨迹
 track053.push(new slide(3.5,"up"));  //first side length 6
 track053.push(new slide(3.5+20,"front")); //at finish of second side distance covered is 18+9
-track053.push(new slide(3.5+20+158.8,"right")); //at finish of second side distance covered is 18+9
-track053.push(new slide(3.5+20+158.8+41,"front")); //at finish of second side distance covered is 18+9
-track053.push(new slide(3.5+20+158.8+41+104.2,"up")); //at finish of second side distance covered is 18+9
-track053.push(new slide(3.5+20+158.8+41+104.2+17.4,"left"));
-track053.push(new slide(3.5+20+158.8+41+104.2+17.4+9.6,"down"));
-track053.push(new slide(3.5+20+158.8+41+104.2+17.4+9.6+20.9,"left"));
-track053.push(new slide(3.5+20+158.8+41+104.2+17.4+9.6+20.9+4.3,"up")); //最后一条 共59.3
+track053.push(new slide(3.5+20+158.3,"right")); //at finish of second side distance covered is 18+9
+track053.push(new slide(3.5+20+158.3+41.4,"front")); //at finish of second side distance covered is 18+9
+track053.push(new slide(3.5+20+158.3+41.4+104.2,"up")); //at finish of second side distance covered is 18+9
+track053.push(new slide(3.5+20+158.3+41.4+104.2+17.4,"left"));
+track053.push(new slide(3.5+20+158.3+41.4+104.2+17.4+10,"down"));
+track053.push(new slide(3.5+20+158.3+41.4+104.2+17.4+10+21.3,"left"));
+track053.push(new slide(3.5+20+158.3+41.4+104.2+17.4+10+21.3+4.5,"up")); //最后一条 共59.3
 let particleSystem7=new BABYLON.ParticleSystem(`particles7`,10000,scene);
 let particleSystem8=new BABYLON.ParticleSystem(`particles8`,10000,scene);
 let particleSystem9=new BABYLON.ParticleSystem(`particles9`,10000,scene);
@@ -597,10 +596,10 @@ makeparticle(sphere053cl3,particleSystem10,
 moveparticle(track053,sphere053cl3,25.3, 27.6, 61.4,18000);
 
 const track041 = [];//管道Brep.041的轨迹
-track041.push(new slide(81.06,"up"));  //first side length 6
-track041.push(new slide(81.06+73.94,"front")); //at finish of second side distance covered is 18+9
-track041.push(new slide(81.06+73.94+54.7,"up")); //at finish of second side distance covered is 18+9
-track041.push(new slide(81.06+73.94+54.7+12.6,"right")); //at finish of second side distance covered is 18+9
+track041.push(new slide(81,"up"));  //first side length 6
+track041.push(new slide(81+73.94,"front")); //at finish of second side distance covered is 18+9
+track041.push(new slide(81+73.94+54.7,"up")); //at finish of second side distance covered is 18+9
+track041.push(new slide(81+73.94+54.7+12.6,"right")); //at finish of second side distance covered is 18+9
 var particleSystem11=new BABYLON.ParticleSystem(`particles11`,10000,scene);
 var particleSystem12=new BABYLON.ParticleSystem(`particles12`,10000,scene);
 var particleSystem13=new BABYLON.ParticleSystem(`particles13`,10000,scene);
@@ -629,10 +628,10 @@ moveparticle(track041,sphere041cl3,-71.1, 25.64, 35.54,18000);
 
 const track042 = [];//管道Brep.042的轨迹
 track042.push(new slide(7,"left"));  //first side length 6
-track042.push(new slide(7+56.9,"down")); //at finish of second side distance covered is 18+9
-track042.push(new slide(7+56.9+30.9,"front")); //at finish of second side distance covered is 18+9
-track042.push(new slide(7+56.9+30.9+38.4,"right")); //at finish of second side distance covered is 18+9
-track042.push(new slide(7+56.9+30.9+38.4+72.98,"down")); //at finish of second side distance covered is 18+9
+track042.push(new slide(7+57,"down")); //at finish of second side distance covered is 18+9
+track042.push(new slide(7+57+30.6,"front")); //at finish of second side distance covered is 18+9
+track042.push(new slide(7+57+30.6+38.7,"right")); //at finish of second side distance covered is 18+9
+track042.push(new slide(7+57+30.6+38.7+72.98,"down")); //at finish of second side distance covered is 18+9
 var particleSystem15=new BABYLON.ParticleSystem(`particles15`,10000,scene);
 var particleSystem16=new BABYLON.ParticleSystem(`particles16`,10000,scene);
 var particleSystem17=new BABYLON.ParticleSystem(`particles17`,10000,scene);
@@ -661,12 +660,12 @@ moveparticle(track042,sphere042cl3,-81,161.5,41.4,18000);
 
 const track051 = [];//管道Brep.051的轨迹
 track051.push(new slide(7.8,"down"));  //first side length 6
-track051.push(new slide(7.8+28.6,"front")); //at finish of second side distance covered is 18+9
-track051.push(new slide(7.8+28.6+32.22,"left")); //at finish of second side distance covered is 18+9
-track051.push(new slide(7.8+28.6+32.22+68.5,"down")); //at finish of second side distance covered is 18+9
-track051.push(new slide(7.8+28.6+32.22+68.5+13.26,"behind")); //at finish of second side distance covered is 18+9
-track051.push(new slide(7.8+28.6+32.22+68.5+13.26+7.95,"right")); //at finish of second side distance covered is 18+9
-track051.push(new slide(7.8+28.6+32.22+68.5+13.26+7.95+2.28,"down")); //at finish of second side distance covered is 18+9
+track051.push(new slide(7.8+28,"front")); //at finish of second side distance covered is 18+9
+track051.push(new slide(7.8+28+32,"left")); //at finish of second side distance covered is 18+9
+track051.push(new slide(7.8+28+32+68,"down")); //at finish of second side distance covered is 18+9
+track051.push(new slide(7.8+28+32+68+13.26,"behind")); //at finish of second side distance covered is 18+9
+track051.push(new slide(7.8+28+32+68+13.26+7.95,"right")); //at finish of second side distance covered is 18+9
+track051.push(new slide(7.8+28+32+68+13.26+7.95+2.28,"down")); //at finish of second side distance covered is 18+9
 var particleSystem19=new BABYLON.ParticleSystem(`particles19`,10000,scene);
 var particleSystem20=new BABYLON.ParticleSystem(`particles20`,10000,scene);
 var particleSystem21=new BABYLON.ParticleSystem(`particles21`,10000,scene);
@@ -694,27 +693,27 @@ makeparticle(sphere051cl3,particleSystem22,
 moveparticle(track051,sphere051cl3,-96.67,100.2,-17.83,18000);
 
 const track020 = [];//管道Brep.020的轨迹
-track020.push(new slide(6.67,"behind"));  //first side length 6
-track020.push(new slide(6.67+9,"left")); //at finish of second side distance covered is 18+9
-track020.push(new slide(6.67+9+13.3,"front")); //at finish of second side distance covered is 18+9
+track020.push(new slide(6.2,"behind"));  //first side length 6
+track020.push(new slide(6.2+9.4,"left")); //at finish of second side distance covered is 18+9
+track020.push(new slide(6.2+9.4+13.5,"front")); //at finish of second side distance covered is 18+9
 var particleSystem23=new BABYLON.ParticleSystem(`particles23`,10000,scene);
     //创建一个黄色的粒子系统
 makeparticle(sphere020,particleSystem23,
     new BABYLON.Color4(0.85, 1, 0),
     new BABYLON.Color4(0.77, 0.89, 0.11),
-    new BABYLON.Color4(0.81, 0.85, 0.44),0.5,1);
+    new BABYLON.Color4(0.81, 0.85, 0.44),0.2,0.25);
 moveparticle(track020,sphere020,-73.47,56.6,-39.93,1000);
 
 const track02152 = [];//管道Brep.021+Brep.052的轨迹
-track02152.push(new slide(4.24,"behind"));  //first side length 6
-track02152.push(new slide(4.24+35.5,"down")); //at finish of second side distance covered is 18+9
-track02152.push(new slide(4.24+35.5+110.5,"front")); //at finish of second side distance covered is 18+9
-track02152.push(new slide(4.24+35.5+110.5+40,"left")); //at finish of second side distance covered is 18+9
-track02152.push(new slide(4.24+35.5+110.5+40+83.23,"down")); //at finish of second side distance covered is 18+9
-track02152.push(new slide(4.24+35.5+110.5+40+83.23+1,"left")); //at finish of second side distance covered is 18+9
-track02152.push(new slide(4.24+35.5+110.5+40+83.23+1+25.6,"behind")); //at finish of second side distance covered is 18+9
-track02152.push(new slide(4.24+35.5+110.5+40+83.23+1+25.6+8.8,"right")); //at finish of second side distance covered is 18+9
-track02152.push(new slide(4.24+35.5+110.5+40+83.23+1+25.6+8.8+2.2,"down")); //at finish of second side distance covered is 18+9
+track02152.push(new slide(3.5,"behind"));  //first side length 6
+track02152.push(new slide(3.5+36,"down")); //at finish of second side distance covered is 18+9
+track02152.push(new slide(3.5+36+110,"front")); //at finish of second side distance covered is 18+9
+track02152.push(new slide(3.5+36+110+40,"left")); //at finish of second side distance covered is 18+9
+track02152.push(new slide(3.5+36+110+40+82.2,"down")); //at finish of second side distance covered is 18+9
+// track02152.push(new slide(3.5+36+110+42.2+83+1,"left")); //at finish of second side distance covered is 18+9
+track02152.push(new slide(3.5+36+110+40+82.2+26,"behind")); //at finish of second side distance covered is 18+9
+track02152.push(new slide(3.5+36+110+40+82.2+26+8.8,"right")); //at finish of second side distance covered is 18+9
+track02152.push(new slide(3.5+36+110+40+82.2+26+8.8+2.2,"down")); //at finish of second side distance covered is 18+9
 var particleSystem24=new BABYLON.ParticleSystem(`particles24`,10000,scene);
 var particleSystem25=new BABYLON.ParticleSystem(`particles25`,10000,scene);
 var particleSystem26=new BABYLON.ParticleSystem(`particles26`,10000,scene);
@@ -742,14 +741,14 @@ makeparticle(sphere02152cl3,particleSystem27,
 moveparticle(track02152,sphere02152cl3,-104.3,142.8,50.64,18000);
 
 const track00552 = [];//管道Brep.021+Brep.052的轨迹
-track00552.push(new slide(7.3,"front"));  //first side length 6
-track00552.push(new slide(7.3+35.5,"down")); //at finish of second side distance covered is 18+9
-track00552.push(new slide(7.3+35.5+40,"left")); //at finish of second side distance covered is 18+9
-track00552.push(new slide(7.3+35.5+40+83.23,"down")); //at finish of second side distance covered is 18+9
-track00552.push(new slide(7.3+35.5+40+83.23+1,"left")); //at finish of second side distance covered is 18+9
-track00552.push(new slide(7.3+35.5+40+83.23+1+25.6,"behind")); //at finish of second side distance covered is 18+9
-track00552.push(new slide(7.3+35.5+40+83.23+1+25.6+8.8,"right")); //at finish of second side distance covered is 18+9
-track00552.push(new slide(7.3+35.5+40+83.23+1+25.6+8.8+2.2,"down")); //at finish of second side distance covered is 18+9
+track00552.push(new slide(5.9,"front"));  //first side length 6
+track00552.push(new slide(5.9+36,"down")); //at finish of second side distance covered is 18+9
+track00552.push(new slide(5.9+36+40,"left")); //at finish of second side distance covered is 18+9
+track00552.push(new slide(5.9+36+40+82,"down")); //at finish of second side distance covered is 18+9
+// track00552.push(new sli5.9e(65.5+42+83+1,"left")); //at finish of second side distance covered is 18+9
+track00552.push(new slide(5.9+36+40+82+24.5,"behind")); //at finish of second side distance covered is 18+9
+track00552.push(new slide(5.9+36+40+82+24.5+8.8,"right")); //at finish of second side distance covered is 18+9
+track00552.push(new slide(5.9+36+40+82+24.5+8.8+2.2,"down")); //at finish of second side distance covered is 18+9
 var particleSystem28=new BABYLON.ParticleSystem(`particles28`,10000,scene);
 var particleSystem29=new BABYLON.ParticleSystem(`particles29`,10000,scene);
 var particleSystem30=new BABYLON.ParticleSystem(`particles30`,10000,scene);
