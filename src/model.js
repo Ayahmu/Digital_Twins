@@ -289,7 +289,12 @@ function removeLabel(arr) {
     models = [];
     rmLabelBuild = [];
 }
-function changematerial(){
+function changematerial(meshes){
+    // meshes.forEach(function(mesh) {
+    //     if (number === odd) {
+    //         numbers.shift() // 3 will be deleted from array
+    //     }
+    // })
     // 管道透明
     //氢气管道
     let pipe1=scene.getMeshById("Brep.044");
@@ -343,6 +348,7 @@ function changematerial(){
     let clapboard3=scene.getMeshById("Brep.092");
     let myclapboardMaterial=new BABYLON.PBRMaterial("myclapboardMaterial", scene);
     myclapboardMaterial.albedoColor=new BABYLON.Color3.White(); // 反射颜色
+    myclapboardMaterial.diffuseColor=new BABYLON.Color3.White(); // 反射颜色
     myclapboardMaterial.metallic=0.2 // 金属
     myclapboardMaterial.roughness=0.8 // 粗糙
     myclapboardMaterial.alpha=1;
@@ -364,6 +370,7 @@ function changematerial(){
     let door1=scene.getMeshById("Mesh.633");
     let door2=scene.getMeshById("Mesh.1898");
     let door3=scene.getMeshById("Mesh.2971");
+    door1.material=myclapboardMaterial
     door1.ifopen=0;
     door2.ifopen=0;
     door3.ifopen=0;
@@ -629,9 +636,9 @@ moveparticle(track041,sphere041cl3,-71.1, 25.64, 35.54,18000);
 const track042 = [];//管道Brep.042的轨迹
 track042.push(new slide(7,"left"));  //first side length 6
 track042.push(new slide(7+57,"down")); //at finish of second side distance covered is 18+9
-track042.push(new slide(7+57+30.6,"front")); //at finish of second side distance covered is 18+9
-track042.push(new slide(7+57+30.6+38.7,"right")); //at finish of second side distance covered is 18+9
-track042.push(new slide(7+57+30.6+38.7+72.98,"down")); //at finish of second side distance covered is 18+9
+track042.push(new slide(7+57+31,"front")); //at finish of second side distance covered is 18+9
+track042.push(new slide(7+57+31+40,"right")); //at finish of second side distance covered is 18+9
+track042.push(new slide(7+57+31+40+72.98,"down")); //at finish of second side distance covered is 18+9
 var particleSystem15=new BABYLON.ParticleSystem(`particles15`,10000,scene);
 var particleSystem16=new BABYLON.ParticleSystem(`particles16`,10000,scene);
 var particleSystem17=new BABYLON.ParticleSystem(`particles17`,10000,scene);
@@ -822,7 +829,7 @@ function opendoor(mesh,labelName){//开门/关门
         }
         
     }
-    
+
     // selectMesh.setPivotPoint(new BABYLON.Vector3(-6, 0, 0));
     
 }
@@ -852,7 +859,7 @@ BABYLON.SceneLoader.ImportMesh(
     scene,
     function (Meshes) {
         console.log("Meshes:",Meshes)
-        changematerial();
+        changematerial(Meshes);
         particlestart();
         let importedMesh = Meshes[0];
         // console.log(Meshes);
@@ -1035,6 +1042,9 @@ function setUiPosition(element, model, topOffset, leftOffset, isLabel){
 
 let light1 = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 1), scene);
 light1.intensity = 0.5;
+// light1.diffuse = new BABYLON.Color3(1, 1, 1);
+// light1.specular = new BABYLON.Color3(1, 1, 1);
+// light1.groundColor = new BABYLON.Color3(1, 1, 1);
 let light2 = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(-1, -1, -1), scene);
 light2.intensity = 0.5;
 
