@@ -9,6 +9,8 @@ import "element-ui/lib/theme-chalk/index.css";
 import TableBlock from "./components/TableBlock.vue";
 import PageGather from "./components/PageGather.vue";
 import moment from 'moment';
+
+
 Vue.use(ElementUI);
 Vue.use(dataV);
 

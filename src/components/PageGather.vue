@@ -118,7 +118,7 @@ export default {
             },
             axisLabel: {
               formatter: "{value}",
-              color: "rgba(0, 0, 255, 0.8)",
+              color: "#2B7BD6",
               fontSize: 17,
               fontFamily: "Digital-7",
             },
@@ -139,7 +139,7 @@ export default {
             axisLabel: {
               inside: false,
               textStyle: {
-                color: "rgba(0, 0, 255, 0.8)", // x轴颜色
+                color: "#2B7BD6", // x轴颜色
                 fontWeight: "normal",
                 fontSize: "14",
                 lineHeight: 22,
