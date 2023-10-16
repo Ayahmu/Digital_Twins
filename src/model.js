@@ -105,7 +105,7 @@ const engine = new BABYLON.Engine(canvas, true, { stencil: true });
 const scene = new BABYLON.Scene(engine, false);
 // const hdrTexture = BABYLON.CubeTexture.CreateFromPrefilteredData("texture/hdr/peppermint_powerplant_2_4k.exr", scene);
 let hdrTexture = new BABYLON.HDRCubeTexture(
-  "texture/hdr/kloofendal_misty_morning_puresky_4k.hdr",
+  "texture/hdr/hdr000_2K.hdr",
   scene,
   1024
 );
