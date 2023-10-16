@@ -7,6 +7,22 @@ import data1 from "../public/json/HydrogenSysInfo.json";
 import data2 from "../public/json/pipe.json";
 import { camera_config } from "./config.js";
 import { getJson, getPDF, getURL } from "./connect.js";
+import axios from "axios"
+
+axios.get('/json/config.json')
+    .then((response)=>{
+        if(response.data.singleLight){
+            light1.intensity = 1;
+            light2.intensity = 1;
+        }else{
+            light1.intensity = 0;
+            light2.intensity = 0;
+        }
+
+    })
+    .catch((err)=>{
+        console.error("Failed to load config:",err);
+    })
 
 //创建canvas
 const canvas = document.createElement("canvas");
@@ -266,11 +282,11 @@ function displayLabel(event) {
   spareElm.innerHTML =
     "备件信息:  " + (targetModel.SpareParts ? targetModel.SpareParts : "暂无");
   //资料远程存储
-  let result1 = targetModel.Url == "" ? ": 暂无" : " >>";
+  let result1 = targetModel.Url === "" ? ": 暂无" : " >>";
   urlElm.innerHTML = "设备资料" + result1;
 
   //PDF本地存储
-  let result2 = targetModel.Manual == "" ? ": 暂无" : " >>";
+  let result2 = targetModel.Manual === "" ? ": 暂无" : " >>";
   manualElm.innerHTML = "设备说明书" + result2;
 
   urlElm.onclick = function () {
@@ -299,9 +315,9 @@ let selectMesh, selectName;
 let clickPos;
 function highLight(mesh, labelName) {
   if (
-    labelName != "Brep" &&
-    labelName != "Brep.091" &&
-    labelName != "Brep.092"
+    labelName !== "Brep" &&
+    labelName !== "Brep.091" &&
+    labelName !== "Brep.092"
   ) {
     selectMesh = mesh;
     selectName = labelName;
@@ -977,12 +993,12 @@ function particlestart() {
 function opendoor(mesh, labelName) {
   //开门/关门
   if (
-    labelName == "Mesh.633" ||
-    labelName == "Mesh.1898" ||
-    labelName == "Mesh.2971"
+    labelName === "Mesh.633" ||
+    labelName === "Mesh.1898" ||
+    labelName === "Mesh.2971"
   ) {
     console.log("mesh.ifopen", labelName, mesh.ifopen);
-    if (mesh.ifopen == 0) {
+    if (mesh.ifopen === 0) {
       mesh.rotate(BABYLON.Axis.Y, (-Math.PI * 3) / 4, BABYLON.Space.LOCAL);
       mesh.ifopen = 1;
     } else {
@@ -994,12 +1010,12 @@ function opendoor(mesh, labelName) {
   // selectMesh.setPivotPoint(new BABYLON.Vector3(-6, 0, 0));
 }
 function alphachange(mesh,labelName){//楼板透明度改变
-    if((labelName=="Brep")||labelName=="Brep.091"||(labelName=="Brep.092")){
+    if((labelName==="Brep")||labelName==="Brep.091"||(labelName==="Brep.092")){
         let myclapboardMaterial=new BABYLON.PBRMaterial("myclapboardMaterial", scene);
         myclapboardMaterial.albedoColor=new BABYLON.Color3.White(); // 反射颜色
         myclapboardMaterial.metallic=0.2 // 金属
         myclapboardMaterial.roughness=0.8 // 粗糙
-        if(mesh.alpha==1){
+        if(mesh.alpha===1){
             myclapboardMaterial.alpha=0.3;
             mesh.material = myclapboardMaterial;
             mesh.alpha=0.3;
@@ -1206,12 +1222,13 @@ let light1 = new BABYLON.HemisphericLight(
   new BABYLON.Vector3(1, 1, 1),
   scene
 );
-light1.intensity = 0.5;
-// light1.diffuse = new BABYLON.Color3(1, 1, 1);
-// light1.specular = new BABYLON.Color3(1, 1, 1);
-// light1.groundColor = new BABYLON.Color3(1, 1, 1);
-let light2 = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(-1, -1, -1), scene);
-light2.intensity = 0.5;
+
+let light2 = new BABYLON.HemisphericLight(
+    "light",
+    new BABYLON.Vector3(-1, -1, -1),
+    scene
+);
+
 
 scene.registerBeforeRender(function () {
   // setWarningPosition(warningModels);

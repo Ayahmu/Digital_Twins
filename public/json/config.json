@@ -3,5 +3,7 @@
     "baseUrl":"https://www.huawei.com/cn/",
     
     "设备说明书储存地址,以小米页面示例":"这是注释",
-    "basePath":"https://www.mi.com/"
+    "basePath":"https://www.mi.com/",
+
+    "singleLight": false
 }

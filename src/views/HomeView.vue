@@ -1,7 +1,7 @@
 <template xmlns="http://www.w3.org/1999/html">
   <div class="content bg">
     <dv-decoration-5
-      dur="3"
+      :dur="3"
       style="
         position: absolute;
         width: 20%;
@@ -119,7 +119,7 @@
             transform: translate(0px, 28px);
             position: relative;
             top: -25px;
-            left: 0px;
+            left: 0;
           "
         >
           <div class="three">
@@ -150,14 +150,14 @@
         <dv-border-box-12
           style="
                   width: 100%;
-                  height: 12.09068vw
-                  left: 0px;
+                  height: 12.09068vw;
+                  left: 0;
                 "
           ><HealthState></HealthState>
         </dv-border-box-12>
 
         <!-- 第三部分 -->
-        <dv-border-box-12 style="width: 100%; height: 11.5869vw; left: 0px">
+        <dv-border-box-12 style="width: 100%; height: 11.5869vw; left: 0">
           <TableBlock></TableBlock>
         </dv-border-box-12>
       </div>
@@ -165,7 +165,7 @@
       <div
         style="
           position: absolute;
-          right: 0px;
+          right: 0;
           width: 25%;
           height: 37.5vw;
           z-index: 3;
