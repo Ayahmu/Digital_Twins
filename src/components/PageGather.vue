@@ -91,7 +91,7 @@ export default {
         grid: {
           left: "10%",
           top: "20%",
-          bottom: "14%",
+          bottom: "15%",
           right: "10%",
         },
 
@@ -118,7 +118,7 @@ export default {
             },
             axisLabel: {
               formatter: "{value}",
-              color: "#2B7BD6",
+               color:"#87CEEB",
               fontSize: 17,
               fontFamily: "Digital-7",
             },
@@ -139,7 +139,7 @@ export default {
             axisLabel: {
               inside: false,
               textStyle: {
-                color: "#2B7BD6", // x轴颜色
+                  color:"#87CEEB", // x轴颜色
                 fontWeight: "normal",
                 fontSize: "14",
                 lineHeight: 22,

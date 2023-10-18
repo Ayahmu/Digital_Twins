@@ -62,7 +62,9 @@
         <p class="info-title" id="modelManual" style="cursor: pointer">
           设备资料:
         </p>
-        <div class="info-title" id="modelUrl" style="cursor: pointer">设备说明书</div>
+        <div class="info-title" id="modelUrl" style="cursor: pointer">
+          设备说明书
+        </div>
         <p class="info-title" id="modelSpare">备件信息:</p>
       </div>
     </dv-border-box-12>
@@ -120,6 +122,8 @@
             position: relative;
             top: -25px;
             left: 0;
+            background-color: rgba(0, 0, 0, 0.07);
+            border-radius: 1vw;
           "
         >
           <div class="three">
@@ -149,15 +153,25 @@
         <!-- 第二部分 -->
         <dv-border-box-12
           style="
-                  width: 100%;
-                  height: 12.09068vw;
-                  left: 0;
-                "
+            width: 100%;
+            height: 12.09068vw;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.07);
+            border-radius: 1vw;
+          "
           ><HealthState></HealthState>
         </dv-border-box-12>
 
         <!-- 第三部分 -->
-        <dv-border-box-12 style="width: 100%; height: 11.5869vw; left: 0">
+        <dv-border-box-12
+          style="
+            width: 100%;
+            height: 11.5869vw;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.07);
+            border-radius: 1vw;
+          "
+        >
           <TableBlock></TableBlock>
         </dv-border-box-12>
       </div>
@@ -177,18 +191,39 @@
         <SearchItem></SearchItem>
 
         <!-- 设备信息轮播表，跳转入口 -->
-        <dv-border-box-12 style="width: 100%; height: 15.0629vw">
+        <dv-border-box-12
+          style="
+            width: 100%;
+            height: 15.0629vw;
+            background-color: rgba(0, 0, 0, 0.07);
+            border-radius: 1vw;
+          "
+        >
           <dv-scroll-board
             class="place"
             :config="status"
             style="width: 97%; height: 95%; top: 8px"
             @click="chooseModule"
-          /> </dv-border-box-12
-        ><dv-border-box-12 style="width: 100%; height: 6.19647vw"
+          />
+        </dv-border-box-12>
+        <dv-border-box-12
+          style="
+            width: 100%;
+            height: 6.19647vw;
+            background-color: rgba(0, 0, 0, 0.07);
+            border-radius: 1vw;
+          "
           ><WarnInfo></WarnInfo
         ></dv-border-box-12>
 
-        <dv-border-box-12 style="width: 100%; height: 12.9921vw">
+        <dv-border-box-12
+          style="
+            width: 100%;
+            height: 12.9921vw;
+            background-color: rgba(0, 0, 0, 0.07);
+            border-radius: 1vw;
+          "
+        >
           <LineChart></LineChart>
         </dv-border-box-12>
       </div>
@@ -206,25 +241,51 @@
       >
         <!-- 一号 -->
         <div style="flex-basis: 25%">
-          <dv-border-box-12 style="width: 100%; height: 85%"
+          <dv-border-box-12
+            style="
+              width: 100%;
+              height: 85%;
+              background-color: rgba(0, 0, 0, 0.13);
+              border-radius: 1vw;
+            "
             ><PageGather></PageGather
           ></dv-border-box-12>
         </div>
         <!-- 二号 -->
         <div style="flex-basis: 25%">
-          <dv-border-box-12 style="width: 100%; height: 85%"
+          <dv-border-box-12
+            style="
+              width: 100%;
+              height: 85%;
+              background-color: rgba(0, 0, 0, 0.13);
+              border-radius: 1vw;
+            "
             ><CostPie></CostPie
           ></dv-border-box-12>
         </div>
         <!-- 三号 -->
         <div style="flex-basis: 25%">
-          <dv-border-box-12 style="width: 100%; height: 85%">
+          <dv-border-box-12
+            style="
+              width: 100%;
+              height: 85%;
+              background-color: rgba(0, 0, 0, 0.13);
+              border-radius: 1vw;
+            "
+          >
             <TimeCompare></TimeCompare>
           </dv-border-box-12>
         </div>
         <!-- 四号 -->
         <div style="flex-basis: 25%">
-          <dv-border-box-12 style="width: 100%; height: 85%">
+          <dv-border-box-12
+            style="
+              width: 100%;
+              height: 85%;
+              background-color: rgba(0, 0, 0, 0.13);
+              border-radius: 1vw;
+            "
+          >
             <DoublePole></DoublePole>
           </dv-border-box-12>
         </div>

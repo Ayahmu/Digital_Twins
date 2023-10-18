@@ -62,7 +62,7 @@ export default {
               },
             },
             axisLabel: {
-              color: "#336293",
+              color: "#4ed2fd",
              
               fontSize:18,
             },
@@ -123,7 +123,7 @@ export default {
               show: true,
               position: "top",
               textStyle: {
-                color: "rgba(44, 140, 254,0.9)",
+                color: "#4ed2fd",
               },
             },
 

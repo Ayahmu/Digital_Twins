@@ -62,7 +62,7 @@ el-switch {
   position: relative;
   height: 1.5vw;
   background-color: transparent;
-  color: #1563bc;
+  color: #51c6ed;
   font-size: 1vw;
 }
 span {
@@ -98,7 +98,7 @@ el-button {
   width: 0.8vw;
   height: 0.8vw;
   border-radius: 50%;
-  background-color: green;
+  background-color: rgb(0, 158, 0);
   text-align: bottom;
   transform: translate(0px,0.4vw);
 }

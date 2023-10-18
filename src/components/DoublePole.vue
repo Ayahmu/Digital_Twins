@@ -48,7 +48,7 @@ export default {
               interval: 0, // 调整间距
             },
             axisLabel: {
-           
+              color:"#87CEEB",
               fontSize:14,
             },
           },
@@ -72,6 +72,7 @@ export default {
             show: false,
           },
           axisLabel: {
+             color:"#87CEEB",
             fontSize: 14,
             fontFamily: "Digital-7",
           },
@@ -114,7 +115,7 @@ export default {
             label: {
               show: true,
               color: "##2baee0",
-              position: "outside",
+              position: "top",
             },
             data:[1,2,2,1,0,1,0],
           },
@@ -163,8 +164,8 @@ export default {
             barWidth: "15",
             label: {
               show: true,
-              color: "#226cbe",
-              position: "outside",
+              color: "#76e7ea",
+              position: "top",
             },
             data: [1,2,2,1,0,1,0],
           },

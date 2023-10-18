@@ -24,7 +24,7 @@
           color: #00ffffcc;
         "
         >
-        <p>时    间:  9月10日23:18</p>
+        <p>时    间:  10月10日23:18</p>
         <p>名    称:  气体控制报警</p>
         <p>诊断信息:  压力过低</p>
         <p>优化建议:  重启设备</p></dv-border-box-12
@@ -50,7 +50,7 @@ export default {
         columnWidth: [159, 159, 159, 159],
         data: [
           [
-            "<span style='color: #00ffff;font-size:18px;'>9月10日23:18</span>",
+            "<span style='color: #00ffff;font-size:18px;'>10月10日23:18</span>",
             "<span style='color: #00ffff;font-size:18px;'>气体控制报警</span>",
             "<span style='color: #ff0000;font-size:18px;'>压力过低</span>",
             "<span style='color: #ffc700;font-size:18px;'>重启设备</span>",

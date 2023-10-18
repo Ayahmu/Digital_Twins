@@ -87,7 +87,7 @@ export default {
         left: "41%",
         orient: 'vertical',
         textStyle: {
-          color: "#1563bc",
+          color: "#4edbff",
           fontSize: 1.0556*ba+"px",
         },
         icon: "roundRect",
