@@ -5,6 +5,7 @@ import "babylonjs-loaders";
 import * as GUI from "babylonjs-gui";
 import data1 from "../public/json/HydrogenSysInfo.json";
 import data2 from "../public/json/pipe.json";
+import equipments from "../public/json/equipments.json";
 import { camera_config } from "./config.js";
 import { getJson, getPDF, getURL } from "./connect.js";
 import axios from "axios"
@@ -35,6 +36,7 @@ window.onload = function () {
 };
 // //将canvas添加到body中
 // document.body.appendChild(canvas);
+
 
 export let objectArray;
 export let pipeArray;
@@ -352,12 +354,9 @@ function removeLabel(arr) {
   models = [];
   rmLabelBuild = [];
 }
+
 function changematerial(meshes){
-    // meshes.forEach(function(mesh) {
-    //     if (number === odd) {
-    //         numbers.shift() // 3 will be deleted from array
-    //     }
-    // })
+
     // 管道透明
     //氢气管道
     let pipe1=scene.getMeshById("Brep.044");
@@ -382,7 +381,7 @@ function changematerial(meshes){
     //水管道
     let pipe5=scene.getMeshById("Brep.041");
     let pipe6=scene.getMeshById("Brep.042");
-    let watermaterial= new BABYLON.PBRMaterial("watermaterial", scene); //创建pbr 二氧化碳管道材料
+    let watermaterial= new BABYLON.PBRMaterial("watermaterial", scene); //创建pbr 水管道材料
     watermaterial.albedoColor=new BABYLON.Color3.Blue(); // 反射颜色
     watermaterial.metallic=0.5 // 金属
     watermaterial.roughness=0.5 // 粗糙
@@ -395,7 +394,7 @@ function changematerial(meshes){
     let pipe9=scene.getMeshById("Brep.021");
     let pipe10=scene.getMeshById("Brep.005");
     let pipe11=scene.getMeshById("Brep.052");
-    let oilmaterial= new BABYLON.PBRMaterial("oilmaterial", scene); //创建pbr 二氧化碳管道材料
+    let oilmaterial= new BABYLON.PBRMaterial("oilmaterial", scene); //创建pbr 油管道材料
     oilmaterial.albedoColor=new BABYLON.Color3.Yellow(); // 反射颜色
     oilmaterial.metallic=0.5; // 金属
     oilmaterial.roughness=0.5; // 粗糙
@@ -433,10 +432,83 @@ function changematerial(meshes){
     let door1=scene.getMeshById("Mesh.633");
     let door2=scene.getMeshById("Mesh.1898");
     let door3=scene.getMeshById("Mesh.2971");
-    door1.material=myclapboardMaterial
+    // door1.material=myclapboardMaterial
     door1.ifopen=0;
     door2.ifopen=0;
     door3.ifopen=0;
+    //柜体内设备透明
+    let equipmentsmaterial1=new BABYLON.PBRMaterial("equipmentsmaterial", scene); //创建pbr 设备管道材料
+    equipmentsmaterial1.albedoColor=new BABYLON.Color3.White(); // 反射颜色
+    equipmentsmaterial1.metallic=1 // 金属
+    equipmentsmaterial1.roughness=0.5 // 粗糙
+    equipmentsmaterial1.alpha=0.5;
+    let equipmentsmaterialred=new BABYLON.PBRMaterial("equipmentsmaterialred", scene); //创建pbr 红色设备管道材料
+    equipmentsmaterialred.albedoColor=new BABYLON.Color3.Red(); // 反射颜色
+    equipmentsmaterialred.metallic=1 // 金属
+    equipmentsmaterialred.roughness=0.5 // 粗糙
+    equipmentsmaterialred.alpha=0.5;
+    let equipmentsmaterialgreen=new BABYLON.PBRMaterial("equipmentsmaterialgreen", scene); //创建pbr 绿色设备管道材料
+    equipmentsmaterialgreen.albedoColor=new BABYLON.Color3.Green(); // 反射颜色
+    equipmentsmaterialgreen.metallic=1 // 金属
+    equipmentsmaterialgreen.roughness=0.5 // 粗糙
+    equipmentsmaterialgreen.alpha=0.5;
+    let equipmentsmaterialblack=new BABYLON.PBRMaterial("equipmentsmaterialblack", scene); //创建pbr 黑色设备管道材料
+    equipmentsmaterialblack.albedoColor=new BABYLON.Color3.Black(); // 反射颜色
+    equipmentsmaterialblack.metallic=1 // 金属
+    equipmentsmaterialblack.roughness=0.5 // 粗糙
+    equipmentsmaterialblack.alpha=0.5;
+    let equipmentsmaterialyellow=new BABYLON.PBRMaterial("equipmentsmaterialyellow", scene); //创建pbr 黄色设备管道材料
+    equipmentsmaterialyellow.albedoColor=new BABYLON.Color3.Yellow(); // 反射颜色
+    equipmentsmaterialyellow.metallic=1 // 金属
+    equipmentsmaterialyellow.roughness=0.5 // 粗糙
+    equipmentsmaterialyellow.alpha=0.5;
+    let equipmentsmaterialblue1=new BABYLON.PBRMaterial("equipmentsmaterialblue1", scene); //创建pbr 蓝色设备管道材料浅色
+    equipmentsmaterialblue1.albedoColor=new BABYLON.Color4(0.13, 0.63, 0.99); // 反射颜色
+    equipmentsmaterialblue1.metallic=1 // 金属
+    equipmentsmaterialblue1.roughness=0.5 // 粗糙
+    equipmentsmaterialblue1.alpha=0.5;
+    let equipmentsmaterialblue2=new BABYLON.PBRMaterial("equipmentsmaterialblue2", scene); //创建pbr 蓝色设备管道材料深色
+    equipmentsmaterialblue2.albedoColor=new BABYLON.Color4(0.11, 0.19, 0.89); // 反射颜色
+    equipmentsmaterialblue2.metallic=1 // 金属
+    equipmentsmaterialblue2.roughness=0.5 // 粗糙
+    equipmentsmaterialblue2.alpha=0.5;
+    let equipmentsmaterialbrown=new BABYLON.PBRMaterial("equipmentsmaterialbrown", scene); //创建pbr 蓝色设备管道材料深色
+    equipmentsmaterialbrown.albedoColor=new BABYLON.Color4(1, 0.5, 0, 0.68); // 反射颜色
+    equipmentsmaterialbrown.metallic=1 // 金属
+    equipmentsmaterialbrown.roughness=0.5 // 粗糙
+    equipmentsmaterialbrown.alpha=0.5;
+    equipments.forEach(function(it){
+        let meshid=it.ID;
+        let mesh = scene.getMeshById(meshid);
+        if(mesh!=null){
+          if(it.Info=="报警."){
+            console.log("报警.",mesh);
+            mesh.material= equipmentsmaterialred;
+          }
+          else if(it.Info=="电磁阀."){
+            mesh.material= equipmentsmaterialgreen;
+          }
+          else if(it.Info=="气动球阀.中"){
+            mesh.material= equipmentsmaterialyellow;
+          }
+          else if(it.Info=="气动球阀.上"){
+            mesh.material= equipmentsmaterialblack;
+          }
+          else if(it.Info=="大桶."){
+            mesh.material= equipmentsmaterialblue2;
+          }
+          else if(it.Info=="桶."){
+            mesh.material= equipmentsmaterialblue1;
+          }
+          else if(it.Info=="棕."){
+            mesh.material= equipmentsmaterialbrown;
+          }
+          else{
+            mesh.material=equipmentsmaterial1;
+          }
+        }
+       
+    })
 }
 //flowing流动方案-粒子效果
 let countnum = 1;
@@ -462,19 +534,21 @@ function makeparticle(
   particleSystem.color2 = color2;
   particleSystem.colorDead = colorDead;
   // Size of each particle (random between...
-  particleSystem.minSize = 0.3;
-  particleSystem.maxSize = 0.5;
+  particleSystem.minSize = 0.1;
+  particleSystem.maxSize = 0.3;
   // Life time of each particle (random between...
   particleSystem.minLifeTime = minLifeTime;
   particleSystem.maxLifeTime = maxLifeTime;
   particleSystem.minEmitBox = new BABYLON.Vector3(0.08, 0.08, 0.08); //控制盒子
   particleSystem.maxEmitBox = new BABYLON.Vector3(-0.08, -0.08, -0.08);
   // Emission rate
-  particleSystem.emitRate = 1000;
+  particleSystem.emitRate = 10000;
   // Speed
   particleSystem.minEmitPower = 0.1;
   particleSystem.maxEmitPower = 0.3;
   particleSystem.updateSpeed = 0.005;
+  //gravity
+  particleSystem.gravity=new BABYLON.Vector3(0,-0.2,0);
 }
 const slide = function (dist, movdirection) {
   //after covering dist apply turn
@@ -604,12 +678,12 @@ makeparticle(
 moveparticle(track044, sphere004cl1, 51, 25, 91, 7500); //间隔时间
 
 const track008 = []; //管道Brep.008的轨迹
-track008.push(new slide(2.5, "up")); //first side length 6
-track008.push(new slide(2.5 + 16.9, "behind")); //at finish of second side distance covered is 18+9
-// track008.push(new sli2.53.4+96.5+0.2,"down")); //at finish of second side distance covered is 18+9
-track008.push(new slide(2.5 + 16.9 + 26.8, "left")); //at finish of second side distance covered is 18+9
-track008.push(new slide(2.5 + 16.9 + 26.8 + 18.3, "front")); //at finish of second side distance covered is 18+9
-track008.push(new slide(2.5 + 16.9 + 26.8 + 18.3 + 3.5, "down")); //最后一条共70.33
+track008.push(new slide(2, "up")); //first side length 6
+track008.push(new slide(2 + 16.9, "behind")); //at finish of second side distance covered is 18+9
+// track008.push(new sli23.4+96.5+0.2,"down")); //at finish of second side distance covered is 18+9
+track008.push(new slide(2 + 16.9 + 27, "left")); //at finish of second side distance covered is 18+9
+track008.push(new slide(2 + 16.9 + 27 + 18, "front")); //at finish of second side distance covered is 18+9
+track008.push(new slide(2 + 16.9 + 27 + 18 + 3.5, "down")); //最后一条共70.33
 let particleSystem3 = new BABYLON.ParticleSystem(`particles3`, 10000, scene); //自动给每个粒子系统编号
 let particleSystem4 = new BABYLON.ParticleSystem(`particles4`, 10000, scene); //自动给每个粒子系统编号
 //创建一个绿色的粒子系统
