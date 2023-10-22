@@ -1102,15 +1102,65 @@ function alphachange(mesh,labelName){//楼板透明度改变
         
     }
 }
+function flowProcess(ProcessName){
+  if(ProcessName=="fillCO2"){
+      uvflowing("Brep.093",1,2,0,"紫色")
+      uvflowing("Brep.094",2,1,0,"紫色")
+      uvflowing("Brep.095",1,1,0,"紫色")
+      uvflowing("Brep.096",2,4,0,"紫色")
+      uvflowing("Brep.097",2,1,0,"紫色")
+      uvflowing("Brep.098",1,3,0,"紫色")
+      uvflowing("Brep.099",2,1,0,"紫色")
+      uvflowing("Brep.100",2,2,0,"紫色")
+      uvflowing("Brep.101",3,2,1,"紫色")
+      uvflowing("Brep.102",3,1,1,"紫色")
+      uvflowing("Brep.103",1,2,0,"紫色")
+      uvflowing("Brep.104",2,1,0,"紫色")
+      uvflowing("Brep.105",3,1,1,"紫色")
+      uvflowing("Brep.106",2,4,0,"紫色")
+  }
+}
+function uvflowing(meshid,direction,block,transfer=0,color){
+  let tube = scene.getMeshById(meshid);
+  var materialSphere3 = new BABYLON.StandardMaterial("texture3", scene);
+  console.log("png:",`texture/${color}.png`)
+  if(transfer){
+      materialSphere3.emissiveTexture = new BABYLON.Texture(`texture/${color}横.png`, scene);
+      materialSphere3.emissiveTexture.uScale = block;//在u(x)轴方向上同样长度内由5块原材质拼接
+      materialSphere3.emissiveTexture.vScale = 1//在v(yv)轴方向上同样长度内由2块原材质拼接
+  }
+  else{
+      materialSphere3.emissiveTexture = new BABYLON.Texture(`texture/${color}竖.png`, scene);
+      materialSphere3.emissiveTexture.uScale = 1;//在u(x)轴方向上同样长度内由5块原材质拼接
+      materialSphere3.emissiveTexture.vScale = block//在v(yv)轴方向上同样长度内由2块原材质拼接
+  }
+  materialSphere3.emissiveTexture.uOffset = 1;//水平翻转百分比
+  materialSphere3.emissiveTexture.vOffset = 1;//垂直翻转百分比
+  tube.material=materialSphere3;
+  scene.onBeforeRenderObservable.add(() => {
+     
+      if(direction==2){
+          materialSphere3.emissiveTexture.vOffset += -0.2;
+      }
+      else if(direction==1){
+          materialSphere3.emissiveTexture.vOffset += 0.2;
+      }
+      else if(direction==3){
+          materialSphere3.emissiveTexture.uOffset += -0.2;
+      }
+  })
+}
+
 BABYLON.SceneLoader.ImportMesh(
     "",
     "model/",
-    "modelv10d.glb",
+    "modelv11d.glb",
     scene,
     function (Meshes) {
         console.log("Meshes:",Meshes)
         changematerial(Meshes);
         particlestart();
+        flowProcess("fillCO2");
         let importedMesh = Meshes[0];
         // console.log(Meshes);
         importedMesh.getChildren().forEach(function (mesh){
