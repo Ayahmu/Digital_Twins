@@ -486,10 +486,10 @@ function changematerial(meshes){
             mesh.material= equipmentsmaterialred;
           }
           else if(it.Info=="电磁阀."){
-            mesh.material= equipmentsmaterialgreen;
+            mesh.material= equipmentsmaterialred;
           }
-          else if(it.Info=="气动球阀.中"){
-            mesh.material= equipmentsmaterialyellow;
+          else if(it.Info=="气动球阀.中"||it.Info=="气动球阀.下"){
+            mesh.material= equipmentsmaterialred;
           }
           else if(it.Info=="气动球阀.上"){
             mesh.material= equipmentsmaterialblack;
@@ -617,6 +617,11 @@ sphere053.position = new BABYLON.Vector3(25.3, 27.6, 61.4);
 let sphere053cl1 = sphere053.clone("sphere053cl1");
 let sphere053cl2 = sphere053.clone("sphere053cl2");
 let sphere053cl3 = sphere053.clone("sphere053cl3");
+let sphere053_2 = sphere.clone("sphere053");
+sphere053_2.position = new BABYLON.Vector3(-94.3, 130.4, -0.1);
+let sphere053_2cl1 = sphere053_2.clone("sphere053cl1");
+let sphere053_2cl2 = sphere053_2.clone("sphere053cl2");
+let sphere053_2cl3 = sphere053_2.clone("sphere053cl3");
 let sphere041 = sphere.clone("sphere041");
 sphere041.position = new BABYLON.Vector3(-71.05, 25.64, 35.54);
 let sphere041cl1 = sphere041.clone("sphere041cl1");
@@ -733,6 +738,55 @@ makeparticle(
 );
 moveparticle(track049, sphere049cl1, -8, 9.57, 79.6, 6000);
 
+const track053_2=[];
+track053_2.push(new slide(3, "down")); //first side length 6
+track053_2.push(new slide(3 + 22, "right")); //at finish of second side distance covered is 18+9
+track053_2.push(new slide(3 + 22 + 8.5, "up")); //at finish of second side distance covered is 18+9
+track053_2.push(new slide(3 + 22 + 8.5 + 16.5, "right")); //at finish of second side distance covered is 18+9
+track053_2.push(new slide(3 + 22 + 8.5 + 16.5 + 104, "down")); //at finish of second side distance covered is 18+9
+track053_2.push(new slide(3 + 22 + 8.5 + 16.5 + 104 + 39.5, "behind"));
+track053_2.push(new slide(3 + 22 + 8.5 + 16.5 + 104 + 39.5 + 159.5 , "left"));
+track053_2.push(new slide(3 + 22 + 8.5 + 16.5 + 104 + 39.5 + 159.5 + 20, "behind"));
+track053_2.push(new slide(3 + 22 + 8.5 + 16.5 + 104 + 39.5 + 159.5 + 20 + 3.5, "down")); //最后一条 共59.3
+let particleSystem32 = new BABYLON.ParticleSystem(`particles7`, 10000, scene);
+let particleSystem33 = new BABYLON.ParticleSystem(`particles8`, 10000, scene);
+let particleSystem34 = new BABYLON.ParticleSystem(`particles9`, 10000, scene);
+let particleSystem35 = new BABYLON.ParticleSystem(`particles10`, 10000, scene);
+
+//创建一个绿色的粒子系统
+makeparticle(
+  sphere053_2,
+  particleSystem32,
+  new BABYLON.Color4(0.17, 0.97, 0.02),
+  new BABYLON.Color4(0.6, 0.93, 0.57),
+  new BABYLON.Color4(0, 0.2, 0, 0.8)
+);
+moveparticle(track053_2, sphere053_2, -94.3, 130.4, -0.1, 1000);
+makeparticle(
+  sphere053_2cl1,
+  particleSystem33,
+  new BABYLON.Color4(0.17, 0.97, 0.02),
+  new BABYLON.Color4(0.6, 0.93, 0.57),
+  new BABYLON.Color4(0, 0.2, 0, 0.8)
+);
+moveparticle(track053_2, sphere053_2cl1, -94.3, 130.4, -0.1, 6000);
+makeparticle(
+  sphere053_2cl2,
+  particleSystem34,
+  new BABYLON.Color4(0.17, 0.97, 0.02),
+  new BABYLON.Color4(0.6, 0.93, 0.57),
+  new BABYLON.Color4(0, 0.2, 0, 0.8)
+);
+moveparticle(track053_2, sphere053_2cl2, -94.3, 130.4, -0.1, 12000);
+makeparticle(
+  sphere053_2cl3,
+  particleSystem35,
+  new BABYLON.Color4(0.17, 0.97, 0.02),
+  new BABYLON.Color4(0.6, 0.93, 0.57),
+  new BABYLON.Color4(0, 0.2, 0, 0.8)
+);
+moveparticle(track053_2, sphere053_2cl3, -94.3, 130.4, -0.1, 18000);
+
 const track053 = []; //管道Brep.053的轨迹
 track053.push(new slide(3.5, "up")); //first side length 6
 track053.push(new slide(3.5 + 20, "front")); //at finish of second side distance covered is 18+9
@@ -741,12 +795,8 @@ track053.push(new slide(3.5 + 20 + 158.3 + 41.4, "front")); //at finish of secon
 track053.push(new slide(3.5 + 20 + 158.3 + 41.4 + 104.2, "up")); //at finish of second side distance covered is 18+9
 track053.push(new slide(3.5 + 20 + 158.3 + 41.4 + 104.2 + 17.4, "left"));
 track053.push(new slide(3.5 + 20 + 158.3 + 41.4 + 104.2 + 17.4 + 10, "down"));
-track053.push(
-  new slide(3.5 + 20 + 158.3 + 41.4 + 104.2 + 17.4 + 10 + 21.3, "left")
-);
-track053.push(
-  new slide(3.5 + 20 + 158.3 + 41.4 + 104.2 + 17.4 + 10 + 21.3 + 4.5, "up")
-); //最后一条 共59.3
+track053.push(new slide(3.5 + 20 + 158.3 + 41.4 + 104.2 + 17.4 + 10 + 21.3, "left"));
+track053.push(new slide(3.5 + 20 + 158.3 + 41.4 + 104.2 + 17.4 + 10 + 21.3 + 4.5, "up")); //最后一条 共59.3
 let particleSystem7 = new BABYLON.ParticleSystem(`particles7`, 10000, scene);
 let particleSystem8 = new BABYLON.ParticleSystem(`particles8`, 10000, scene);
 let particleSystem9 = new BABYLON.ParticleSystem(`particles9`, 10000, scene);
@@ -1118,7 +1168,104 @@ function flowProcess(ProcessName){
       uvflowing("Brep.104",2,1,0,"紫色")
       uvflowing("Brep.105",3,1,1,"紫色")
       uvflowing("Brep.106",2,4,0,"紫色")
+      //阀门变色部分
+      //全开变绿色（半透明）,1-2变黄色
+      let equipmentsmaterialgreen_alpha=new BABYLON.PBRMaterial("equipmentsmaterialgreen", scene); //创建pbr 绿色设备管道材料
+      equipmentsmaterialgreen_alpha.albedoColor=new BABYLON.Color3.Green(); // 反射颜色
+      equipmentsmaterialgreen_alpha.metallic=1 // 金属
+      equipmentsmaterialgreen_alpha.roughness=0.5 // 粗糙
+      equipmentsmaterialgreen_alpha.alpha=0.8;
+      let equipmentsmaterialyellow=new BABYLON.PBRMaterial("equipmentsmaterialyellow", scene); //创建pbr 绿色设备管道材料
+      equipmentsmaterialyellow.albedoColor=new BABYLON.Color3.Yellow(); // 反射颜色
+      equipmentsmaterialyellow.metallic=1 // 金属
+      equipmentsmaterialyellow.roughness=0.5 // 粗糙
+      equipmentsmaterialyellow.alpha=1;
+      let OpenEquipments=["Mesh.3655","Mesh.3656","Mesh.3657","10QM018"];
+      OpenEquipments.forEach(function(it){
+        let mesh = scene.getMeshById(it);
+        mesh.material= equipmentsmaterialgreen_alpha
+      })
+      let Equipments_13=["Mesh.3791","10QN003"];
+      Equipments_13.forEach(function(it){
+        let mesh = scene.getMeshById(it);
+        mesh.material= equipmentsmaterialyellow
+      })
+      //柜外管道流向改变
+      particleSystem32.stop();//053_2
+      particleSystem33.stop();
+      particleSystem34.stop();
+      particleSystem35.stop();
+      particleSystem7.start(); //Brep053
+      particleSystem8.start();
+      particleSystem9.start();
+      particleSystem10.start();
+
+      //管道变色(二氧化碳管道变氢气管道)
+      let pipe3=scene.getMeshById("Brep.053");
+      let carbonmaterial= new BABYLON.PBRMaterial("carbonmaterial", scene); //创建pbr 二氧化碳管道材料
+      carbonmaterial.albedoColor=new BABYLON.Color3.Purple(); // 反射颜色
+      carbonmaterial.metallic=0.5 // 金属
+      carbonmaterial.roughness=0.5 // 粗糙
+      carbonmaterial.alpha=0.3;
+      pipe3.material = carbonmaterial;
   }
+  if(ProcessName=="exhaustH2"){
+    //柜内流动部分
+    uvflowing("Brep.106",1,4,0,"绿色")
+    uvflowing("Brep.105",4,1,1,"绿色")
+    uvflowing("Brep.109",3,1,1,"绿色")
+    uvflowing("Brep.110",3,1,1,"绿色")
+    uvflowing("Brep.111",3,1,1,"绿色")
+    uvflowing("Brep.112",2,1.5,0,"绿色")
+    uvflowing("Brep.113",1,3,0,"绿色")
+    uvflowing("Brep.114",1,1,0,"绿色")
+    uvflowing("Brep.115",1,2,0,"绿色")
+    uvflowing("Brep.116",2,1,0,"绿色")
+    uvflowing("Brep.117",1,2,0,"绿色")
+    uvflowing("Brep.118",3,1,1,"绿色")
+    uvflowing("Brep.119",3,1,1,"绿色")
+    uvflowing("Brep.120",2,2,0,"绿色")
+    uvflowing("Brep.121",2,2,0,"绿色")
+    //阀门变色部分
+    //全开变绿色（半透明）,1-3也是绿色（不透明）
+    let equipmentsmaterialgreen_alpha=new BABYLON.PBRMaterial("equipmentsmaterialgreen", scene); //创建pbr 绿色设备管道材料
+    equipmentsmaterialgreen_alpha.albedoColor=new BABYLON.Color3.Green(); // 反射颜色
+    equipmentsmaterialgreen_alpha.metallic=1 // 金属
+    equipmentsmaterialgreen_alpha.roughness=0.5 // 粗糙
+    equipmentsmaterialgreen_alpha.alpha=0.8;
+    let equipmentsmaterialgreen=new BABYLON.PBRMaterial("equipmentsmaterialgreen", scene); //创建pbr 绿色设备管道材料
+    equipmentsmaterialgreen.albedoColor=new BABYLON.Color3.Green(); // 反射颜色
+    equipmentsmaterialgreen.metallic=1 // 金属
+    equipmentsmaterialgreen.roughness=0.5 // 粗糙
+    equipmentsmaterialgreen.alpha=1;
+    let OpenEquipments=["10QM401","10QM402","10QM403","10QM404"];
+    OpenEquipments.forEach(function(it){
+      let mesh = scene.getMeshById(it);
+      mesh.material= equipmentsmaterialgreen_alpha
+    })
+    let Equipments_13=["Mesh.3798","Mesh.3791","Mesh.3691","Mesh.4092","10QN003"];
+    Equipments_13.forEach(function(it){
+      let mesh = scene.getMeshById(it);
+      mesh.material= equipmentsmaterialgreen
+    })
+    //柜外管道流向改变
+    particleSystem7.stop(); //Brep053
+    particleSystem8.stop();
+    particleSystem9.stop();
+    particleSystem10.stop();
+    particleSystem32.start();//053_2
+    particleSystem33.start();
+    particleSystem34.start();
+    particleSystem35.start();
+    //管道变色(二氧化碳管道变氢气管道)
+    let pipe1=scene.getMeshById("Brep.053");
+    let hydrogenmaterial = new BABYLON.PBRMaterial("hydrogenmaterial", scene); //创建pbr 氢气管道材料
+    hydrogenmaterial.albedoColor=new BABYLON.Color3.Green(); // 反射颜色
+    hydrogenmaterial.metallic=1 // 金属
+    hydrogenmaterial.roughness=0.5 // 粗糙
+    hydrogenmaterial.alpha=0.3;
+    pipe1.material = hydrogenmaterial;
+}
 }
 function uvflowing(meshid,direction,block,transfer=0,color){
   let tube = scene.getMeshById(meshid);
@@ -1148,6 +1295,9 @@ function uvflowing(meshid,direction,block,transfer=0,color){
       else if(direction==3){
           materialSphere3.emissiveTexture.uOffset += -0.2;
       }
+      else if(direction==4){
+          materialSphere3.emissiveTexture.uOffset += 0.2;
+    }
   })
 }
 
@@ -1160,7 +1310,8 @@ BABYLON.SceneLoader.ImportMesh(
         console.log("Meshes:",Meshes)
         changematerial(Meshes);
         particlestart();
-        flowProcess("fillCO2");
+        // flowProcess("fillCO2");
+        flowProcess("exhaustH2");
         let importedMesh = Meshes[0];
         // console.log(Meshes);
         importedMesh.getChildren().forEach(function (mesh){
