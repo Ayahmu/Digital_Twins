@@ -114,7 +114,7 @@ export default {
             barWidth: "15",
             label: {
               show: true,
-              color: "##2baee0",
+              color: "#cececd",
               position: "top",
             },
             data:[1,2,2,1,0,1,0],

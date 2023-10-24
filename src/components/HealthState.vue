@@ -62,7 +62,7 @@ el-switch {
   position: relative;
   height: 1.5vw;
   background-color: transparent;
-  color: #51c6ed;
+  color: #00ffff;
   font-size: 1vw;
 }
 span {

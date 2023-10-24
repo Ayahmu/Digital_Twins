@@ -166,7 +166,7 @@ export default {
             lineStyle: {
               normal: {
                 width: 2,
-                opacity: 0.6,
+                opacity: 1,
                 curveness: 0.2,
               },
             },

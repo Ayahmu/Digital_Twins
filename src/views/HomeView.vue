@@ -122,7 +122,7 @@
             position: relative;
             top: -25px;
             left: 0;
-            background-color: rgba(0, 0, 0, 0.07);
+            background-color: rgba(0, 0, 0, 0.22);
             border-radius: 1vw;
           "
         >
@@ -156,7 +156,7 @@
             width: 100%;
             height: 12.09068vw;
             left: 0;
-            background-color: rgba(0, 0, 0, 0.07);
+            background-color: rgba(0, 0, 0, 0.22);
             border-radius: 1vw;
           "
           ><HealthState></HealthState>
@@ -168,7 +168,7 @@
             width: 100%;
             height: 11.5869vw;
             left: 0;
-            background-color: rgba(0, 0, 0, 0.07);
+            background-color: rgba(0, 0, 0, 0.22);
             border-radius: 1vw;
           "
         >
@@ -195,7 +195,7 @@
           style="
             width: 100%;
             height: 15.0629vw;
-            background-color: rgba(0, 0, 0, 0.07);
+            background-color: rgba(0, 0, 0, 0.22);
             border-radius: 1vw;
           "
         >
@@ -210,7 +210,7 @@
           style="
             width: 100%;
             height: 6.19647vw;
-            background-color: rgba(0, 0, 0, 0.07);
+            background-color: rgba(0, 0, 0, 0.22);
             border-radius: 1vw;
           "
           ><WarnInfo></WarnInfo
@@ -220,7 +220,7 @@
           style="
             width: 100%;
             height: 12.9921vw;
-            background-color: rgba(0, 0, 0, 0.07);
+            background-color: rgba(0, 0, 0, 0.22);
             border-radius: 1vw;
           "
         >
@@ -245,7 +245,7 @@
             style="
               width: 100%;
               height: 85%;
-              background-color: rgba(0, 0, 0, 0.13);
+              background-color: rgba(0, 0, 0, 0.3);
               border-radius: 1vw;
             "
             ><PageGather></PageGather
@@ -257,7 +257,7 @@
             style="
               width: 100%;
               height: 85%;
-              background-color: rgba(0, 0, 0, 0.13);
+              background-color: rgba(0, 0, 0, 0.22);
               border-radius: 1vw;
             "
             ><CostPie></CostPie
@@ -269,7 +269,7 @@
             style="
               width: 100%;
               height: 85%;
-              background-color: rgba(0, 0, 0, 0.13);
+              background-color: rgba(0, 0, 0, 0.22);
               border-radius: 1vw;
             "
           >
@@ -282,7 +282,7 @@
             style="
               width: 100%;
               height: 85%;
-              background-color: rgba(0, 0, 0, 0.13);
+              background-color: rgba(0, 0, 0, 0.22);
               border-radius: 1vw;
             "
           >

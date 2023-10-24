@@ -114,7 +114,7 @@ export default {
             barWidth: "15",
             label: {
               show: true,
-              color: "#03407b",
+              color: "#cececd",
               position: "outside",
             },
             data: [22, 23, 30, 26, 28, 25, 29],

@@ -11,7 +11,7 @@
   -ms-text-size-adjust: 100%;
   font-size: 62.5%;
   /* 设置过根节点的文字,所有子节点的文字大小全部相对于根节点计算，html为10px */
-/* } */ 
+/* } */
 body,
 input,
 button,
@@ -29,7 +29,6 @@ select {
 }
 html,
 body {
-  
   user-select: none;
   width: 100%;
   height: 100%;
@@ -49,7 +48,7 @@ a:hover {
   opacity: 0.9;
 }
 
-.tc {                    
+.tc {
   text-align: center;
 }
 
@@ -67,7 +66,6 @@ a:hover {
   width: 100%;
   height: 100%;
   position: absolute;
-  
 }
 .place {
   position: absolute;
@@ -121,7 +119,7 @@ a:hover {
   display: flex;
   justify-content: space-between;
 }
-.three{
+.three {
   display: flex;
   align-content: space-around;
   align-items: center;
@@ -132,7 +130,7 @@ a:hover {
   left: 3vw;
   top: 4.9vw;
 }
-.one{
+.one {
   letter-spacing: 0.1em;
   flex-basis: 33%;
   font-size: 1vw;
@@ -151,13 +149,13 @@ a:hover {
 .unitname {
   /* text-fill-color: transparent; */
   letter-spacing: 0.1em;
-flex-basis: 33%;
+  flex-basis: 33%;
   /* position: absolute; */
   /* top: 176px; */
   /* left: 333px; */
   font-size: 26px;
   width: 150px;
-  color: #48c8ff;
+  color: #3ed8ff;
 
   font-family: "Arial";
 }
@@ -207,7 +205,7 @@ flex-basis: 33%;
   align-content: space-between;
   padding-left: 30px;
 }
-.back-button{
+.back-button {
   right: 27%;
   top: 12px;
   visibility: hidden;
@@ -217,14 +215,13 @@ flex-basis: 33%;
   z-index: 3;
 }
 
-.icon{
+.icon {
   margin: 2px;
   height: 20px;
   visibility: visible;
   cursor: pointer;
   z-index: 3;
 }
-
 
 .container {
   --color: #a5a5b0;
@@ -241,11 +238,10 @@ flex-basis: 33%;
 .container .bell-solid {
   position: absolute;
   display: none;
-  animation: keyframes-fill .5s;
+  animation: keyframes-fill 0.5s;
   animation-iteration-count: infinite;
   fill: crimson;
 }
-
 
 /* ------ On check event ------ */
 
@@ -262,33 +258,33 @@ flex-basis: 33%;
   width: 0;
 }
 
-.solid{
+.solid {
   animation-name: keyframes-fill;
-  animation-duration: .5s;
+  animation-duration: 0.5s;
 }
 
-.container{
+.container {
   z-index: 2;
   display: none;
 }
 
 @keyframes right-slide-in {
-  0%{
+  0% {
     opacity: 0;
     transform: translateX(100%);
   }
-  100%{
+  100% {
     opacity: 1;
     transform: translateX(0);
   }
 }
 
 @keyframes right-slide-out {
-  0%{
+  0% {
     opacity: 1;
     transform: translateX(0);
   }
-  100%{
+  100% {
     opacity: 0;
     transform: translateX(100%);
   }
@@ -330,35 +326,34 @@ flex-basis: 33%;
 }
 
 ::-webkit-scrollbar {
-     width: 10px;
-     height: 10px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
   width: 6px;
-  background: #101F1C;
+  background: #101f1c;
   -webkit-border-radius: 2em;
   -moz-border-radius: 2em;
   border-radius: 2em;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(144,147,153,.5);
+  background-color: rgba(144, 147, 153, 0.5);
   background-clip: padding-box;
   min-height: 28px;
   -webkit-border-radius: 2em;
   -moz-border-radius: 2em;
   border-radius: 2em;
-  transition: background-color .3s;
+  transition: background-color 0.3s;
   cursor: pointer;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(144,147,153,.3);
+  background-color: rgba(144, 147, 153, 0.3);
 }
 
-.info-title{
+.info-title {
   font-size: 1vw;
   line-height: 1.5vw;
 }
-
