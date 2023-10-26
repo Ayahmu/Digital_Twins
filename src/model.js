@@ -1405,6 +1405,83 @@ function flowProcess(ProcessName){
     particleSystem9.stop();
     particleSystem10.stop();
   }
+  if(ProcessName=="purificationH2"){
+    uvflowing("Brep.155",1,1,0,"绿色")
+    uvflowing("Brep.156",2,1,0,"绿色")
+    uvflowing("Brep.157",1,2,0,"绿色")
+    uvflowing("Brep.158",2,1,0,"绿色")
+    uvflowing("Brep.159",1,1,0,"绿色")
+    uvflowing("Brep.160",2,1,0,"绿色")
+    uvflowing("Brep.161",1,2,0,"绿色")
+    uvflowing("Brep.162",2,1,0,"绿色")
+    uvflowing("Brep.163",1,4,0,"绿色")
+    uvflowing("Brep.164",2,0.5,0,"绿色")
+    uvflowing("Brep.165",3,1,1,"绿色")
+    uvflowing("Brep.166",1,2,0,"绿色")
+    uvflowing("Brep.167",1,2,0,"绿色")
+    uvflowing("Brep.168",1,2,0,"绿色")
+    uvflowing("Brep.169",2,1,0,"绿色")
+    uvflowing("Brep.170",2,1,0,"绿色")
+    uvflowing("Brep.171",2,1,0,"绿色")
+    uvflowing("Brep.172",2,1,0,"绿色")
+    uvflowing("Brep.173",2,1,0,"绿色")
+    uvflowing("Brep.174",2,1,0,"绿色")
+    uvflowing("Brep.175",1,1,0,"绿色")
+    uvflowing("Brep.176",1,1,0,"绿色")
+    uvflowing("Brep.177",1,1,0,"绿色")
+    uvflowing("Brep.178",1,2,0,"绿色")
+    uvflowing("Brep.179",2,2,0,"绿色")
+    uvflowing("Brep.180",2,2,0,"绿色")
+    uvflowing("Brep.181",2,2,0,"绿色")
+    uvflowing("Brep.182",2,3,0,"绿色")
+    uvflowing("Brep.183",1,3,0,"绿色")
+    uvflowing("Brep.184",2,1,0,"绿色")
+    uvflowing("Brep.185",2,3,0,"绿色")
+    uvflowing("Brep.186",1,3,0,"绿色")
+    uvflowing("Brep.187",1,3,0,"绿色")
+    uvflowing("Brep.188",4,0.5,1,"绿色")
+    uvflowing("Brep.189",4,0.5,1,"绿色")
+    uvflowing("Brep.190",3,0.5,1,"绿色")
+    uvflowing("Brep.191",1,0.5,0,"绿色")
+    uvflowing("Brep.192",1,3,0,"绿色")
+    uvflowing("Brep.193",2,1,0,"绿色")
+    uvflowing("Brep.194",2,1,0,"绿色")
+    uvflowing("Brep.195",1,1,0,"绿色")
+    uvflowing("Brep.196",2,1,0,"绿色")
+    uvflowing("Brep.197",2,1,0,"绿色")
+    uvflowing("Brep.198",2,2,0,"绿色")
+    uvflowing("Brep.199",2,3,0,"绿色")
+    uvflowing("Brep.200",2,1,0,"绿色")
+    uvflowing("Brep.037",4,1,1,"绿色")
+    uvflowing("Brep.201",2,1,0,"绿色")
+    uvflowing("Brep.202",2,1,0,"绿色")
+    uvflowing("Brep.203",2,1,0,"绿色")
+    uvflowing("Brep.204",2,3,0,"绿色")
+    uvflowing("Brep.205",2,1,0,"绿色")
+    uvflowing("Brep.206",2,1,0,"绿色")
+    uvflowing("Brep.207",1,1,0,"绿色")
+    uvflowing("Brep.208",2,1,0,"绿色")
+    uvflowing("Brep.209",2,1.5,0,"绿色")
+    uvflowing("Brep.210",1,2,0,"绿色")
+    uvflowing("Brep.211",3,1,1,"绿色")
+    uvflowing("Brep.212",2,0.5,0,"绿色")
+    uvflowing("Brep.213",2,1.5,0,"绿色")
+    uvflowing("Brep.214",2,2,0,"绿色")
+    uvflowing("Brep.215",1,1,0,"绿色")
+    uvflowing("Brep.216",2,3,0,"绿色")
+    //阀门变色部分
+    //全开变绿色（半透明）
+    let equipmentsmaterialgreen_alpha=new BABYLON.PBRMaterial("equipmentsmaterialgreen", scene); //创建pbr 绿色设备管道材料
+    equipmentsmaterialgreen_alpha.albedoColor=new BABYLON.Color3.Green(); // 反射颜色
+    equipmentsmaterialgreen_alpha.metallic=1 // 金属
+    equipmentsmaterialgreen_alpha.roughness=0.5 // 粗糙
+    equipmentsmaterialgreen_alpha.alpha=0.8;
+    let OpenEquipments=["Mesh.2397","Mesh.2398","Mesh.2461","Mesh.1788","Mesh.2383","Mesh.2390","20QM005","20QM009","20QM003","10BM101","10BM102"];
+    OpenEquipments.forEach(function(it){
+      let mesh = scene.getMeshById(it);
+      mesh.material= equipmentsmaterialgreen_alpha
+    })
+  }
 }
 function uvflowing(meshid,direction,block,transfer=0,color){
   let tube = scene.getMeshById(meshid);
@@ -1443,7 +1520,7 @@ function uvflowing(meshid,direction,block,transfer=0,color){
 BABYLON.SceneLoader.ImportMesh(
     "",
     "model/",
-    "model.glb",
+    "modelv12d.glb",
     scene,
     function (Meshes) {
         console.log("Meshes:",Meshes)
@@ -1453,6 +1530,7 @@ BABYLON.SceneLoader.ImportMesh(
         // flowProcess("exhaustH2");
         // flowProcess("fillH2fromPowerPlant");
         flowProcess("fillH2fromConfluence");
+        flowProcess("purificationH2");
         // flowProcess("operationNormally")
         let importedMesh = Meshes[0];
         // console.log(Meshes);
