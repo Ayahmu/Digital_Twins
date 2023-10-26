@@ -1185,8 +1185,8 @@ function flowProcess(ProcessName){
         let mesh = scene.getMeshById(it);
         mesh.material= equipmentsmaterialgreen_alpha
       })
-      let Equipments_13=["Mesh.3791","10QN003"];
-      Equipments_13.forEach(function(it){
+      let Equipments_12=["Mesh.3791","10QN003"];
+      Equipments_12.forEach(function(it){
         let mesh = scene.getMeshById(it);
         mesh.material= equipmentsmaterialyellow
       })
@@ -1266,6 +1266,145 @@ function flowProcess(ProcessName){
     hydrogenmaterial.alpha=0.3;
     pipe1.material = hydrogenmaterial;
 }
+  if(ProcessName=="fillH2fromPowerPlant"){
+    uvflowing("Brep.122",1,2,0,"绿色")
+    uvflowing("Brep.123",2,1,0,"绿色")
+    uvflowing("Brep.149",4,0.5,1,"绿色")
+    uvflowing("Brep.150",2,1,0,"绿色")
+    uvflowing("Brep.125",1,1,0,"绿色")
+    uvflowing("Brep.126",1,3,0,"绿色")
+    uvflowing("Brep.127",2,1,0,"绿色")
+    uvflowing("Brep.128",2,3,0,"绿色")
+    uvflowing("Brep.129",2,1,0,"绿色")
+    uvflowing("Brep.130",3,1,1,"绿色")
+    uvflowing("Brep.131",1,1.5,0,"绿色")
+    uvflowing("Brep.132",2,1,0,"绿色")
+    uvflowing("Brep.133",1,1,0,"绿色")
+    uvflowing("Brep.134",2,1,0,"绿色")
+    uvflowing("Brep.135",2,1,0,"绿色")
+    uvflowing("Brep.136",2,1,0,"绿色")
+    uvflowing("Brep.137",4,1,1,"绿色")
+    uvflowing("Brep.138",2,1,0,"绿色")
+    uvflowing("Brep.139",1,1,0,"绿色")
+    uvflowing("Brep.140",2,1,0,"绿色")
+    uvflowing("Brep.141",1,1,0,"绿色")
+    uvflowing("Brep.142",2,2,0,"绿色")
+    uvflowing("Brep.143",1,2.5,0,"绿色")
+    uvflowing("Brep.144",1,0.5,0,"绿色")
+    uvflowing("Brep.145",4,0.5,1,"绿色")
+    uvflowing("Brep.146",4,0.5,1,"绿色")
+    uvflowing("Brep.147",3,0.5,1,"绿色")
+    uvflowing("Brep.148",4,0.5,1,"绿色")
+    uvflowing("Brep.111",3,1,1,"绿色")
+    uvflowing("Brep.112",2,1.5,0,"绿色")
+    uvflowing("Brep.113",2,3,0,"绿色")
+    //阀门变色部分
+    //全开变绿色（半透明）,1-2变黄色
+    let equipmentsmaterialgreen_alpha=new BABYLON.PBRMaterial("equipmentsmaterialgreen", scene); //创建pbr 绿色设备管道材料
+    equipmentsmaterialgreen_alpha.albedoColor=new BABYLON.Color3.Green(); // 反射颜色
+    equipmentsmaterialgreen_alpha.metallic=1 // 金属
+    equipmentsmaterialgreen_alpha.roughness=0.5 // 粗糙
+    equipmentsmaterialgreen_alpha.alpha=0.8;
+    let equipmentsmaterialyellow=new BABYLON.PBRMaterial("equipmentsmaterialyellow", scene); //创建pbr 绿色设备管道材料
+    equipmentsmaterialyellow.albedoColor=new BABYLON.Color3.Yellow(); // 反射颜色
+    equipmentsmaterialyellow.metallic=1 // 金属
+    equipmentsmaterialyellow.roughness=0.5 // 粗糙
+    equipmentsmaterialyellow.alpha=1;
+    let OpenEquipments=["Mesh.3660","Mesh.3658","10QM015","10QN001-5","10QN001-4","10QN001-1"];
+    OpenEquipments.forEach(function(it){
+      let mesh = scene.getMeshById(it);
+      mesh.material= equipmentsmaterialgreen_alpha
+    })
+    let Equipments_12=["Mesh.3691","Mesh.3798","Mesh.4092"];
+    Equipments_12.forEach(function(it){
+      let mesh = scene.getMeshById(it);
+      mesh.material= equipmentsmaterialyellow
+    })
+    //柜外管道流动重新启动
+    particleSystem7.start(); //Brep053
+    particleSystem8.start();
+    particleSystem9.start();
+    particleSystem10.start();
+  }
+  if(ProcessName=="fillH2fromConfluence"){
+    uvflowing("Brep.151",1,1,0,"绿色")
+    uvflowing("Brep.152",1,1.5,0,"绿色")
+    uvflowing("Brep.153",1,1,0,"绿色")
+    uvflowing("Brep.154",4,0.5,1,"绿色")
+    uvflowing("Brep.150",2,1,0,"绿色")
+    uvflowing("Brep.125",1,1,0,"绿色")
+    uvflowing("Brep.126",1,3,0,"绿色")
+    uvflowing("Brep.127",2,1,0,"绿色")
+    uvflowing("Brep.128",2,3,0,"绿色")
+    uvflowing("Brep.129",2,1,0,"绿色")
+    uvflowing("Brep.130",3,1,1,"绿色")
+    uvflowing("Brep.131",1,1.5,0,"绿色")
+    uvflowing("Brep.132",2,1,0,"绿色")
+    uvflowing("Brep.133",1,1,0,"绿色")
+    uvflowing("Brep.134",2,1,0,"绿色")
+    uvflowing("Brep.135",2,1,0,"绿色")
+    uvflowing("Brep.136",2,1,0,"绿色")
+    uvflowing("Brep.137",4,1,1,"绿色")
+    uvflowing("Brep.138",2,1,0,"绿色")
+    uvflowing("Brep.139",1,1,0,"绿色")
+    uvflowing("Brep.140",2,1,0,"绿色")
+    uvflowing("Brep.141",1,1,0,"绿色")
+    uvflowing("Brep.142",2,2,0,"绿色")
+    uvflowing("Brep.143",1,2.5,0,"绿色")
+    uvflowing("Brep.144",1,0.5,0,"绿色")
+    uvflowing("Brep.145",4,0.5,1,"绿色")
+    uvflowing("Brep.146",4,0.5,1,"绿色")
+    uvflowing("Brep.147",3,0.5,1,"绿色")
+    uvflowing("Brep.148",4,0.5,1,"绿色")
+    uvflowing("Brep.111",3,1,1,"绿色")
+    uvflowing("Brep.112",2,1.5,0,"绿色")
+    uvflowing("Brep.113",2,3,0,"绿色")
+    //阀门变色部分
+    //全开变绿色（半透明）,1-2变黄色
+    let equipmentsmaterialgreen_alpha=new BABYLON.PBRMaterial("equipmentsmaterialgreen", scene); //创建pbr 绿色设备管道材料
+    equipmentsmaterialgreen_alpha.albedoColor=new BABYLON.Color3.Green(); // 反射颜色
+    equipmentsmaterialgreen_alpha.metallic=1 // 金属
+    equipmentsmaterialgreen_alpha.roughness=0.5 // 粗糙
+    equipmentsmaterialgreen_alpha.alpha=0.8;
+    let equipmentsmaterialyellow=new BABYLON.PBRMaterial("equipmentsmaterialyellow", scene); //创建pbr 绿色设备管道材料
+    equipmentsmaterialyellow.albedoColor=new BABYLON.Color3.Yellow(); // 反射颜色
+    equipmentsmaterialyellow.metallic=1 // 金属
+    equipmentsmaterialyellow.roughness=0.5 // 粗糙
+    equipmentsmaterialyellow.alpha=1;
+    let OpenEquipments=["Mesh.3678","Mesh.3679","10QM001","10QN001-5","10QN001-4","10QN001-1"];
+    OpenEquipments.forEach(function(it){
+      let mesh = scene.getMeshById(it);
+      mesh.material= equipmentsmaterialgreen_alpha
+    })
+    let Equipments_12=["Mesh.3691","Mesh.3798","Mesh.4092"];
+    Equipments_12.forEach(function(it){
+      let mesh = scene.getMeshById(it);
+      mesh.material= equipmentsmaterialyellow
+    })
+    //柜外管道流动重新启动
+    particleSystem7.start(); //Brep053
+    particleSystem8.start();
+    particleSystem9.start();
+    particleSystem10.start();
+  }
+  if(ProcessName=="operationNormally"){
+    //阀门变色部分
+    let equipmentsmaterialgreen=new BABYLON.PBRMaterial("equipmentsmaterialgreen", scene); //创建pbr 绿色设备管道材料
+    equipmentsmaterialgreen.albedoColor=new BABYLON.Color3.Green(); // 反射颜色
+    equipmentsmaterialgreen.metallic=1 // 金属
+    equipmentsmaterialgreen.roughness=0.5 // 粗糙
+    equipmentsmaterialgreen.alpha=1;
+    let Equipments_13=["Mesh.3798","Mesh.3791","Mesh.3691","Mesh.4092","10QN003"];
+    Equipments_13.forEach(function(it){
+      let mesh = scene.getMeshById(it);
+      mesh.material= equipmentsmaterialgreen
+    })
+    //柜外管道流动暂停
+    particleSystem7.stop(); //Brep053
+    particleSystem8.stop();
+    particleSystem9.stop();
+    particleSystem10.stop();
+  }
 }
 function uvflowing(meshid,direction,block,transfer=0,color){
   let tube = scene.getMeshById(meshid);
@@ -1304,14 +1443,17 @@ function uvflowing(meshid,direction,block,transfer=0,color){
 BABYLON.SceneLoader.ImportMesh(
     "",
     "model/",
-    "modelv11d.glb",
+    "model.glb",
     scene,
     function (Meshes) {
         console.log("Meshes:",Meshes)
         changematerial(Meshes);
         particlestart();
-        // flowProcess("fillCO2");
-        flowProcess("exhaustH2");
+        flowProcess("fillCO2");
+        // flowProcess("exhaustH2");
+        // flowProcess("fillH2fromPowerPlant");
+        flowProcess("fillH2fromConfluence");
+        // flowProcess("operationNormally")
         let importedMesh = Meshes[0];
         // console.log(Meshes);
         importedMesh.getChildren().forEach(function (mesh){
