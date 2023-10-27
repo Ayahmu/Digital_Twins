@@ -507,7 +507,7 @@ function changematerial(meshes){
             mesh.material=equipmentsmaterial1;
           }
         }
-       
+
     })
 }
 //flowing流动方案-粒子效果
@@ -1149,7 +1149,7 @@ function alphachange(mesh,labelName){//楼板透明度改变
             mesh.material = myclapboardMaterial;
             mesh.alpha=1;
         }
-        
+
     }
 }
 function flowProcess(ProcessName){
@@ -1646,7 +1646,7 @@ function uvflowing(meshid,direction,block,transfer=0,color){
   materialSphere3.emissiveTexture.vOffset = 1;//垂直翻转百分比
   tube.material=materialSphere3;
   scene.onBeforeRenderObservable.add(() => {
-     
+
       if(direction==2){
           materialSphere3.emissiveTexture.vOffset += -0.2;
       }
@@ -1811,12 +1811,10 @@ export function searchModel(modelID) {
     resetCamera();
     let mesh = scene.getMeshById(modelID);
     highLightLayer.addMesh(mesh, BABYLON.Color3.Blue());
-    // camera.position.x = mesh.position.x;
-    // camera.position.y = 30;
-    // camera.position.z = -45;
-    camera.setTarget(modelPosition.add(new BABYLON.Vector3(0, 1, 0)));
     camera.setPosition(new BABYLON.Vector3(modelPosition.x, 30, -45));
-    let currentPosition = modelPosition;
+
+    const targetPosition = (modelPosition.scale(2)).subtract(camera.position)
+    camera.setTarget(targetPosition.add(new BABYLON.Vector3(0, 1, 0)));
     console.log(modelPosition);
   } else {
     alert("未查找到指定设备");
