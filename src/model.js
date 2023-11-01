@@ -13,8 +13,8 @@ import axios from "axios"
 axios.get('/json/config.json')
     .then((response)=>{
         if(response.data.singleLight){
-            light1.intensity = 1;
-            light2.intensity = 1;
+            light1.intensity = 0.6;
+            light2.intensity = 0.6;
         }else{
             light1.intensity = 0;
             light2.intensity = 0;
@@ -123,7 +123,7 @@ const engine = new BABYLON.Engine(canvas, true, { stencil: true });
 const scene = new BABYLON.Scene(engine, false);
 // const hdrTexture = BABYLON.CubeTexture.CreateFromPrefilteredData("texture/hdr/peppermint_powerplant_2_4k.exr", scene);
 let hdrTexture = new BABYLON.HDRCubeTexture(
-  "texture/hdr/hdr000_2K.hdr",
+  "texture/hdr/syferfontein_18d_clear_puresky_4k(深蓝，已修改).hdr",
   scene,
   1024
 );
@@ -1665,7 +1665,7 @@ function uvflowing(meshid,direction,block,transfer=0,color){
 BABYLON.SceneLoader.ImportMesh(
     "",
     "model/",
-    "modelv13d.glb",
+    "modelv12d.glb",
     scene,
     function (Meshes) {
         console.log("Meshes:",Meshes)
