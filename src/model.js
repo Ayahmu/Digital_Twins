@@ -354,7 +354,7 @@ function removeLabel(arr) {
   models = [];
   rmLabelBuild = [];
 }
-
+let clapboardbegin;
 function changematerial(meshes){
 
     // 管道透明
@@ -404,21 +404,22 @@ function changematerial(meshes){
     pipe9.material = oilmaterial;
     pipe10.material = oilmaterial;
     pipe11.material = oilmaterial;
-    //隔板材质
+    //获得隔板材质
     let clapboard1=scene.getMeshById("Brep");
     let clapboard2=scene.getMeshById("Brep.091");
     let clapboard3=scene.getMeshById("Brep.092");
-    let myclapboardMaterial=new BABYLON.PBRMaterial("myclapboardMaterial", scene);
-    myclapboardMaterial.albedoColor=new BABYLON.Color3.White(); // 反射颜色
-    myclapboardMaterial.diffuseColor=new BABYLON.Color3.White(); // 反射颜色
-    myclapboardMaterial.metallic=0.2 // 金属
-    myclapboardMaterial.roughness=0.8 // 粗糙
-    myclapboardMaterial.alpha=1;
-    clapboard1.material = myclapboardMaterial;
+    clapboardbegin=clapboard2.material;
+    // let myclapboardMaterial=new BABYLON.PBRMaterial("myclapboardMaterial", scene);
+    // myclapboardMaterial.albedoColor=new BABYLON.Color3.White(); // 反射颜色
+    // myclapboardMaterial.diffuseColor=new BABYLON.Color3.White(); // 反射颜色
+    // myclapboardMaterial.metallic=0.2 // 金属
+    // myclapboardMaterial.roughness=0.8 // 粗糙
+    // myclapboardMaterial.alpha=1;
+    // clapboard1.material = myclapboardMaterial;
     clapboard1.alpha = 1;
-    clapboard2.material = myclapboardMaterial;
+    // clapboard2.material = myclapboardMaterial;
     clapboard2.alpha = 1;
-    clapboard3.material = myclapboardMaterial;
+    // clapboard3.material = myclapboardMaterial;
     clapboard3.alpha = 1;
     //发动机外壳
     let machine=scene.getMeshById("Mesh.5924");
@@ -1146,7 +1147,7 @@ function alphachange(mesh,labelName){//楼板透明度改变
         }
         else{
             myclapboardMaterial.alpha=1;
-            mesh.material = myclapboardMaterial;
+            mesh.material = clapboardbegin;
             mesh.alpha=1;
         }
 
@@ -1631,33 +1632,32 @@ function flowProcess(ProcessName){
 function uvflowing(meshid,direction,block,transfer=0,color){
   let tube = scene.getMeshById(meshid);
   var materialSphere3 = new BABYLON.StandardMaterial("texture3", scene);
-  console.log("png:",`texture/${color}.png`)
   if(transfer){
-      materialSphere3.emissiveTexture = new BABYLON.Texture(`texture/${color}横.png`, scene);
-      materialSphere3.emissiveTexture.uScale = block;//在u(x)轴方向上同样长度内由5块原材质拼接
-      materialSphere3.emissiveTexture.vScale = 1//在v(yv)轴方向上同样长度内由2块原材质拼接
+      materialSphere3.diffuseTexture = new BABYLON.Texture(`texture/${color}横.png`, scene);
+      materialSphere3.diffuseTexture.uScale = block;//在u(x)轴方向上同样长度内由5块原材质拼接
+      materialSphere3.diffuseTexture.vScale = 1//在v(yv)轴方向上同样长度内由2块原材质拼接
   }
   else{
-      materialSphere3.emissiveTexture = new BABYLON.Texture(`texture/${color}竖.png`, scene);
-      materialSphere3.emissiveTexture.uScale = 1;//在u(x)轴方向上同样长度内由5块原材质拼接
-      materialSphere3.emissiveTexture.vScale = block//在v(yv)轴方向上同样长度内由2块原材质拼接
+      materialSphere3.diffuseTexture = new BABYLON.Texture(`texture/${color}竖.png`, scene);
+      materialSphere3.diffuseTexture.uScale = 1;//在u(x)轴方向上同样长度内由5块原材质拼接
+      materialSphere3.diffuseTexture.vScale = block//在v(yv)轴方向上同样长度内由2块原材质拼接
   }
-  materialSphere3.emissiveTexture.uOffset = 1;//水平翻转百分比
-  materialSphere3.emissiveTexture.vOffset = 1;//垂直翻转百分比
+  materialSphere3.diffuseTexture.uOffset = 1;//水平翻转百分比
+  materialSphere3.diffuseTexture.vOffset = 1;//垂直翻转百分比
   tube.material=materialSphere3;
   scene.onBeforeRenderObservable.add(() => {
 
       if(direction==2){
-          materialSphere3.emissiveTexture.vOffset += -0.2;
+          materialSphere3.diffuseTexture.vOffset += -0.2;
       }
       else if(direction==1){
-          materialSphere3.emissiveTexture.vOffset += 0.2;
+          materialSphere3.diffuseTexture.vOffset += 0.2;
       }
       else if(direction==3){
-          materialSphere3.emissiveTexture.uOffset += -0.2;
+          materialSphere3.diffuseTexture.uOffset += -0.2;
       }
       else if(direction==4){
-          materialSphere3.emissiveTexture.uOffset += 0.2;
+          materialSphere3.diffuseTexture.uOffset += 0.2;
     }
   })
 }
