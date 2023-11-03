@@ -1140,16 +1140,19 @@ function alphachange(mesh,labelName){//楼板透明度改变
         myclapboardMaterial.albedoColor=new BABYLON.Color3.White(); // 反射颜色
         myclapboardMaterial.metallic=0.2 // 金属
         myclapboardMaterial.roughness=0.8 // 粗糙
-        if(mesh.alpha===1){
-            myclapboardMaterial.alpha=0.3;
-            mesh.material = myclapboardMaterial;
-            mesh.alpha=0.3;
+        if(mesh.isVisible===true){
+            // myclapboardMaterial.alpha=0.1;
+            // mesh.material = myclapboardMaterial;
+            // mesh.alpha=0.1;
+            mesh.isVisible=false;
         }
         else{
-            myclapboardMaterial.alpha=1;
-            mesh.material = clapboardbegin;
-            mesh.alpha=1;
+            // myclapboardMaterial.alpha=1;
+            // mesh.material = clapboardbegin;
+            // mesh.alpha=1;
+            mesh.isVisible=true
         }
+        console.log("isVisible",mesh.isVisible)
 
     }
 }
@@ -1670,13 +1673,13 @@ BABYLON.SceneLoader.ImportMesh(
     function (Meshes) {
         console.log("Meshes:",Meshes)
         changematerial(Meshes);
-        particlestart();
-        flowProcess("fillCO2");
+        // particlestart();1
+        // flowProcess("fillCO2");2
         // flowProcess("exhaustH2");
         // flowProcess("fillH2fromPowerPlant");
-        flowProcess("fillH2fromConfluence");
-        flowProcess("purificationH2");
-        flowProcess("makeH2");
+        // flowProcess("fillH2fromConfluence");3
+        // flowProcess("purificationH2");4
+        // flowProcess("makeH2");5
         // flowProcess("operationNormally")
         let importedMesh = Meshes[0];
         // console.log(Meshes);
