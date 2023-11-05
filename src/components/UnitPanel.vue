@@ -10,7 +10,7 @@
         position: absolute;
         top: -12px;
         z-index: 222;
-        font-size: 27px;
+        font-size: 20px;
         width: 100%;
       "
     >

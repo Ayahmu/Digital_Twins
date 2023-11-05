@@ -68,7 +68,7 @@
         <p class="info-title" id="modelSpare">备件信息:</p>
       </div>
     </dv-border-box-12>
-    <div class="nav_btn" @click="sendMessage">
+    <!--<div class="nav_btn" @click="sendMessage">
       <div class="btn_right">
         <button id="back_btn" class="back-button">
           <img
@@ -80,6 +80,7 @@
         </button>
       </div>
     </div>
+    暂时去掉按钮提高美观度-->
 
     <div>
       <dv-decoration-7
@@ -89,7 +90,7 @@
           position: absolute;
           top: 6%;
           left: 50%;
-          transform: translate(23.21158vw, -2vw);
+          transform: translate(24.21158vw, -2vw);
           font-family: Digital-7;
           font-weight: bold;
           font-size: 1.8136vw;
@@ -107,8 +108,10 @@
           position: absolute;
           width: 25%;
           height: 37.5vw;
-          top: 4vw;
+          top: 9vw;
           z-index: 3;
+          transform: scale(0.8);
+          transform-origin: top left;
         "
       >
         <!-- 第一部分 -->
@@ -175,7 +178,7 @@
           <TableBlock></TableBlock>
         </dv-border-box-12>
       </div>
-
+      <!--右侧盒子-->
       <div
         style="
           position: absolute;
@@ -183,9 +186,35 @@
           width: 25%;
           height: 37.5vw;
           z-index: 3;
-          top: 4vw;
+          top: 9vw;
+          transform: scale(0.8);
+          transform-origin: top right;
         "
       >
+        <div v-if="showPopup" class="popup-overlay" @click="closePopup"></div>
+        <div v-if="showPopup" class="popup">
+          <dv-border-box-12
+            style="
+              height: 10vw;
+              width: 18vw;
+              position: absolute;
+              padding-left: 0.6vw;
+              padding-top: 0.6vw;
+              z-index: 4;
+              font-size: 1vw;
+              line-height: 2vw;
+              white-space: pre-wrap;
+              overflow: auto;
+              user-select: none;
+              color: #00ffffcc;
+            "
+          >
+            <p>时 间: 10月10日23:18</p>
+            <p>名 称: 气体控制报警</p>
+            <p>诊断信息: 压力过低</p>
+            <p>优化建议: 重启设备</p></dv-border-box-12
+          >
+        </div>
         <!-- 搜索部分 -->
 
         <SearchItem></SearchItem>
@@ -213,6 +242,7 @@
             background-color: rgba(0, 0, 0, 0.22);
             border-radius: 1vw;
           "
+      
           ><WarnInfo></WarnInfo
         ></dv-border-box-12>
 
@@ -232,9 +262,12 @@
       <div
         class="module-box"
         style="
+          transform: scale(1, 0.85);
+          transform-origin: bottom;
+
           position: absolute;
           height: 16.06297vw;
-          top: 42.666vw;
+          top: 42.366vw;
           width: 100%;
           z-index: 3;
         "
@@ -343,6 +376,7 @@ export default {
   name: "HomeView",
   data() {
     return {
+    showPopup: false,
       currentDateTime: "",
       status: {
         headerBGC: "#3472bb",
@@ -441,6 +475,7 @@ export default {
       //
       //
     },
+    
   },
 
   components: {
