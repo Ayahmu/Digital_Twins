@@ -405,10 +405,10 @@ function changematerial(meshes){
     pipe10.material = oilmaterial;
     pipe11.material = oilmaterial;
     //获得隔板材质
-    let clapboard1=scene.getMeshById("Brep");
-    let clapboard2=scene.getMeshById("Brep.091");
-    let clapboard3=scene.getMeshById("Brep.092");
-    clapboardbegin=clapboard2.material;
+    // let clapboard1=scene.getMeshById("Brep");
+    // let clapboard2=scene.getMeshById("Brep.091");
+    // let clapboard3=scene.getMeshById("Brep.092");
+    // clapboardbegin=clapboard2.material;
     // let myclapboardMaterial=new BABYLON.PBRMaterial("myclapboardMaterial", scene);
     // myclapboardMaterial.albedoColor=new BABYLON.Color3.White(); // 反射颜色
     // myclapboardMaterial.diffuseColor=new BABYLON.Color3.White(); // 反射颜色
@@ -416,11 +416,11 @@ function changematerial(meshes){
     // myclapboardMaterial.roughness=0.8 // 粗糙
     // myclapboardMaterial.alpha=1;
     // clapboard1.material = myclapboardMaterial;
-    clapboard1.alpha = 1;
+    // clapboard1.alpha = 1;
     // clapboard2.material = myclapboardMaterial;
-    clapboard2.alpha = 1;
+    // clapboard2.alpha = 1;
     // clapboard3.material = myclapboardMaterial;
-    clapboard3.alpha = 1;
+    // clapboard3.alpha = 1;
     //发动机外壳
     let machine=scene.getMeshById("Mesh.5924");
     let mymachineMaterial=new BABYLON.PBRMaterial("mymachineMaterial", scene);
@@ -442,7 +442,12 @@ function changematerial(meshes){
     equipmentsmaterial1.albedoColor=new BABYLON.Color3.White(); // 反射颜色
     equipmentsmaterial1.metallic=1 // 金属
     equipmentsmaterial1.roughness=0.5 // 粗糙
-    equipmentsmaterial1.alpha=0.5;
+    equipmentsmaterial1.alpha=0.6;
+    let equipmentsmaterial2=new BABYLON.PBRMaterial("equipmentsmaterial2", scene); //创建pbr 设备管道材料
+    equipmentsmaterial2.albedoColor=new BABYLON.Color3.White(); // 反射颜色
+    equipmentsmaterial2.metallic=1 // 金属
+    equipmentsmaterial2.roughness=0.5 // 粗糙
+    equipmentsmaterial2.alpha=0.9;
     let equipmentsmaterialred=new BABYLON.PBRMaterial("equipmentsmaterialred", scene); //创建pbr 红色设备管道材料
     equipmentsmaterialred.albedoColor=new BABYLON.Color3.Red(); // 反射颜色
     equipmentsmaterialred.metallic=1 // 金属
@@ -485,6 +490,10 @@ function changematerial(meshes){
           if(it.Info=="报警."){
             console.log("报警.",mesh);
             mesh.material= equipmentsmaterialred;
+          }
+          else if(it.Info=="柜门."){
+            console.log("柜门.",mesh);
+            mesh.material=equipmentsmaterial2;
           }
           else if(it.Info=="电磁阀."){
             mesh.material= equipmentsmaterialred;
@@ -1673,13 +1682,13 @@ BABYLON.SceneLoader.ImportMesh(
     function (Meshes) {
         console.log("Meshes:",Meshes)
         changematerial(Meshes);
-        // particlestart();1
-        // flowProcess("fillCO2");2
+        particlestart();
+        flowProcess("fillCO2");
         // flowProcess("exhaustH2");
         // flowProcess("fillH2fromPowerPlant");
-        // flowProcess("fillH2fromConfluence");3
-        // flowProcess("purificationH2");4
-        // flowProcess("makeH2");5
+        flowProcess("fillH2fromConfluence");
+        flowProcess("purificationH2");
+        flowProcess("makeH2");
         // flowProcess("operationNormally")
         let importedMesh = Meshes[0];
         // console.log(Meshes);
