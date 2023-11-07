@@ -365,19 +365,21 @@ function changematerial(meshes){
     hydrogenmaterial.albedoColor=new BABYLON.Color3.Green(); // 反射颜色
     hydrogenmaterial.metallic=1 // 金属
     hydrogenmaterial.roughness=0.5 // 粗糙
-    hydrogenmaterial.alpha=0.3;
+    hydrogenmaterial.alpha=0.5;
     pipe1.material = hydrogenmaterial;
     pipe2.material = hydrogenmaterial;
     //二氧化碳管道
     let pipe3=scene.getMeshById("Brep.049");
     let pipe4=scene.getMeshById("Brep.053");
+    let pipe12=scene.getMeshById("Brep.045");
     let carbonmaterial= new BABYLON.PBRMaterial("carbonmaterial", scene); //创建pbr 二氧化碳管道材料
     carbonmaterial.albedoColor=new BABYLON.Color3.Purple(); // 反射颜色
     carbonmaterial.metallic=0.5 // 金属
     carbonmaterial.roughness=0.5 // 粗糙
-    carbonmaterial.alpha=0.3;
+    carbonmaterial.alpha=0.5;
     pipe3.material = carbonmaterial;
     pipe4.material = carbonmaterial;
+    pipe12.material = carbonmaterial;
     //水管道
     let pipe5=scene.getMeshById("Brep.041");
     let pipe6=scene.getMeshById("Brep.042");
@@ -385,7 +387,7 @@ function changematerial(meshes){
     watermaterial.albedoColor=new BABYLON.Color3.Blue(); // 反射颜色
     watermaterial.metallic=0.5 // 金属
     watermaterial.roughness=0.5 // 粗糙
-    watermaterial.alpha=0.3;
+    watermaterial.alpha=0.5;
     pipe5.material = watermaterial;
     pipe6.material = watermaterial;
     //油管
@@ -398,7 +400,7 @@ function changematerial(meshes){
     oilmaterial.albedoColor=new BABYLON.Color3.Yellow(); // 反射颜色
     oilmaterial.metallic=0.5; // 金属
     oilmaterial.roughness=0.5; // 粗糙
-    oilmaterial.alpha=0.3;
+    oilmaterial.alpha=0.5;
     pipe7.material = oilmaterial;
     pipe8.material = oilmaterial;
     pipe9.material = oilmaterial;
