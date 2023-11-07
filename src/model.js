@@ -354,7 +354,7 @@ function removeLabel(arr) {
   models = [];
   rmLabelBuild = [];
 }
-
+let clapboardbegin;
 function changematerial(meshes){
 
     // 管道透明
@@ -365,19 +365,21 @@ function changematerial(meshes){
     hydrogenmaterial.albedoColor=new BABYLON.Color3.Green(); // 反射颜色
     hydrogenmaterial.metallic=1 // 金属
     hydrogenmaterial.roughness=0.5 // 粗糙
-    hydrogenmaterial.alpha=0.3;
+    hydrogenmaterial.alpha=0.5;
     pipe1.material = hydrogenmaterial;
     pipe2.material = hydrogenmaterial;
     //二氧化碳管道
     let pipe3=scene.getMeshById("Brep.049");
     let pipe4=scene.getMeshById("Brep.053");
+    let pipe12=scene.getMeshById("Brep.045");
     let carbonmaterial= new BABYLON.PBRMaterial("carbonmaterial", scene); //创建pbr 二氧化碳管道材料
     carbonmaterial.albedoColor=new BABYLON.Color3.Purple(); // 反射颜色
     carbonmaterial.metallic=0.5 // 金属
     carbonmaterial.roughness=0.5 // 粗糙
-    carbonmaterial.alpha=0.3;
+    carbonmaterial.alpha=0.5;
     pipe3.material = carbonmaterial;
     pipe4.material = carbonmaterial;
+    pipe12.material = carbonmaterial;
     //水管道
     let pipe5=scene.getMeshById("Brep.041");
     let pipe6=scene.getMeshById("Brep.042");
@@ -385,7 +387,7 @@ function changematerial(meshes){
     watermaterial.albedoColor=new BABYLON.Color3.Blue(); // 反射颜色
     watermaterial.metallic=0.5 // 金属
     watermaterial.roughness=0.5 // 粗糙
-    watermaterial.alpha=0.3;
+    watermaterial.alpha=0.5;
     pipe5.material = watermaterial;
     pipe6.material = watermaterial;
     //油管
@@ -398,16 +400,17 @@ function changematerial(meshes){
     oilmaterial.albedoColor=new BABYLON.Color3.Yellow(); // 反射颜色
     oilmaterial.metallic=0.5; // 金属
     oilmaterial.roughness=0.5; // 粗糙
-    oilmaterial.alpha=0.3;
+    oilmaterial.alpha=0.5;
     pipe7.material = oilmaterial;
     pipe8.material = oilmaterial;
     pipe9.material = oilmaterial;
     pipe10.material = oilmaterial;
     pipe11.material = oilmaterial;
-    //隔板材质
+    //获得隔板材质
     let clapboard1=scene.getMeshById("Brep");
     let clapboard2=scene.getMeshById("Brep.091");
     let clapboard3=scene.getMeshById("Brep.092");
+    clapboardbegin=clapboard2.material;
     let myclapboardMaterial=new BABYLON.PBRMaterial("myclapboardMaterial", scene);
     myclapboardMaterial.albedoColor=new BABYLON.Color3.White(); // 反射颜色
     myclapboardMaterial.diffuseColor=new BABYLON.Color3.White(); // 反射颜色
@@ -441,7 +444,12 @@ function changematerial(meshes){
     equipmentsmaterial1.albedoColor=new BABYLON.Color3.White(); // 反射颜色
     equipmentsmaterial1.metallic=1 // 金属
     equipmentsmaterial1.roughness=0.5 // 粗糙
-    equipmentsmaterial1.alpha=0.5;
+    equipmentsmaterial1.alpha=0.6;
+    let equipmentsmaterial2=new BABYLON.PBRMaterial("equipmentsmaterial2", scene); //创建pbr 设备管道材料
+    equipmentsmaterial2.albedoColor=new BABYLON.Color3.White(); // 反射颜色
+    equipmentsmaterial2.metallic=1 // 金属
+    equipmentsmaterial2.roughness=0.5 // 粗糙
+    equipmentsmaterial2.alpha=0.9;
     let equipmentsmaterialred=new BABYLON.PBRMaterial("equipmentsmaterialred", scene); //创建pbr 红色设备管道材料
     equipmentsmaterialred.albedoColor=new BABYLON.Color3.Red(); // 反射颜色
     equipmentsmaterialred.metallic=1 // 金属
@@ -484,6 +492,10 @@ function changematerial(meshes){
           if(it.Info=="报警."){
             console.log("报警.",mesh);
             mesh.material= equipmentsmaterialred;
+          }
+          else if(it.Info=="柜门."){
+            console.log("柜门.",mesh);
+            mesh.material=equipmentsmaterial2;
           }
           else if(it.Info=="电磁阀."){
             mesh.material= equipmentsmaterialred;
@@ -1139,16 +1151,20 @@ function alphachange(mesh,labelName){//楼板透明度改变
         myclapboardMaterial.albedoColor=new BABYLON.Color3.White(); // 反射颜色
         myclapboardMaterial.metallic=0.2 // 金属
         myclapboardMaterial.roughness=0.8 // 粗糙
-        if(mesh.alpha===1){
-            myclapboardMaterial.alpha=0.3;
+        // if(mesh.isVisible===true){
+        if(mesh.alpha==1){
+            myclapboardMaterial.alpha=0;
             mesh.material = myclapboardMaterial;
-            mesh.alpha=0.3;
+            mesh.alpha=0;
+            // mesh.isVisible=false;
         }
         else{
             myclapboardMaterial.alpha=1;
-            mesh.material = myclapboardMaterial;
+            mesh.material = clapboardbegin;
             mesh.alpha=1;
+            // mesh.isVisible=true
         }
+        console.log("isVisible",mesh.isVisible)
 
     }
 }
@@ -1631,33 +1647,32 @@ function flowProcess(ProcessName){
 function uvflowing(meshid,direction,block,transfer=0,color){
   let tube = scene.getMeshById(meshid);
   var materialSphere3 = new BABYLON.StandardMaterial("texture3", scene);
-  console.log("png:",`texture/${color}.png`)
   if(transfer){
-      materialSphere3.emissiveTexture = new BABYLON.Texture(`texture/${color}横.png`, scene);
-      materialSphere3.emissiveTexture.uScale = block;//在u(x)轴方向上同样长度内由5块原材质拼接
-      materialSphere3.emissiveTexture.vScale = 1//在v(yv)轴方向上同样长度内由2块原材质拼接
+      materialSphere3.diffuseTexture = new BABYLON.Texture(`texture/${color}横.png`, scene);
+      materialSphere3.diffuseTexture.uScale = block;//在u(x)轴方向上同样长度内由5块原材质拼接
+      materialSphere3.diffuseTexture.vScale = 1//在v(yv)轴方向上同样长度内由2块原材质拼接
   }
   else{
-      materialSphere3.emissiveTexture = new BABYLON.Texture(`texture/${color}竖.png`, scene);
-      materialSphere3.emissiveTexture.uScale = 1;//在u(x)轴方向上同样长度内由5块原材质拼接
-      materialSphere3.emissiveTexture.vScale = block//在v(yv)轴方向上同样长度内由2块原材质拼接
+      materialSphere3.diffuseTexture = new BABYLON.Texture(`texture/${color}竖.png`, scene);
+      materialSphere3.diffuseTexture.uScale = 1;//在u(x)轴方向上同样长度内由5块原材质拼接
+      materialSphere3.diffuseTexture.vScale = block//在v(yv)轴方向上同样长度内由2块原材质拼接
   }
-  materialSphere3.emissiveTexture.uOffset = 1;//水平翻转百分比
-  materialSphere3.emissiveTexture.vOffset = 1;//垂直翻转百分比
+  materialSphere3.diffuseTexture.uOffset = 1;//水平翻转百分比
+  materialSphere3.diffuseTexture.vOffset = 1;//垂直翻转百分比
   tube.material=materialSphere3;
   scene.onBeforeRenderObservable.add(() => {
 
       if(direction==2){
-          materialSphere3.emissiveTexture.vOffset += -0.2;
+          materialSphere3.diffuseTexture.vOffset += -0.2;
       }
       else if(direction==1){
-          materialSphere3.emissiveTexture.vOffset += 0.2;
+          materialSphere3.diffuseTexture.vOffset += 0.2;
       }
       else if(direction==3){
-          materialSphere3.emissiveTexture.uOffset += -0.2;
+          materialSphere3.diffuseTexture.uOffset += -0.2;
       }
       else if(direction==4){
-          materialSphere3.emissiveTexture.uOffset += 0.2;
+          materialSphere3.diffuseTexture.uOffset += 0.2;
     }
   })
 }

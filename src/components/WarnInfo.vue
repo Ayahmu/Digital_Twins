@@ -13,11 +13,12 @@
           height: 10vw;
           width: 18vw;
           position: absolute;
+          left:-5vw;
           padding-left: 0.6vw;
           padding-top: 0.6vw;
           z-index: 4;
-          font-size: 1vw;
-          line-height: 2vw;
+          font-size: 1.2vw;
+          line-height: 2.2vw;
           white-space: pre-wrap;
           overflow: auto;
           user-select: none;
@@ -61,54 +62,7 @@ export default {
           //   "<span style='color: #ff0000;font-size:18px;'>异常</span>",
           //   "<span style='color: #ffc700;font-size:18px;'>点击查看</span>",
           // ],
-          // [
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          // ],
-          // [
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          // ],
-          // [
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          // ],
-          // [
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          // ],
-          // [
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          // ],
-          // [
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          // ],
-          // [
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          // ],
-          // [
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          //   "<span style='color: #00ffff;font-size:18px;'>1</span>",
-          // ],
+          
         ],
       },
     };
@@ -143,23 +97,25 @@ export default {
 </script>
 
 <style scoped>
-.popup-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-}
 
+.popup-overlay {
+  position: absolute;
+  top: -80vw;
+  left: -120vw;
+  width: 250vw;
+  height: 250vw;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+}
 .popup {
   position: fixed;
   top: 45%;
-  left: 55%;
+  left: -55%;
   transform: translate(-50%, -50%);
   /* background-color: #fff; */
   padding: 20px;
   border-radius: 4px;
+  z-index:101
 }
 
 .popup-content {
@@ -167,10 +123,10 @@ export default {
   height: 10vw;
   width: 18vw;
   position: absolute;
-  left: 1vw;
+  left: -11vw;
   top: 0.5vw;
   z-index: 4;
-  font-size: 1vw;
-  line-height: 1.2vw;
+  font-size: 1.5vw;
+  line-height: 1.8vw;
 }
 </style>
