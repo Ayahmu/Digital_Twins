@@ -405,22 +405,22 @@ function changematerial(meshes){
     pipe10.material = oilmaterial;
     pipe11.material = oilmaterial;
     //获得隔板材质
-    // let clapboard1=scene.getMeshById("Brep");
-    // let clapboard2=scene.getMeshById("Brep.091");
-    // let clapboard3=scene.getMeshById("Brep.092");
-    // clapboardbegin=clapboard2.material;
-    // let myclapboardMaterial=new BABYLON.PBRMaterial("myclapboardMaterial", scene);
-    // myclapboardMaterial.albedoColor=new BABYLON.Color3.White(); // 反射颜色
-    // myclapboardMaterial.diffuseColor=new BABYLON.Color3.White(); // 反射颜色
-    // myclapboardMaterial.metallic=0.2 // 金属
-    // myclapboardMaterial.roughness=0.8 // 粗糙
-    // myclapboardMaterial.alpha=1;
-    // clapboard1.material = myclapboardMaterial;
-    // clapboard1.alpha = 1;
-    // clapboard2.material = myclapboardMaterial;
-    // clapboard2.alpha = 1;
-    // clapboard3.material = myclapboardMaterial;
-    // clapboard3.alpha = 1;
+    let clapboard1=scene.getMeshById("Brep");
+    let clapboard2=scene.getMeshById("Brep.091");
+    let clapboard3=scene.getMeshById("Brep.092");
+    clapboardbegin=clapboard2.material;
+    let myclapboardMaterial=new BABYLON.PBRMaterial("myclapboardMaterial", scene);
+    myclapboardMaterial.albedoColor=new BABYLON.Color3.White(); // 反射颜色
+    myclapboardMaterial.diffuseColor=new BABYLON.Color3.White(); // 反射颜色
+    myclapboardMaterial.metallic=0.2 // 金属
+    myclapboardMaterial.roughness=0.8 // 粗糙
+    myclapboardMaterial.alpha=1;
+    clapboard1.material = myclapboardMaterial;
+    clapboard1.alpha = 1;
+    clapboard2.material = myclapboardMaterial;
+    clapboard2.alpha = 1;
+    clapboard3.material = myclapboardMaterial;
+    clapboard3.alpha = 1;
     //发动机外壳
     let machine=scene.getMeshById("Mesh.5924");
     let mymachineMaterial=new BABYLON.PBRMaterial("mymachineMaterial", scene);
@@ -1149,17 +1149,18 @@ function alphachange(mesh,labelName){//楼板透明度改变
         myclapboardMaterial.albedoColor=new BABYLON.Color3.White(); // 反射颜色
         myclapboardMaterial.metallic=0.2 // 金属
         myclapboardMaterial.roughness=0.8 // 粗糙
-        if(mesh.isVisible===true){
-            // myclapboardMaterial.alpha=0.1;
-            // mesh.material = myclapboardMaterial;
-            // mesh.alpha=0.1;
-            mesh.isVisible=false;
+        // if(mesh.isVisible===true){
+        if(mesh.alpha==1){
+            myclapboardMaterial.alpha=0;
+            mesh.material = myclapboardMaterial;
+            mesh.alpha=0;
+            // mesh.isVisible=false;
         }
         else{
-            // myclapboardMaterial.alpha=1;
-            // mesh.material = clapboardbegin;
-            // mesh.alpha=1;
-            mesh.isVisible=true
+            myclapboardMaterial.alpha=1;
+            mesh.material = clapboardbegin;
+            mesh.alpha=1;
+            // mesh.isVisible=true
         }
         console.log("isVisible",mesh.isVisible)
 
@@ -1677,7 +1678,7 @@ function uvflowing(meshid,direction,block,transfer=0,color){
 BABYLON.SceneLoader.ImportMesh(
     "",
     "model/",
-    "modelv15d.glb",
+    "modelv17d.glb",
     scene,
     function (Meshes) {
         console.log("Meshes:",Meshes)
