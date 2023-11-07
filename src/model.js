@@ -10,20 +10,7 @@ import { camera_config } from "./config.js";
 import { getJson, getPDF, getURL } from "./connect.js";
 import axios from "axios"
 
-axios.get('/json/config.json')
-    .then((response)=>{
-        if(response.data.singleLight){
-            light1.intensity = 0.6;
-            light2.intensity = 0.6;
-        }else{
-            light1.intensity = 0;
-            light2.intensity = 0;
-        }
 
-    })
-    .catch((err)=>{
-        console.error("Failed to load config:",err);
-    })
 
 //创建canvas
 const canvas = document.createElement("canvas");
@@ -31,9 +18,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 canvas.style.zIndex = "3";
 
-window.onload = function () {
-  document.getElementById("model").appendChild(canvas);
-};
+
 // //将canvas添加到body中
 // document.body.appendChild(canvas);
 
@@ -117,8 +102,24 @@ let targetIndex = idToIndexMap1[targetID];
 console.log("10QM001", objectArray[targetIndex]);
 
 //创建引擎，第二个参数为抗锯齿
-const engine = new BABYLON.Engine(canvas, true, { stencil: true });
+// const engine = new BABYLON.Engine(canvas, true, { stencil: true });
+const engine = new BABYLON.WebGPUEngine(canvas );
+await engine.initAsync();
 
+axios.get('/json/config.json')
+    .then((response)=>{
+        if(response.data.singleLight){
+            light1.intensity = 0.6;
+            light2.intensity = 0.6;
+        }else{
+            light1.intensity = 0;
+            light2.intensity = 0;
+        }
+
+    })
+    .catch((err)=>{
+        console.error("Failed to load config:",err);
+    })
 //创建场景
 const scene = new BABYLON.Scene(engine, false);
 // const hdrTexture = BABYLON.CubeTexture.CreateFromPrefilteredData("texture/hdr/peppermint_powerplant_2_4k.exr", scene);
@@ -454,7 +455,7 @@ function changematerial(meshes){
     equipmentsmaterialred.albedoColor=new BABYLON.Color3.Red(); // 反射颜色
     equipmentsmaterialred.metallic=1 // 金属
     equipmentsmaterialred.roughness=0.5 // 粗糙
-    equipmentsmaterialred.alpha=0.5;
+    equipmentsmaterialred.alpha=0.8;
     let equipmentsmaterialgreen=new BABYLON.PBRMaterial("equipmentsmaterialgreen", scene); //创建pbr 绿色设备管道材料
     equipmentsmaterialgreen.albedoColor=new BABYLON.Color3.Green(); // 反射颜色
     equipmentsmaterialgreen.metallic=1 // 金属
@@ -1680,7 +1681,7 @@ function uvflowing(meshid,direction,block,transfer=0,color){
 BABYLON.SceneLoader.ImportMesh(
     "",
     "model/",
-    "modelv17d.glb",
+    "modelv18d.glb",
     scene,
     function (Meshes) {
         console.log("Meshes:",Meshes)
@@ -1711,6 +1712,10 @@ BABYLON.SceneLoader.ImportMesh(
             //     mesh.actionManeger = nullManager;
             // }
         });
+        console.log("modeldocument",document.getElementById("model"))
+        // window.onload = function () {
+          document.getElementById("model").appendChild(canvas);
+        // };
     });
 
 
