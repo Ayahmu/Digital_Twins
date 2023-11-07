@@ -102,9 +102,10 @@ let targetIndex = idToIndexMap1[targetID];
 console.log("10QM001", objectArray[targetIndex]);
 
 //创建引擎，第二个参数为抗锯齿
-// const engine = new BABYLON.Engine(canvas, true, { stencil: true });
-const engine = new BABYLON.WebGPUEngine(canvas );
-await engine.initAsync();
+const engine = new BABYLON.Engine(canvas, true, { stencil: true });
+// const engine = new BABYLON.WebGPUEngine(canvas );   //使用webgpu
+// await engine.initAsync();     
+
 
 axios.get('/json/config.json')
     .then((response)=>{
@@ -1716,6 +1717,9 @@ BABYLON.SceneLoader.ImportMesh(
         // window.onload = function () {
           document.getElementById("model").appendChild(canvas);
         // };
+        // engine.snapshotRenderingMode = BABYLON.Constants.SNAPSHOTRENDERING_STANDARD;
+        // engine.snapshotRendering = true;
+        // console.log("here")
     });
 
 
