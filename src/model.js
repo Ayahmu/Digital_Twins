@@ -102,7 +102,7 @@ let targetIndex = idToIndexMap1[targetID];
 console.log("10QM001", objectArray[targetIndex]);
 
 //创建引擎，第二个参数为抗锯齿
-const engine = new BABYLON.Engine(canvas, true, { stencil: true });
+const engine = new BABYLON.Engine(canvas, true, { stencil: true },false);
 // const engine = new BABYLON.WebGPUEngine(canvas );   //使用webgpu
 // await engine.initAsync();     
 
@@ -132,7 +132,7 @@ let hdrTexture = new BABYLON.HDRCubeTexture(
 scene.environmentTexture = hdrTexture;
 scene.createDefaultSkybox(hdrTexture, true);
 scene.environmentIntensity = 0.4;
-
+scene.debugLayer.show()
 let initTarget = new BABYLON.Vector3(
   -37.95875211948178,
   73.00066611807962,
@@ -231,7 +231,7 @@ actionManager.registerAction(
       switch (event.meshUnderPointer.id) {
         default:
           opendoor(event.meshUnderPointer, event.meshUnderPointer.id);
-          alphachange(event.meshUnderPointer, event.meshUnderPointer.id);
+          // alphachange(event.meshUnderPointer, event.meshUnderPointer.id);
           displayLabel(event);
           let pickInfo = scene.pick(scene.pointerX, scene.pointerY);
 
@@ -358,7 +358,10 @@ function removeLabel(arr) {
 }
 let clapboardbegin;
 function changematerial(meshes){
-
+    meshes.forEach(function(it){
+      // it.freezeWorldMatrix();
+      it.doNotSyncBoundingInfo = true;
+    })
     // 管道透明
     //氢气管道
     let pipe1=scene.getMeshById("Brep.044");
@@ -368,8 +371,12 @@ function changematerial(meshes){
     hydrogenmaterial.metallic=1 // 金属
     hydrogenmaterial.roughness=0.5 // 粗糙
     hydrogenmaterial.alpha=0.5;
+    
     pipe1.material = hydrogenmaterial;
     pipe2.material = hydrogenmaterial;
+    // pipe1.freezeWorldMatrix();
+    // pipe1.material.freeze();
+    // pipe2.material.freeze();
     //二氧化碳管道
     let pipe3=scene.getMeshById("Brep.049");
     let pipe4=scene.getMeshById("Brep.053");
@@ -408,31 +415,37 @@ function changematerial(meshes){
     pipe9.material = oilmaterial;
     pipe10.material = oilmaterial;
     pipe11.material = oilmaterial;
-    //获得隔板材质
+    //获得隔板
     let clapboard1=scene.getMeshById("Brep");
     let clapboard2=scene.getMeshById("Brep.091");
     let clapboard3=scene.getMeshById("Brep.092");
-    clapboardbegin=clapboard2.material;
-    let myclapboardMaterial=new BABYLON.PBRMaterial("myclapboardMaterial", scene);
-    myclapboardMaterial.albedoColor=new BABYLON.Color3.White(); // 反射颜色
-    myclapboardMaterial.diffuseColor=new BABYLON.Color3.White(); // 反射颜色
-    myclapboardMaterial.metallic=0.2 // 金属
-    myclapboardMaterial.roughness=0.8 // 粗糙
-    myclapboardMaterial.alpha=1;
-    clapboard1.material = myclapboardMaterial;
-    clapboard1.alpha = 1;
-    clapboard2.material = myclapboardMaterial;
-    clapboard2.alpha = 1;
-    clapboard3.material = myclapboardMaterial;
-    clapboard3.alpha = 1;
+    clapboard1.isVisible=false;
+    clapboard2.isVisible=false;
+    clapboard3.isVisible=false;
+    // clapboardbegin=clapboard2.material;
+    // let myclapboardMaterial=new BABYLON.PBRMaterial("myclapboardMaterial", scene);
+    // myclapboardMaterial.albedoColor=new BABYLON.Color3.White(); // 反射颜色
+    // myclapboardMaterial.diffuseColor=new BABYLON.Color3.White(); // 反射颜色
+    // myclapboardMaterial.metallic=0.2 // 金属
+    // myclapboardMaterial.roughness=0.8 // 粗糙
+    // myclapboardMaterial.alpha=1;
+    // clapboard1.material = myclapboardMaterial;
+    // clapboard1.alpha = 1;
+    // clapboard2.material = myclapboardMaterial;
+    // clapboard2.alpha = 1;
+    // clapboard3.material = myclapboardMaterial;
+    // clapboard3.alpha = 1;
     //发动机外壳
     let machine=scene.getMeshById("Mesh.5924");
+    // machine.unfreezeWorldMatrix();
     let mymachineMaterial=new BABYLON.PBRMaterial("mymachineMaterial", scene);
     mymachineMaterial.albedoColor=new BABYLON.Color3.White(); // 反射颜色
     mymachineMaterial.metallic=0.2 // 金属
     mymachineMaterial.roughness=0.8 // 粗糙
     mymachineMaterial.alpha=0.3;
+    mymachineMaterial.freeze();
     machine.material = mymachineMaterial;
+    // machine.freezeWorldMatrix();
     //给门设置旋转属性
     let door1=scene.getMeshById("Mesh.633");
     let door2=scene.getMeshById("Mesh.1898");
@@ -490,6 +503,7 @@ function changematerial(meshes){
     equipments.forEach(function(it){
         let meshid=it.ID;
         let mesh = scene.getMeshById(meshid);
+        // mesh.unfreezeWorldMatrix();
         if(mesh!=null){
           if(it.Info=="报警."){
             console.log("报警.",mesh);
@@ -521,6 +535,7 @@ function changematerial(meshes){
             mesh.material=equipmentsmaterial1;
           }
         }
+        // mesh.freezeWorldMatrix();
 
     })
 }
@@ -1147,29 +1162,29 @@ function opendoor(mesh, labelName) {
 
   // selectMesh.setPivotPoint(new BABYLON.Vector3(-6, 0, 0));
 }
-function alphachange(mesh,labelName){//楼板透明度改变
-    if((labelName==="Brep")||labelName==="Brep.091"||(labelName==="Brep.092")){
-        let myclapboardMaterial=new BABYLON.PBRMaterial("myclapboardMaterial", scene);
-        myclapboardMaterial.albedoColor=new BABYLON.Color3.White(); // 反射颜色
-        myclapboardMaterial.metallic=0.2 // 金属
-        myclapboardMaterial.roughness=0.8 // 粗糙
-        // if(mesh.isVisible===true){
-        if(mesh.alpha==1){
-            myclapboardMaterial.alpha=0;
-            mesh.material = myclapboardMaterial;
-            mesh.alpha=0;
-            // mesh.isVisible=false;
-        }
-        else{
-            myclapboardMaterial.alpha=1;
-            mesh.material = clapboardbegin;
-            mesh.alpha=1;
-            // mesh.isVisible=true
-        }
-        console.log("isVisible",mesh.isVisible)
+// function alphachange(mesh,labelName){//楼板透明度改变
+//     if((labelName==="Brep")||labelName==="Brep.091"||(labelName==="Brep.092")){
+//         let myclapboardMaterial=new BABYLON.PBRMaterial("myclapboardMaterial", scene);
+//         myclapboardMaterial.albedoColor=new BABYLON.Color3.White(); // 反射颜色
+//         myclapboardMaterial.metallic=0.2 // 金属
+//         myclapboardMaterial.roughness=0.8 // 粗糙
+//         // if(mesh.isVisible===true){
+//         if(mesh.alpha==1){
+//             myclapboardMaterial.alpha=0;
+//             mesh.material = myclapboardMaterial;
+//             mesh.alpha=0;
+//             // mesh.isVisible=false;
+//         }
+//         else{
+//             myclapboardMaterial.alpha=1;
+//             mesh.material = clapboardbegin;
+//             mesh.alpha=1;
+//             // mesh.isVisible=true
+//         }
+//         console.log("isVisible",mesh.isVisible)
 
-    }
-}
+//     }
+// }
 function flowProcess(ProcessName){
   if(ProcessName=="fillCO2"){
       uvflowing("Brep.093",1,2,0,"紫色")
@@ -1201,14 +1216,18 @@ function flowProcess(ProcessName){
       let OpenEquipments=["Mesh.3655","Mesh.3656","Mesh.3657","10QM018"];
       OpenEquipments.forEach(function(it){
         let mesh = scene.getMeshById(it);
-        mesh.material= equipmentsmaterialgreen_alpha
+        // mesh.unfreezeWorldMatrix();
+        mesh.material= equipmentsmaterialgreen_alpha;
+        // mesh.freezeWorldMatrix();
       })
       let Equipments_12=["Mesh.3791","10QN003"];
       Equipments_12.forEach(function(it){
         let mesh = scene.getMeshById(it);
-        mesh.material= equipmentsmaterialyellow
+        // mesh.unfreezeWorldMatrix();
+        mesh.material= equipmentsmaterialyellow;
+        // mesh.freezeWorldMatrix();
       })
-      //柜外管道流向改变
+      // 柜外管道流向改变
       particleSystem32.stop();//053_2
       particleSystem33.stop();
       particleSystem34.stop();
@@ -1218,7 +1237,7 @@ function flowProcess(ProcessName){
       particleSystem9.start();
       particleSystem10.start();
 
-      //管道变色(二氧化碳管道变氢气管道)
+      // 管道变色(二氧化碳管道变氢气管道)
       let pipe3=scene.getMeshById("Brep.053");
       let carbonmaterial= new BABYLON.PBRMaterial("carbonmaterial", scene); //创建pbr 二氧化碳管道材料
       carbonmaterial.albedoColor=new BABYLON.Color3.Purple(); // 反射颜色
@@ -1259,12 +1278,16 @@ function flowProcess(ProcessName){
     let OpenEquipments=["10QM401","10QM402","10QM403","10QM404"];
     OpenEquipments.forEach(function(it){
       let mesh = scene.getMeshById(it);
-      mesh.material= equipmentsmaterialgreen_alpha
+      // mesh.unfreezeWorldMatrix();
+      mesh.material= equipmentsmaterialgreen_alpha;
+      // mesh.freezeWorldMatrix();
     })
     let Equipments_13=["Mesh.3798","Mesh.3791","Mesh.3691","Mesh.4092","10QN003"];
     Equipments_13.forEach(function(it){
       let mesh = scene.getMeshById(it);
-      mesh.material= equipmentsmaterialgreen
+      // mesh.unfreezeWorldMatrix();
+      mesh.material= equipmentsmaterialgreen;
+      // mesh.freezeWorldMatrix();
     })
     //柜外管道流向改变
     particleSystem7.stop(); //Brep053
@@ -1662,7 +1685,10 @@ function uvflowing(meshid,direction,block,transfer=0,color){
   materialSphere3.diffuseTexture.uOffset = 1;//水平翻转百分比
   materialSphere3.diffuseTexture.vOffset = 1;//垂直翻转百分比
   tube.material=materialSphere3;
-  scene.onBeforeRenderObservable.add(() => {
+  setInterval(render(),3000)
+  // render();
+  function render(){
+    scene.onBeforeRenderObservable.add(() => {
 
       if(direction==2){
           materialSphere3.diffuseTexture.vOffset += -0.2;
@@ -1677,6 +1703,8 @@ function uvflowing(meshid,direction,block,transfer=0,color){
           materialSphere3.diffuseTexture.uOffset += 0.2;
     }
   })
+  }
+
 }
 
 BABYLON.SceneLoader.ImportMesh(
@@ -1894,13 +1922,14 @@ let light2 = new BABYLON.HemisphericLight(
 
 
 scene.registerBeforeRender(function () {
-  // setWarningPosition(warningModels);
-  //
-  // //计算帧率
-  // let fps = engine.getFps().toFixed();
-  //
+  setWarningPosition(warningModels);
+  
+  //计算帧率
+  let fps = engine.getFps().toFixed();
+  
   // let fpsDisplay = document.getElementById("fpsDisplay");
   // fpsDisplay.innerHTML = "FPS:" + fps;
+  console.log("fps",fps)
 });
 
 //渲染场景
@@ -1913,3 +1942,9 @@ engine.runRenderLoop(() => {
 window.addEventListener("resize", () => {
   engine.resize();
 });
+scene.clearCachedVertexData();
+scene.freezeActiveMeshes();
+scene.autoClear = false; // Color buffer
+scene.autoClearDepthAndStencil = false; // Depth and stencil, obviously
+scene.blockMaterialDirtyMechanism = true;//关键
+scene.getAnimationRatio();
