@@ -104,14 +104,14 @@ console.log("10QM001", objectArray[targetIndex]);
 //创建引擎，第二个参数为抗锯齿
 const engine = new BABYLON.Engine(canvas, true, { stencil: true },false);
 // const engine = new BABYLON.WebGPUEngine(canvas );   //使用webgpu
-// await engine.initAsync();     
+// await engine.initAsync();
 
 
 axios.get('/json/config.json')
     .then((response)=>{
         if(response.data.singleLight){
-            light1.intensity = 0.6;
-            light2.intensity = 0.6;
+            light1.intensity = 1.5;
+            light2.intensity = 1.5;
         }else{
             light1.intensity = 0;
             light2.intensity = 0;
@@ -156,6 +156,7 @@ const camera = new BABYLON.ArcRotateCamera(
 // 设置相机的灵敏度
 camera.panningSensibility = camera_config.camera_panningSensibility; // 增加平移灵敏度
 camera.wheelPrecision = 1 / camera_config.camera_wheelPrecision;
+camera.wheelDeltaPercentage = 0.02;
 camera.inertia = 0; //设置为0以禁用移动和旋转的惯性
 camera.panningInertia = 0;
 
@@ -190,9 +191,14 @@ actionManager.registerAction(
       switch (event.meshUnderPointer.id) {
         default:
           removeLabel(rmLabelBuild);
-          highLight(event.meshUnderPointer, event.meshUnderPointer.id);
+          if(event.meshUnderPointer.id === 'Mesh.633' || event.meshUnderPointer.id === 'Mesh.1898' || event.meshUnderPointer.id === 'Mesh.2971'){
+              if(camera.position.z < 60){
+                  highLight(event.meshUnderPointer, event.meshUnderPointer.id);
+              }
+          }else {
+              highLight(event.meshUnderPointer, event.meshUnderPointer.id);
+          }
           console.log(event.meshUnderPointer.id);
-          // createLabel(event);
           break;
       }
     }
@@ -335,13 +341,13 @@ targetPosCamera = new BABYLON.Vector3(-100, -100, -100);
 targetPosMesh = new BABYLON.Vector3(-100, -105, -100);
 
 export function resetCamera() {
-  camera.rotation = new BABYLON.Vector3(0, 0, 0);
+    camera.rotation = new BABYLON.Vector3(0, 0, 0);
 
-  camera.position = initPos;
-  camera.setTarget(initTarget);
-  camera.inertia = 0; //设置为0以禁用移动和旋转的惯性
+    camera.position = initPos;
+    camera.setTarget(initTarget);
+    camera.inertia = 0; //设置为0以禁用移动和旋转的惯性
 
-  console.log("Camera reset");
+    console.log("Camera reset");
 }
 
 function removeLabel(arr) {
@@ -371,7 +377,7 @@ function changematerial(meshes){
     hydrogenmaterial.metallic=1 // 金属
     hydrogenmaterial.roughness=0.5 // 粗糙
     hydrogenmaterial.alpha=0.5;
-    
+
     pipe1.material = hydrogenmaterial;
     pipe2.material = hydrogenmaterial;
     // pipe1.freezeWorldMatrix();
@@ -1923,12 +1929,12 @@ let light2 = new BABYLON.HemisphericLight(
 
 scene.registerBeforeRender(function () {
   setWarningPosition(warningModels);
-  
+
   //计算帧率
   let fps = engine.getFps().toFixed();
-  
-  // let fpsDisplay = document.getElementById("fpsDisplay");
-  // fpsDisplay.innerHTML = "FPS:" + fps;
+
+  let fpsDisplay = document.getElementById("fpsDisplay");
+  fpsDisplay.innerHTML = "FPS:" + fps;
   // console.log("fps",fps)
 });
 
@@ -1940,7 +1946,9 @@ engine.runRenderLoop(() => {
 
 //监听窗口大小改变
 window.addEventListener("resize", () => {
-  engine.resize();
+    engine.resize();
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 });
 scene.clearCachedVertexData();
 scene.freezeActiveMeshes();
