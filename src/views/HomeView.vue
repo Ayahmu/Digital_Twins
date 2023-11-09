@@ -11,7 +11,7 @@
         z-index: 3;
       "
     />
-
+    <div id="fpsDisplay" style="z-index: 2"></div>
     <div
       id="model"
       style="position: absolute; width: 100%; height: 100%; z-index: 2"
@@ -242,7 +242,7 @@
             background-color: rgba(0, 0, 0, 0.22);
             border-radius: 1vw;
           "
-      
+
           ><WarnInfo></WarnInfo
         ></dv-border-box-12>
 
@@ -475,7 +475,7 @@ export default {
       //
       //
     },
-    
+
   },
 
   components: {
