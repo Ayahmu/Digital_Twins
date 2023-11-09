@@ -474,32 +474,32 @@ function changematerial(meshes){
     equipmentsmaterialgreen.albedoColor=new BABYLON.Color3.Green(); // 反射颜色
     equipmentsmaterialgreen.metallic=1 // 金属
     equipmentsmaterialgreen.roughness=0.5 // 粗糙
-    equipmentsmaterialgreen.alpha=0.5;
+    equipmentsmaterialgreen.alpha=0.8;
     let equipmentsmaterialblack=new BABYLON.PBRMaterial("equipmentsmaterialblack", scene); //创建pbr 黑色设备管道材料
     equipmentsmaterialblack.albedoColor=new BABYLON.Color3.Black(); // 反射颜色
     equipmentsmaterialblack.metallic=1 // 金属
     equipmentsmaterialblack.roughness=0.5 // 粗糙
-    equipmentsmaterialblack.alpha=0.5;
+    equipmentsmaterialblack.alpha=0.8;
     let equipmentsmaterialyellow=new BABYLON.PBRMaterial("equipmentsmaterialyellow", scene); //创建pbr 黄色设备管道材料
     equipmentsmaterialyellow.albedoColor=new BABYLON.Color3.Yellow(); // 反射颜色
     equipmentsmaterialyellow.metallic=1 // 金属
     equipmentsmaterialyellow.roughness=0.5 // 粗糙
-    equipmentsmaterialyellow.alpha=0.5;
+    equipmentsmaterialyellow.alpha=0.8;
     let equipmentsmaterialblue1=new BABYLON.PBRMaterial("equipmentsmaterialblue1", scene); //创建pbr 蓝色设备管道材料浅色
     equipmentsmaterialblue1.albedoColor=new BABYLON.Color4(0.13, 0.63, 0.99); // 反射颜色
     equipmentsmaterialblue1.metallic=1 // 金属
     equipmentsmaterialblue1.roughness=0.5 // 粗糙
-    equipmentsmaterialblue1.alpha=0.5;
+    equipmentsmaterialblue1.alpha=0.8;
     let equipmentsmaterialblue2=new BABYLON.PBRMaterial("equipmentsmaterialblue2", scene); //创建pbr 蓝色设备管道材料深色
     equipmentsmaterialblue2.albedoColor=new BABYLON.Color4(0.11, 0.19, 0.89); // 反射颜色
     equipmentsmaterialblue2.metallic=1 // 金属
     equipmentsmaterialblue2.roughness=0.5 // 粗糙
-    equipmentsmaterialblue2.alpha=0.5;
-    let equipmentsmaterialbrown=new BABYLON.PBRMaterial("equipmentsmaterialbrown", scene); //创建pbr 蓝色设备管道材料深色
+    equipmentsmaterialblue2.alpha=0.8;
+    let equipmentsmaterialbrown=new BABYLON.PBRMaterial("equipmentsmaterialbrown", scene); //创建pbr 棕色设备管道材料
     equipmentsmaterialbrown.albedoColor=new BABYLON.Color4(1, 0.5, 0, 0.68); // 反射颜色
     equipmentsmaterialbrown.metallic=1 // 金属
     equipmentsmaterialbrown.roughness=0.5 // 粗糙
-    equipmentsmaterialbrown.alpha=0.5;
+    equipmentsmaterialbrown.alpha=0.7;
     equipments.forEach(function(it){
         let meshid=it.ID;
         let mesh = scene.getMeshById(meshid);
@@ -1710,7 +1710,7 @@ function uvflowing(meshid,direction,block,transfer=0,color){
 BABYLON.SceneLoader.ImportMesh(
     "",
     "model/",
-    "modelv18d.glb",
+    "modelv20d.glb",
     scene,
     function (Meshes) {
         console.log("Meshes:",Meshes)
@@ -1929,7 +1929,7 @@ scene.registerBeforeRender(function () {
   
   // let fpsDisplay = document.getElementById("fpsDisplay");
   // fpsDisplay.innerHTML = "FPS:" + fps;
-  console.log("fps",fps)
+  // console.log("fps",fps)
 });
 
 //渲染场景
