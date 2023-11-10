@@ -465,7 +465,7 @@ function changematerial(meshes){
     equipmentsmaterial1.albedoColor=new BABYLON.Color3.White(); // 反射颜色
     equipmentsmaterial1.metallic=1 // 金属
     equipmentsmaterial1.roughness=0.5 // 粗糙
-    equipmentsmaterial1.alpha=0.6;
+    equipmentsmaterial1.alpha=0.8;
     let equipmentsmaterial2=new BABYLON.PBRMaterial("equipmentsmaterial2", scene); //创建pbr 设备管道材料
     equipmentsmaterial2.albedoColor=new BABYLON.Color3.White(); // 反射颜色
     equipmentsmaterial2.metallic=1 // 金属
@@ -630,7 +630,8 @@ function moveparticle(track, mesh, x, y, z, time) {
     });
   }, time);
 }
-//发射器们：
+function moveparticlemesh(){
+  //发射器们：
 let sphere = BABYLON.MeshBuilder.CreateSphere(
   "sphere",
   { diameter: 0.01, segments: 8 },
@@ -1115,6 +1116,7 @@ makeparticle(
   new BABYLON.Color4(0.81, 0.85, 0.44)
 );
 moveparticle(track00552, sphere00552cl3, -104.267, 142.802, -48.2834, 18000);
+}
 
 function particlestart() {
   particleSystem1.start(); //Brep044
@@ -1234,14 +1236,14 @@ function flowProcess(ProcessName){
         // mesh.freezeWorldMatrix();
       })
       // 柜外管道流向改变
-      particleSystem32.stop();//053_2
-      particleSystem33.stop();
-      particleSystem34.stop();
-      particleSystem35.stop();
-      particleSystem7.start(); //Brep053
-      particleSystem8.start();
-      particleSystem9.start();
-      particleSystem10.start();
+      // particleSystem32.stop();//053_2
+      // particleSystem33.stop();
+      // particleSystem34.stop();
+      // particleSystem35.stop();
+      // particleSystem7.start(); //Brep053
+      // particleSystem8.start();
+      // particleSystem9.start();
+      // particleSystem10.start();
 
       // 管道变色(二氧化碳管道变氢气管道)
       let pipe3=scene.getMeshById("Brep.053");
@@ -1296,14 +1298,14 @@ function flowProcess(ProcessName){
       // mesh.freezeWorldMatrix();
     })
     //柜外管道流向改变
-    particleSystem7.stop(); //Brep053
-    particleSystem8.stop();
-    particleSystem9.stop();
-    particleSystem10.stop();
-    particleSystem32.start();//053_2
-    particleSystem33.start();
-    particleSystem34.start();
-    particleSystem35.start();
+    // particleSystem7.stop(); //Brep053
+    // particleSystem8.stop();
+    // particleSystem9.stop();
+    // particleSystem10.stop();
+    // particleSystem32.start();//053_2
+    // particleSystem33.start();
+    // particleSystem34.start();
+    // particleSystem35.start();
     //管道变色(二氧化碳管道变氢气管道)
     let pipe1=scene.getMeshById("Brep.053");
     let hydrogenmaterial = new BABYLON.PBRMaterial("hydrogenmaterial", scene); //创建pbr 氢气管道材料
@@ -1368,10 +1370,10 @@ function flowProcess(ProcessName){
       mesh.material= equipmentsmaterialyellow
     })
     //柜外管道流动重新启动
-    particleSystem7.start(); //Brep053
-    particleSystem8.start();
-    particleSystem9.start();
-    particleSystem10.start();
+    // particleSystem7.start(); //Brep053
+    // particleSystem8.start();
+    // particleSystem9.start();
+    // particleSystem10.start();
   }
   if(ProcessName=="fillH2fromConfluence"){
     uvflowing("Brep.151",1,1,0,"绿色")
@@ -1429,10 +1431,10 @@ function flowProcess(ProcessName){
       mesh.material= equipmentsmaterialyellow
     })
     //柜外管道流动重新启动
-    particleSystem7.start(); //Brep053
-    particleSystem8.start();
-    particleSystem9.start();
-    particleSystem10.start();
+    // particleSystem7.start(); //Brep053
+    // particleSystem8.start();
+    // particleSystem9.start();
+    // particleSystem10.start();
   }
   if(ProcessName=="operationNormally"){
     //阀门变色部分
@@ -1674,6 +1676,99 @@ function flowProcess(ProcessName){
       mesh.material= equipmentsmaterialgreen_alpha
     })
   }
+  if(ProcessName=="outsideH2_1"){
+    uvflowing("Brep.041",1,1,0,"绿色")
+    uvflowing("Brep.042",3,1,1,"绿色")
+    uvflowing("Brep.072",1,2,0,"绿色")
+    uvflowing("Brep.044",1,4,0,"绿色")
+    uvflowing("Brep.073",1,1,0,"绿色")
+    uvflowing("Brep.074",1,1,0,"绿色")
+}
+if(ProcessName=="outsideH2_2"){
+    uvflowing("Brep.058",2,1,0,"绿色")
+    uvflowing("Brep.057",2,2,0,"绿色")
+    uvflowing("Brep.019",2,3,0,"绿色")
+    uvflowing("Brep.054",2,2,0,"绿色")
+    uvflowing("Brep.020",2,1,0,"绿色")
+}
+if(ProcessName=="outsideH2_3"){
+    uvflowing("Brep.045",1,1,0,"绿色")
+    uvflowing("Brep.039",3,1,1,"绿色")
+    uvflowing("Brep.021",1,1,0,"绿色")
+    uvflowing("Brep.038",4,1,1,"绿色")
+    uvflowing("Brep.049",1,1,0,"绿色")
+    uvflowing("Brep.023",3,1,1,"绿色")
+    uvflowing("Brep.052",1,1.2,0,"绿色")
+    uvflowing("Brep.051",1,1,0,"绿色")
+}
+if(ProcessName=="outsideCO2_1"){
+    uvflowing("Brep.009",2,1,0,"紫色")
+    uvflowing("Brep.018",2,2.5,0,"紫色")
+    uvflowing("Brep.064",2,1,0,"紫色")
+    uvflowing("Brep.063",4,1,1,"紫色")
+    uvflowing("Brep.062",2,5,0,"紫色")
+    uvflowing("Brep.061",2,3,0,"紫色")
+    uvflowing("Brep.060",2,1,0,"紫色")
+    uvflowing("Brep.059",2,1,0,"紫色")
+}
+if(ProcessName=="outsideCO2_2"){
+    uvflowing("Brep.070",1,1,0,"紫色")
+    uvflowing("Brep.001",2,1,0,"紫色")
+    uvflowing("Brep.071",2,1,0,"紫色")
+    uvflowing("Brep.008",1,3,0,"紫色")
+    uvflowing("Brep.005",2,1,0,"紫色")
+}
+if(ProcessName=="outsidewater_1"){
+  uvflowing("Brep.089",1,5,0,"蓝色")
+  uvflowing("Brep.086",2,4,0,"蓝色")
+  uvflowing("Brep.088",2,3,0,"蓝色")
+  uvflowing("Brep.087",2,1,0,"蓝色")
+}
+if(ProcessName=="outsidewater_2"){
+  uvflowing("Brep.124",1,1,0,"蓝色")
+  uvflowing("Brep.108",1,3,0,"蓝色")
+  uvflowing("Brep.107",2,1.7,0,"蓝色")
+  uvflowing("Brep.090",2,2,0,"蓝色")
+  uvflowing("Brep.349",2,4,0,"蓝色")
+}
+if(ProcessName=="outsideoil_1"){
+  uvflowing("Brep.366",1,1,0,"黄色")
+  uvflowing("Brep.368",1,2,0,"黄色")
+  uvflowing("Brep.365",1,1,0,"黄色")
+  uvflowing("Brep.367",1,2,0,"黄色")
+  uvflowing("Brep.350",2,6,0,"黄色")
+  uvflowing("Brep.360",2,2.3,0,"黄色")
+  uvflowing("Brep.361",2,6,0,"黄色")
+  uvflowing("Brep.362",4,1,1,"黄色")
+  uvflowing("Brep.363",2,2,0,"黄色")
+  uvflowing("Brep.364",2,1,0,"黄色")
+}
+if(ProcessName=="outsideoil_2"){
+  uvflowing("Brep.354",2,1,0,"黄色")
+  uvflowing("Brep.355",2,2,0,"黄色")
+  uvflowing("Brep.356",2,2,0,"黄色")
+  uvflowing("Brep.357",2,5,0,"黄色")
+  uvflowing("Brep.358",2,1,0,"黄色")
+  uvflowing("Brep.359",2,1,0,"黄色")
+  uvflowing("Brep.351",2,1,0,"黄色")
+  uvflowing("Brep.352",2,1,0,"黄色")
+  uvflowing("Brep.353",2,1,0,"黄色")
+}
+if(ProcessName=="outsideoil_3"){
+  uvflowing("Brep.079",2,1,0,"黄色")
+  uvflowing("Brep.080",2,3,0,"黄色")
+  uvflowing("Brep.084",2,1,0,"黄色")
+  uvflowing("Brep.082",2,1.3,0,"黄色")
+  uvflowing("Brep.083",2,1.8,0,"黄色")
+  uvflowing("Brep.085",2,1.3,0,"黄色")
+  uvflowing("Brep.081",2,1,0,"黄色")
+}
+if(ProcessName=="outsideoil_4"){
+  uvflowing("Brep.076",1,1.5,0,"黄色")
+  uvflowing("Brep.075",1,1,0,"黄色")
+  uvflowing("Brep.077",2,1.5,0,"黄色")
+  uvflowing("Brep.078",2,3,0,"黄色")
+}
 }
 function uvflowing(meshid,direction,block,transfer=0,color){
   let tube = scene.getMeshById(meshid);
@@ -1691,22 +1786,22 @@ function uvflowing(meshid,direction,block,transfer=0,color){
   materialSphere3.diffuseTexture.uOffset = 1;//水平翻转百分比
   materialSphere3.diffuseTexture.vOffset = 1;//垂直翻转百分比
   tube.material=materialSphere3;
-  setInterval(render(),3000)
-  // render();
+  // setInterval(render(),3000)
+  render();
   function render(){
     scene.onBeforeRenderObservable.add(() => {
 
       if(direction==2){
-          materialSphere3.diffuseTexture.vOffset += -0.2;
+          materialSphere3.diffuseTexture.vOffset += -0.05;
       }
       else if(direction==1){
-          materialSphere3.diffuseTexture.vOffset += 0.2;
+          materialSphere3.diffuseTexture.vOffset += 0.05;
       }
       else if(direction==3){
-          materialSphere3.diffuseTexture.uOffset += -0.2;
+          materialSphere3.diffuseTexture.uOffset += -0.05;
       }
       else if(direction==4){
-          materialSphere3.diffuseTexture.uOffset += 0.2;
+          materialSphere3.diffuseTexture.uOffset += 0.05;
     }
   })
   }
@@ -1721,13 +1816,24 @@ BABYLON.SceneLoader.ImportMesh(
     function (Meshes) {
         console.log("Meshes:",Meshes)
         changematerial(Meshes);
-        particlestart();
+        // particlestart();
         flowProcess("fillCO2");
         // flowProcess("exhaustH2");
         // flowProcess("fillH2fromPowerPlant");
         flowProcess("fillH2fromConfluence");
         flowProcess("purificationH2");
         flowProcess("makeH2");
+        flowProcess("outsideH2_1")
+        flowProcess("outsideH2_2")
+        flowProcess("outsideH2_3")
+        flowProcess("outsideCO2_1")
+        flowProcess("outsideCO2_2")
+        flowProcess("outsidewater_1")
+        flowProcess("outsidewater_2")
+        flowProcess("outsideoil_1")
+        flowProcess("outsideoil_2")
+        flowProcess("outsideoil_3")
+        flowProcess("outsideoil_4")
         // flowProcess("operationNormally")
         let importedMesh = Meshes[0];
         // console.log(Meshes);
@@ -1932,10 +2038,10 @@ scene.registerBeforeRender(function () {
 
   //计算帧率
   let fps = engine.getFps().toFixed();
-
-  let fpsDisplay = document.getElementById("fpsDisplay");
-  fpsDisplay.innerHTML = "FPS:" + fps;
-  // console.log("fps",fps)
+  
+  // let fpsDisplay = document.getElementById("fpsDisplay");
+  // fpsDisplay.innerHTML = "FPS:" + fps;
+  console.log("fps",fps)
 });
 
 //渲染场景
