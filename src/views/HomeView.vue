@@ -127,6 +127,7 @@
             left: 0;
             background-color: rgba(0, 0, 0, 0.22);
             border-radius: 1vw;
+            margin-bottom: 1.5vw;
           "
         >
           <div class="three">
@@ -160,6 +161,7 @@
             height: 12.09068vw;
             left: 0;
             background-color: rgba(0, 0, 0, 0.22);
+            margin-bottom:1.5vw
             border-radius: 1vw;
           "
           ><HealthState></HealthState>
@@ -226,12 +228,19 @@
             height: 15.0629vw;
             background-color: rgba(0, 0, 0, 0.22);
             border-radius: 1vw;
+            margin-bottom: 1.5vw;
           "
-        >
-          <dv-scroll-board
+          ><dv-scroll-board
             class="place"
             :config="status"
-            style="width: 97%; height: 95%; top: 8px"
+            ref="scrollBoard"
+            style="
+              width: 97%;
+              height: 95%;
+              top: 8px;
+              z-index: 77;
+              position: absolute;
+            "
             @click="chooseModule"
           />
         </dv-border-box-12>
@@ -240,9 +249,9 @@
             width: 100%;
             height: 6.19647vw;
             background-color: rgba(0, 0, 0, 0.22);
+            margin-bottom: 1.5vw;
             border-radius: 1vw;
           "
-
           ><WarnInfo></WarnInfo
         ></dv-border-box-12>
 
@@ -291,7 +300,6 @@
               width: 100%;
               height: 85%;
               background-color: rgba(0, 0, 0, 0.22);
-              border-radius: 1vw;
             "
             ><CostPie></CostPie
           ></dv-border-box-12>
@@ -357,7 +365,6 @@
 import * as model from "../model.js";
 import * as connect from "../connect";
 
-import { ref } from "vue";
 import UnitPanel from "../components/UnitPanel.vue";
 import SystemPanel from "../components/SyetemPanel.vue";
 import UnitPower from "../components/UnitPower.vue";
@@ -367,7 +374,6 @@ import LineChart from "../components/LineChart.vue";
 import CostPie from "../components/CostPie.vue";
 import TimeCompare from "../components/TimeCompare.vue";
 import HealthState from "../components/HealthState.vue";
-
 import PageGather from "@/components/PageGather.vue";
 import WarnInfo from "@/components/WarnInfo.vue";
 import SearchItem from "@/components/SearchItem.vue";
@@ -376,17 +382,18 @@ export default {
   name: "HomeView",
   data() {
     return {
-    showPopup: false,
+      showPopup: false,
       currentDateTime: "",
       status: {
         headerBGC: "#3472bb",
         oddRowBGC: "transparent",
         evenRowBGC: "rgba(122, 202, 236,0.3)",
-        columnWidth: [133, 255, 91],
+        columnWidth: [153, 255, 71],
         align: ["center", "center", "center"],
         header: ["编号", "设备名称", "状态"],
         row: "",
         rowNum: 4,
+        waitTime: 5000,
         data: [
           [
             "<span style='color: #00ffff;font-size:18px;'>Mesh.2971</span>",
@@ -440,6 +447,44 @@ export default {
           ],
         ],
       },
+      searchList: [
+        { ID: "Mesh.2971", Name: "气体控制柜门", State: "正常" },
+        { ID: "Mesh.1898", Name: "净化单元柜门", State: "正常" },
+        { ID: "Mesh.633", Name: "制氢单元柜门", State: "正常" },
+        { ID: "10QM018", Name: "电磁阀", State: "正常" },
+        { ID: "10QM023", Name: "电磁阀", State: "正常" },
+        { ID: "10QM028", Name: "电磁阀", State: "正常" },
+        { ID: "10QM401", Name: "电磁阀", State: "正常" },
+        { ID: "10QM402", Name: "电磁阀", State: "正常" },
+        { ID: "10QM403", Name: "电磁阀", State: "正常" },
+        { ID: "10QM404", Name: "电磁阀", State: "正常" },
+        { ID: "10QM614", Name: "电磁阀", State: "正常" },
+        { ID: "10QM615", Name: "电磁阀", State: "正常" },
+        { ID: "10QM616", Name: "电磁阀", State: "正常" },
+        { ID: "30QM109", Name: "电磁阀", State: "正常" },
+        { ID: "Mesh.3655", Name: "气动球阀", State: "正常" },
+        { ID: "Mesh.4092", Name: "气动球阀", State: "正常" },
+        { ID: "10QN001-5", Name: "气动球阀", State: "正常" },
+        { ID: "10QM001", Name: "氢站进氢门", State: "正常" },
+        { ID: "10QM003", Name: "进空自动门", State: "正常" },
+        { ID: "10QN003", Name: "气动球阀", State: "正常" },
+        { ID: "10QM015", Name: "气动球阀", State: "正常" },
+        { ID: "Mesh.2449", Name: "气动球阀", State: "正常" },
+        { ID: "Mesh.2437", Name: "气动球阀", State: "正常" },
+        { ID: "Mesh.2427", Name: "气动球阀", State: "正常" },
+        { ID: "Mesh.2415", Name: "气动球阀", State: "正常" },
+        { ID: "Mesh.2383", Name: "气动球阀", State: "正常" },
+        { ID: "Mesh.2398", Name: "气动球阀", State: "正常" },
+        { ID: "Mesh.1788", Name: "气动球阀", State: "正常" },
+        { ID: "Mesh.2394", Name: "气动球阀", State: "正常" },
+        { ID: "Mesh.1151", Name: "气动球阀", State: "正常" },
+        { ID: "Mesh.3694", Name: "气动球阀", State: "正常" },
+      ],
+      nameList: [],
+      idList: [],
+
+      displayList: [],
+      formatList: [],
     };
   },
 
@@ -448,7 +493,14 @@ export default {
     this.updateDateTime(); // 初始化时立即更新日期时间
     setInterval(this.updateDateTime, 1000); // 每秒更新日期时间
   },
-
+  created() {
+    this.$bus.$on("fn", this.handleFormEvent);
+    this.$bus.$on("reset", this.doReset);
+  },
+  beforeDestroy() {
+    this.$bus.$off("fn", this.handleFormEvent);
+    this.$bus.$off("reset", this.doReset);
+  },
   methods: {
     updateDateTime() {
       const now = new Date();
@@ -466,6 +518,103 @@ export default {
     sendMessage() {
       connect.sendMessage();
     },
+
+    // 模糊搜索备选框由轮播表代替, 不影响原本轮播表的点击事件
+    //后续可以使用json配置数据库中的设备信息,此处只使用固定设备信息进行示例
+    FormEvent(bus_id) {
+      const regex = new RegExp(bus_id, "i");
+      // 'i'表示忽略大小写
+      this.nameList = this.searchList.filter((item) => item.Name.match(regex));
+      this.idList = this.searchList.filter((item) => item.ID.match(regex));
+      //两种方式筛选,通过结果长度判断使用的搜索方法
+      this.displayList =
+        this.idList.length > this.nameList.length ? this.idList : this.nameList;
+      this.formatList = this.displayList.map((item) => [
+        `<span style='color: #00ffff;font-size:18px;'>${item.ID}</span>`,
+        `<span style='color: #00ffff;font-size:18px;'>${item.Name}</span>`,
+        `<span style='color: #00ffff;font-size:18px;'>${item.State}</span>`,
+      ]);
+      this.status = {
+        headerBGC: "#3472bb",
+        oddRowBGC: "transparent",
+        evenRowBGC: "rgba(122, 202, 236,0.3)",
+        columnWidth: [153, 255, 71],
+        align: ["center", "center", "center"],
+        header: ["编号", "设备名称", "状态"],
+        row: "",
+        rowNum: 4,
+        waitTime: 5000,
+        data: this.formatList,
+      };
+    },
+    doReset(reset) {
+      if (reset == 1) {
+        this.status = {
+          headerBGC: "#3472bb",
+          oddRowBGC: "transparent",
+          evenRowBGC: "rgba(122, 202, 236,0.3)",
+          columnWidth: [153, 255, 71],
+          align: ["center", "center", "center"],
+          header: ["编号", "设备名称", "状态"],
+          row: "",
+          rowNum: 4,
+          waitTime: 5000,
+          data: [
+            [
+              "<span style='color: #00ffff;font-size:18px;'>Mesh.2971</span>",
+              "<span style='color: #00ffff;font-size:18px;'>气体控制柜门</span>",
+              "<span style='color: #00ffff;font-size:18px;'>正常</span>",
+            ],
+            [
+              "<span style='color: #00ffff;font-size:18px;'>10QM023</span>",
+              "<span style='color: #00ffff;font-size:18px;'>电磁阀</span>",
+              "<span style='color: #00ffff;font-size:18px;'>正常</span>",
+            ],
+            [
+              "<span style='color: #00ffff;font-size:18px;'>10QM009</span>",
+              "<span style='color: #00ffff;font-size:18px;'>气动球阀</span>",
+              "<span style='color: #00ffff;font-size:18px;'>正常</span>",
+            ],
+            [
+              "<span style='color: #00ffff;font-size:18px;'>20QM410</span>",
+              "<span style='color: #00ffff;font-size:18px;'>氢气阻火器</span>",
+              "<span style='color: #00ffff;font-size:18px;'>正常</span>",
+            ],
+            [
+              "<span style='color: #00ffff;font-size:18px;'>20QM028</span>",
+              "<span style='color: #00ffff;font-size:18px;'>阻断阀</span>",
+              "<span style='color: #00ffff;font-size:18px;'>正常</span>",
+            ],
+            [
+              "<span style='color: #00ffff;font-size:18px;'>10BP102</span>",
+              "<span style='color: #00ffff;font-size:18px;'>压力变送器</span>",
+              "<span style='color: #00ffff;font-size:18px;'>正常</span>",
+            ],
+            [
+              "<span style='color: #00ffff;font-size:18px;'>10KF102</span>",
+              "<span style='color: #00ffff;font-size:18px;'>氢气分析仪</span>",
+              "<span style='color: #00ffff;font-size:18px;'>正常</span>",
+            ],
+            [
+              "<span style='color: #00ffff;font-size:18px;'>30BL001</span>",
+              "<span style='color: #00ffff;font-size:18px;'>浮球液位计</span>",
+              "<span style='color: #00ffff;font-size:18px;'>正常</span>",
+            ],
+            [
+              "<span style='color: #00ffff;font-size:18px;'>30PG101</span>",
+              "<span style='color: #00ffff;font-size:18px;'>压力表</span>",
+              "<span style='color: #00ffff;font-size:18px;'>正常</span>",
+            ],
+            [
+              "<span style='color: #00ffff;font-size:18px;'>10BF503</span>",
+              "<span style='color: #00ffff;font-size:18px;'>常压流量计</span>",
+              "<span style='color: #00ffff;font-size:18px;'>正常</span>",
+            ],
+          ],
+        };
+      }
+    },
+
     chooseModule(module) {
       console.log(module.row);
       alert("暂无详细设备信息");
@@ -475,7 +624,6 @@ export default {
       //
       //
     },
-
   },
 
   components: {

@@ -3,7 +3,8 @@
     <div class="box">电解水制氢成本占比</div>
     <dv-active-ring-chart
       :config="config"
-      style="width: 14.5944vw; height: 14.5944vw; transform: translate(0.0957vw, 0.5vw)"
+      style="width: 11.5944vw; height: 13.5944vw;  border-radius: 1vw; transform: scale(1, 1.25) translate(0.0957vw, 2vw);
+          transform-origin: bottom;"
     />
     <div class="pie" ref="pie" style="width: 12.1414vw; height: 19.3513vw"></div>
   </div>
@@ -17,10 +18,10 @@ export default {
       config: {
         // digitalFlopStyle: {
  digitalFlopStyle: {
-  fontSize: 18,
+  fontSize: 16,
   fill: '#fff'
 },
-        lineWidth:25,
+        lineWidth:20,
         activeTimeGap: 6000,
         data: [
           {

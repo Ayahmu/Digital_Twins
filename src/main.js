@@ -20,6 +20,7 @@ Vue.prototype.$bus = new Vue();
 Vue.component("TableBlock", TableBlock);
 Vue.component("PageGather", PageGather);
 
+
 new Vue({
   router,
   store,

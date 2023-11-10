@@ -2041,7 +2041,7 @@ scene.registerBeforeRender(function () {
   
   // let fpsDisplay = document.getElementById("fpsDisplay");
   // fpsDisplay.innerHTML = "FPS:" + fps;
-  console.log("fps",fps)
+  // console.log("fps",fps)
 });
 
 //渲染场景

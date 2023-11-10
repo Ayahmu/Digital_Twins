@@ -24,6 +24,7 @@
 </template>
 <script>
 import {searchModel} from "@/model";
+import { provide } from 'vue';
 export default {
   data() {
     return {
@@ -38,12 +39,15 @@ export default {
       },
     };
   },
+  
   methods: {
     submitForm(formName) {
      
       this.$refs[formName].validate((valid) => {
         if (valid) {
-         searchModel(this.formInline.id);
+          this.$bus.$emit("fn", this.formInline.id);
+          //这里只传名字或编号给轮播图,后续点击旋转事件都放在轮播图的位置
+        //  searchModel(this.formInline.id);
         } else {
           console.log("error submit!!");
           return false;
@@ -52,6 +56,7 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+      this.$bus.$emit("reset", 1);
     },
   },
 };
