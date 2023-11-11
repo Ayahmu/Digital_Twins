@@ -132,7 +132,7 @@ let hdrTexture = new BABYLON.HDRCubeTexture(
 scene.environmentTexture = hdrTexture;
 scene.createDefaultSkybox(hdrTexture, true);
 scene.environmentIntensity = 0.4;
-scene.debugLayer.show()
+// scene.debugLayer.show()
 let initTarget = new BABYLON.Vector3(
   -37.95875211948178,
   73.00066611807962,
@@ -363,11 +363,106 @@ function removeLabel(arr) {
   rmLabelBuild = [];
 }
 let clapboardbegin;
-function changematerial(meshes){
-    meshes.forEach(function(it){
-      // it.freezeWorldMatrix();
-      it.doNotSyncBoundingInfo = true;
+function changematerial1(){//柜内材料
+    //给门设置旋转属性
+    let door1=scene.getMeshById("Mesh.633");
+    let door2=scene.getMeshById("Mesh.1898");
+    let door3=scene.getMeshById("Mesh.2971");
+    // door1.material=myclapboardMaterial
+    door1.ifopen=0;
+    door2.ifopen=0;
+    door3.ifopen=0;
+    //柜体内设备透明
+    let equipmentsmaterial1=new BABYLON.PBRMaterial("equipmentsmaterial", scene); //创建pbr 设备管道材料
+    equipmentsmaterial1.albedoColor=new BABYLON.Color3.White(); // 反射颜色
+    equipmentsmaterial1.metallic=1 // 金属
+    equipmentsmaterial1.roughness=0.5 // 粗糙
+    equipmentsmaterial1.alpha=0.8;
+    let equipmentsmaterial2=new BABYLON.PBRMaterial("equipmentsmaterial2", scene); //创建pbr 设备管道材料
+    equipmentsmaterial2.albedoColor=new BABYLON.Color3.White(); // 反射颜色
+    equipmentsmaterial2.metallic=1 // 金属
+    equipmentsmaterial2.roughness=0.5 // 粗糙
+    equipmentsmaterial2.alpha=0.9;
+    let equipmentsmaterialred=new BABYLON.PBRMaterial("equipmentsmaterialred", scene); //创建pbr 红色设备管道材料
+    equipmentsmaterialred.albedoColor=new BABYLON.Color3.Red(); // 反射颜色
+    equipmentsmaterialred.metallic=1 // 金属
+    equipmentsmaterialred.roughness=0.5 // 粗糙
+    equipmentsmaterialred.alpha=0.8;
+    let equipmentsmaterialgreen=new BABYLON.PBRMaterial("equipmentsmaterialgreen", scene); //创建pbr 绿色设备管道材料
+    equipmentsmaterialgreen.albedoColor=new BABYLON.Color3.Green(); // 反射颜色
+    equipmentsmaterialgreen.metallic=1 // 金属
+    equipmentsmaterialgreen.roughness=0.5 // 粗糙
+    equipmentsmaterialgreen.alpha=0.8;
+    let equipmentsmaterialblack=new BABYLON.PBRMaterial("equipmentsmaterialblack", scene); //创建pbr 黑色设备管道材料
+    equipmentsmaterialblack.albedoColor=new BABYLON.Color3.Black(); // 反射颜色
+    equipmentsmaterialblack.metallic=1 // 金属
+    equipmentsmaterialblack.roughness=0.5 // 粗糙
+    equipmentsmaterialblack.alpha=0.8;
+    let equipmentsmaterialyellow=new BABYLON.PBRMaterial("equipmentsmaterialyellow", scene); //创建pbr 黄色设备管道材料
+    equipmentsmaterialyellow.albedoColor=new BABYLON.Color3.Yellow(); // 反射颜色
+    equipmentsmaterialyellow.metallic=1 // 金属
+    equipmentsmaterialyellow.roughness=0.5 // 粗糙
+    equipmentsmaterialyellow.alpha=0.8;
+    let equipmentsmaterialblue1=new BABYLON.PBRMaterial("equipmentsmaterialblue1", scene); //创建pbr 蓝色设备管道材料浅色
+    equipmentsmaterialblue1.albedoColor=new BABYLON.Color4(0.13, 0.63, 0.99); // 反射颜色
+    equipmentsmaterialblue1.metallic=1 // 金属
+    equipmentsmaterialblue1.roughness=0.5 // 粗糙
+    equipmentsmaterialblue1.alpha=0.8;
+    let equipmentsmaterialblue2=new BABYLON.PBRMaterial("equipmentsmaterialblue2", scene); //创建pbr 蓝色设备管道材料深色
+    equipmentsmaterialblue2.albedoColor=new BABYLON.Color4(0.11, 0.19, 0.89); // 反射颜色
+    equipmentsmaterialblue2.metallic=1 // 金属
+    equipmentsmaterialblue2.roughness=0.5 // 粗糙
+    equipmentsmaterialblue2.alpha=0.8;
+    let equipmentsmaterialbrown=new BABYLON.PBRMaterial("equipmentsmaterialbrown", scene); //创建pbr 棕色设备管道材料
+    equipmentsmaterialbrown.albedoColor=new BABYLON.Color4(1, 0.5, 0, 0.68); // 反射颜色
+    equipmentsmaterialbrown.metallic=1 // 金属
+    equipmentsmaterialbrown.roughness=0.5 // 粗糙
+    equipmentsmaterialbrown.alpha=0.7;
+    equipments.forEach(function(it){
+        let meshid=it.ID;
+        let mesh = scene.getMeshById(meshid);
+        // mesh.unfreezeWorldMatrix();
+        if(mesh!=null){
+          if(it.Info=="报警."){
+            // console.log("报警.",mesh);
+            mesh.material= equipmentsmaterialred;
+          }
+          else if(it.Info=="柜门."){
+            // console.log("柜门.",mesh);
+            mesh.material=equipmentsmaterial2;
+          }
+          else if(it.Info=="电磁阀."){
+            mesh.material= equipmentsmaterialred;
+          }
+          else if(it.Info=="气动球阀.中"||it.Info=="气动球阀.下"){
+            mesh.material= equipmentsmaterialred;
+          }
+          else if(it.Info=="气动球阀.上"){
+            mesh.material= equipmentsmaterialblack;
+          }
+          else if(it.Info=="大桶."){
+            mesh.material= equipmentsmaterialblue2;
+          }
+          else if(it.Info=="桶."){
+            mesh.material= equipmentsmaterialblue1;
+          }
+          else if(it.Info=="棕."){
+            mesh.material= equipmentsmaterialbrown;
+          }
+          else{
+            mesh.material=equipmentsmaterial1;
+          }
+        }
+        // mesh.freezeWorldMatrix();
+
     })
+}
+function changematerial2(meshes){//管道和隔板
+    // meshes.forEach(function(it){
+    //   // it.freezeWorldMatrix();
+    //   it.doNotSyncBoundingInfo = true;
+    //   it.cullingStrategy = BABYLON.AbstractMesh.CULLINGSTRATEGY_BOUNDINGSPHERE_ONLY;
+    // })
     // 管道透明
     //氢气管道
     let pipe1=scene.getMeshById("Brep.044");
@@ -441,109 +536,21 @@ function changematerial(meshes){
     // clapboard2.alpha = 1;
     // clapboard3.material = myclapboardMaterial;
     // clapboard3.alpha = 1;
-    //发动机外壳
-    let machine=scene.getMeshById("Mesh.5924");
-    // machine.unfreezeWorldMatrix();
-    let mymachineMaterial=new BABYLON.PBRMaterial("mymachineMaterial", scene);
-    mymachineMaterial.albedoColor=new BABYLON.Color3.White(); // 反射颜色
-    mymachineMaterial.metallic=0.2 // 金属
-    mymachineMaterial.roughness=0.8 // 粗糙
-    mymachineMaterial.alpha=0.3;
-    mymachineMaterial.freeze();
-    machine.material = mymachineMaterial;
-    // machine.freezeWorldMatrix();
-    //给门设置旋转属性
-    let door1=scene.getMeshById("Mesh.633");
-    let door2=scene.getMeshById("Mesh.1898");
-    let door3=scene.getMeshById("Mesh.2971");
-    // door1.material=myclapboardMaterial
-    door1.ifopen=0;
-    door2.ifopen=0;
-    door3.ifopen=0;
-    //柜体内设备透明
-    let equipmentsmaterial1=new BABYLON.PBRMaterial("equipmentsmaterial", scene); //创建pbr 设备管道材料
-    equipmentsmaterial1.albedoColor=new BABYLON.Color3.White(); // 反射颜色
-    equipmentsmaterial1.metallic=1 // 金属
-    equipmentsmaterial1.roughness=0.5 // 粗糙
-    equipmentsmaterial1.alpha=0.8;
-    let equipmentsmaterial2=new BABYLON.PBRMaterial("equipmentsmaterial2", scene); //创建pbr 设备管道材料
-    equipmentsmaterial2.albedoColor=new BABYLON.Color3.White(); // 反射颜色
-    equipmentsmaterial2.metallic=1 // 金属
-    equipmentsmaterial2.roughness=0.5 // 粗糙
-    equipmentsmaterial2.alpha=0.9;
-    let equipmentsmaterialred=new BABYLON.PBRMaterial("equipmentsmaterialred", scene); //创建pbr 红色设备管道材料
-    equipmentsmaterialred.albedoColor=new BABYLON.Color3.Red(); // 反射颜色
-    equipmentsmaterialred.metallic=1 // 金属
-    equipmentsmaterialred.roughness=0.5 // 粗糙
-    equipmentsmaterialred.alpha=0.8;
-    let equipmentsmaterialgreen=new BABYLON.PBRMaterial("equipmentsmaterialgreen", scene); //创建pbr 绿色设备管道材料
-    equipmentsmaterialgreen.albedoColor=new BABYLON.Color3.Green(); // 反射颜色
-    equipmentsmaterialgreen.metallic=1 // 金属
-    equipmentsmaterialgreen.roughness=0.5 // 粗糙
-    equipmentsmaterialgreen.alpha=0.8;
-    let equipmentsmaterialblack=new BABYLON.PBRMaterial("equipmentsmaterialblack", scene); //创建pbr 黑色设备管道材料
-    equipmentsmaterialblack.albedoColor=new BABYLON.Color3.Black(); // 反射颜色
-    equipmentsmaterialblack.metallic=1 // 金属
-    equipmentsmaterialblack.roughness=0.5 // 粗糙
-    equipmentsmaterialblack.alpha=0.8;
-    let equipmentsmaterialyellow=new BABYLON.PBRMaterial("equipmentsmaterialyellow", scene); //创建pbr 黄色设备管道材料
-    equipmentsmaterialyellow.albedoColor=new BABYLON.Color3.Yellow(); // 反射颜色
-    equipmentsmaterialyellow.metallic=1 // 金属
-    equipmentsmaterialyellow.roughness=0.5 // 粗糙
-    equipmentsmaterialyellow.alpha=0.8;
-    let equipmentsmaterialblue1=new BABYLON.PBRMaterial("equipmentsmaterialblue1", scene); //创建pbr 蓝色设备管道材料浅色
-    equipmentsmaterialblue1.albedoColor=new BABYLON.Color4(0.13, 0.63, 0.99); // 反射颜色
-    equipmentsmaterialblue1.metallic=1 // 金属
-    equipmentsmaterialblue1.roughness=0.5 // 粗糙
-    equipmentsmaterialblue1.alpha=0.8;
-    let equipmentsmaterialblue2=new BABYLON.PBRMaterial("equipmentsmaterialblue2", scene); //创建pbr 蓝色设备管道材料深色
-    equipmentsmaterialblue2.albedoColor=new BABYLON.Color4(0.11, 0.19, 0.89); // 反射颜色
-    equipmentsmaterialblue2.metallic=1 // 金属
-    equipmentsmaterialblue2.roughness=0.5 // 粗糙
-    equipmentsmaterialblue2.alpha=0.8;
-    let equipmentsmaterialbrown=new BABYLON.PBRMaterial("equipmentsmaterialbrown", scene); //创建pbr 棕色设备管道材料
-    equipmentsmaterialbrown.albedoColor=new BABYLON.Color4(1, 0.5, 0, 0.68); // 反射颜色
-    equipmentsmaterialbrown.metallic=1 // 金属
-    equipmentsmaterialbrown.roughness=0.5 // 粗糙
-    equipmentsmaterialbrown.alpha=0.7;
-    equipments.forEach(function(it){
-        let meshid=it.ID;
-        let mesh = scene.getMeshById(meshid);
-        // mesh.unfreezeWorldMatrix();
-        if(mesh!=null){
-          if(it.Info=="报警."){
-            console.log("报警.",mesh);
-            mesh.material= equipmentsmaterialred;
-          }
-          else if(it.Info=="柜门."){
-            console.log("柜门.",mesh);
-            mesh.material=equipmentsmaterial2;
-          }
-          else if(it.Info=="电磁阀."){
-            mesh.material= equipmentsmaterialred;
-          }
-          else if(it.Info=="气动球阀.中"||it.Info=="气动球阀.下"){
-            mesh.material= equipmentsmaterialred;
-          }
-          else if(it.Info=="气动球阀.上"){
-            mesh.material= equipmentsmaterialblack;
-          }
-          else if(it.Info=="大桶."){
-            mesh.material= equipmentsmaterialblue2;
-          }
-          else if(it.Info=="桶."){
-            mesh.material= equipmentsmaterialblue1;
-          }
-          else if(it.Info=="棕."){
-            mesh.material= equipmentsmaterialbrown;
-          }
-          else{
-            mesh.material=equipmentsmaterial1;
-          }
-        }
-        // mesh.freezeWorldMatrix();
 
-    })
+
+}
+function changematerial3(){//发动机外壳
+      //发动机外壳
+      let machine=scene.getMeshById("Mesh.5924");
+      // machine.unfreezeWorldMatrix();
+      let mymachineMaterial=new BABYLON.PBRMaterial("mymachineMaterial", scene);
+      mymachineMaterial.albedoColor=new BABYLON.Color3.White(); // 反射颜色
+      mymachineMaterial.metallic=0.2 // 金属
+      mymachineMaterial.roughness=0.8 // 粗糙
+      mymachineMaterial.alpha=0.3;
+      mymachineMaterial.freeze();
+      machine.material = mymachineMaterial;
+      // machine.freezeWorldMatrix();
 }
 //flowing流动方案-粒子效果
 let countnum = 1;
@@ -1807,34 +1814,49 @@ function uvflowing(meshid,direction,block,transfer=0,color){
   }
 
 }
-
+//分块引入模型以提高加载模型速度
 BABYLON.SceneLoader.ImportMesh(
+  "",
+  "model/",
+  "modelv20_2.glb",
+  scene,
+  function (Meshes) {
+      console.log("2:",Meshes)
+      Meshes.forEach(function(it){
+        it.doNotSyncBoundingInfo = true;
+        it.cullingStrategy = BABYLON.AbstractMesh.CULLINGSTRATEGY_BOUNDINGSPHERE_ONLY;
+      })
+      let importedMesh = Meshes[0];
+      // console.log(Meshes);
+      importedMesh.getChildren().forEach(function (mesh){
+          //仅为json文件中存在的设备绑定事件
+          if(getJson(mesh.id) !== '暂无设备信息'){
+              childMesh.push(mesh);
+              mesh.actionManager = actionManager;
+              modelsPosition.set(mesh.id,mesh.position);
+          }else {
+              mesh.actionManeger = nullManager;
+          }
+      });
+      // console.log("modeldocument",document.getElementById("model"))
+      // window.onload = function () {
+        document.getElementById("model").appendChild(canvas);
+      // };
+      // engine.snapshotRenderingMode = BABYLON.Constants.SNAPSHOTRENDERING_STANDARD;
+      // engine.snapshotRendering = true;
+      // console.log("here")
+  });
+  BABYLON.SceneLoader.ImportMesh(
     "",
     "model/",
-    "modelv20d.glb",
+    "modelv20_3.glb",
     scene,
     function (Meshes) {
-        console.log("Meshes:",Meshes)
-        changematerial(Meshes);
-        // particlestart();
-        flowProcess("fillCO2");
-        // flowProcess("exhaustH2");
-        // flowProcess("fillH2fromPowerPlant");
-        flowProcess("fillH2fromConfluence");
-        flowProcess("purificationH2");
-        flowProcess("makeH2");
-        flowProcess("outsideH2_1")
-        flowProcess("outsideH2_2")
-        flowProcess("outsideH2_3")
-        flowProcess("outsideCO2_1")
-        flowProcess("outsideCO2_2")
-        flowProcess("outsidewater_1")
-        flowProcess("outsidewater_2")
-        flowProcess("outsideoil_1")
-        flowProcess("outsideoil_2")
-        flowProcess("outsideoil_3")
-        flowProcess("outsideoil_4")
-        // flowProcess("operationNormally")
+        console.log("3:",Meshes)
+        Meshes.forEach(function(it){
+          it.doNotSyncBoundingInfo = true;
+          it.cullingStrategy = BABYLON.AbstractMesh.CULLINGSTRATEGY_BOUNDINGSPHERE_ONLY;
+        })
         let importedMesh = Meshes[0];
         // console.log(Meshes);
         importedMesh.getChildren().forEach(function (mesh){
@@ -1846,14 +1868,8 @@ BABYLON.SceneLoader.ImportMesh(
             }else {
                 mesh.actionManeger = nullManager;
             }
-            // if(getPipeJson(mesh.id) !== '暂无设备信息'){
-            //     childMesh.push(mesh);
-            //     mesh.actionManager = nullManager;
-            // }else {
-            //     mesh.actionManeger = nullManager;
-            // }
         });
-        console.log("modeldocument",document.getElementById("model"))
+        // console.log("modeldocument",document.getElementById("model"))
         // window.onload = function () {
           document.getElementById("model").appendChild(canvas);
         // };
@@ -1861,6 +1877,151 @@ BABYLON.SceneLoader.ImportMesh(
         // engine.snapshotRendering = true;
         // console.log("here")
     });
+    BABYLON.SceneLoader.ImportMesh(
+      "",
+      "model/",
+      "modelv20_12.glb",
+      scene,
+      function (Meshes) {
+          console.log("12:",Meshes)
+          Meshes.forEach(function(it){
+            it.doNotSyncBoundingInfo = true;
+            it.cullingStrategy = BABYLON.AbstractMesh.CULLINGSTRATEGY_BOUNDINGSPHERE_ONLY;
+          })
+          changematerial3();
+          let importedMesh = Meshes[0];
+          // console.log(Meshes);
+          importedMesh.getChildren().forEach(function (mesh){
+              //仅为json文件中存在的设备绑定事件
+              if(getJson(mesh.id) !== '暂无设备信息'){
+                  childMesh.push(mesh);
+                  mesh.actionManager = actionManager;
+                  modelsPosition.set(mesh.id,mesh.position);
+              }else {
+                  mesh.actionManeger = nullManager;
+              }
+          });
+          // console.log("modeldocument",document.getElementById("model"))
+          // window.onload = function () {
+            document.getElementById("model").appendChild(canvas);
+          // };
+          // engine.snapshotRenderingMode = BABYLON.Constants.SNAPSHOTRENDERING_STANDARD;
+          // engine.snapshotRendering = true;
+          // console.log("here")
+      });
+      BABYLON.SceneLoader.ImportMesh(
+        "",
+        "model/",
+        "modelv20_13.glb",
+        scene,
+        function (Meshes) {
+            console.log("13:",Meshes)
+            Meshes.forEach(function(it){
+              it.doNotSyncBoundingInfo = true;
+              it.cullingStrategy = BABYLON.AbstractMesh.CULLINGSTRATEGY_BOUNDINGSPHERE_ONLY;
+            })
+            changematerial1(Meshes);
+            flowProcess("fillCO2");
+            // flowProcess("exhaustH2");
+            // flowProcess("fillH2fromPowerPlant");
+            flowProcess("fillH2fromConfluence");
+            flowProcess("purificationH2");
+            flowProcess("makeH2");
+            let importedMesh = Meshes[0];
+            // console.log(Meshes);
+            importedMesh.getChildren().forEach(function (mesh){
+                //仅为json文件中存在的设备绑定事件
+                if(getJson(mesh.id) !== '暂无设备信息'){
+                    childMesh.push(mesh);
+                    mesh.actionManager = actionManager;
+                    modelsPosition.set(mesh.id,mesh.position);
+                }else {
+                    mesh.actionManeger = nullManager;
+                }
+            });
+            // console.log("modeldocument",document.getElementById("model"))
+            // window.onload = function () {
+              document.getElementById("model").appendChild(canvas);
+            // };
+            // engine.snapshotRenderingMode = BABYLON.Constants.SNAPSHOTRENDERING_STANDARD;
+            // engine.snapshotRendering = true;
+            // console.log("here")
+        });
+      BABYLON.SceneLoader.ImportMesh(
+        "",
+        "model/",
+        "modelv20_123.glb",
+        scene,
+        function (Meshes) {
+            console.log("123:",Meshes)
+            Meshes.forEach(function(it){
+              it.doNotSyncBoundingInfo = true;
+              it.cullingStrategy = BABYLON.AbstractMesh.CULLINGSTRATEGY_BOUNDINGSPHERE_ONLY;
+            })
+            changematerial2(Meshes);
+            flowProcess("outsideH2_1")
+            flowProcess("outsideH2_2")
+            flowProcess("outsideH2_3")
+            flowProcess("outsideCO2_1")
+            flowProcess("outsideCO2_2")
+            flowProcess("outsidewater_1")
+            flowProcess("outsidewater_2")
+            flowProcess("outsideoil_1")
+            flowProcess("outsideoil_2")
+            flowProcess("outsideoil_3")
+            flowProcess("outsideoil_4")
+            let importedMesh = Meshes[0];
+            // console.log(Meshes);
+            importedMesh.getChildren().forEach(function (mesh){
+                //仅为json文件中存在的设备绑定事件
+                if(getJson(mesh.id) !== '暂无设备信息'){
+                    childMesh.push(mesh);
+                    mesh.actionManager = actionManager;
+                    modelsPosition.set(mesh.id,mesh.position);
+                }else {
+                    mesh.actionManeger = nullManager;
+                }
+            });
+            // console.log("modeldocument",document.getElementById("model"))
+            // window.onload = function () {
+              document.getElementById("model").appendChild(canvas);
+            // };
+            // engine.snapshotRenderingMode = BABYLON.Constants.SNAPSHOTRENDERING_STANDARD;
+            // engine.snapshotRendering = true;
+            // console.log("here")
+        });
+// BABYLON.SceneLoader.ImportMesh(
+//     "",
+//     "model/",
+//     "modelv20d.glb",
+//     scene,
+//     function (Meshes) {
+//         console.log("Meshes:",Meshes)
+
+//         // particlestart();
+
+
+//         // flowProcess("operationNormally")
+//         let importedMesh = Meshes[0];
+//         // console.log(Meshes);
+//         importedMesh.getChildren().forEach(function (mesh){
+//             //仅为json文件中存在的设备绑定事件
+//             if(getJson(mesh.id) !== '暂无设备信息'){
+//                 childMesh.push(mesh);
+//                 mesh.actionManager = actionManager;
+//                 modelsPosition.set(mesh.id,mesh.position);
+//             }else {
+//                 mesh.actionManeger = nullManager;
+//             }
+//         });
+//         console.log("modeldocument",document.getElementById("model"))
+//         // window.onload = function () {
+//           document.getElementById("model").appendChild(canvas);
+//         // };
+//         // engine.snapshotRenderingMode = BABYLON.Constants.SNAPSHOTRENDERING_STANDARD;
+//         // engine.snapshotRendering = true;
+//         // console.log("here")
+//     });
 
 
 //鼠标按下时取消绑定事件,防止卡顿
