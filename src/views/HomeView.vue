@@ -378,6 +378,7 @@ import HealthState from "../components/HealthState.vue";
 import PageGather from "@/components/PageGather.vue";
 import WarnInfo from "@/components/WarnInfo.vue";
 import SearchItem from "@/components/SearchItem.vue";
+import {searchModel} from "../model.js";
 
 export default {
   name: "HomeView",
@@ -557,19 +558,24 @@ export default {
           rowNum: 4,
           waitTime: 5000,
           data: this.resetList
-        
+
         };
       }
     },
 
     chooseModule(module) {
-      console.log(module.row);
-      alert("暂无详细设备信息");
-      //设备详情界面跳转预留区
-      //
-      //
-      //
-      //
+
+      let pattern = />([^<]+)</; // 匹配 > 和 < 之间的字母和数字
+      let match = module.row[0].match(pattern);
+      console.log(module.row[0])
+      console.log(match)
+      if (match) {
+        let extractedString = match[1]; // 提取匹配的部分
+        console.log(extractedString);
+        searchModel(extractedString);
+      }else {
+        alert("暂无详细设备信息");
+      }
     },
   },
 

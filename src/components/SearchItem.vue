@@ -8,11 +8,11 @@
       ref="ruleForm"
     >
       <el-form-item label="" prop="id">
-        <el-input v-model="formInline.id" placeholder="设备编号或名称" style="width: 15vw"></el-input>
+        <el-input v-model="formInline.id" placeholder="设备编号或名称" style="width: 15vw" @keyup.enter.native="submitForm('ruleForm')"></el-input>
       </el-form-item>
       <!-- <el-form-item label="" prop="name">
          <el-input v-model="formInline.name" placeholder="设备名称"  style="width: 158px"> </el-input> -->
-      <!-- </el-form-item> --> 
+      <!-- </el-form-item> -->
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')"
           >搜索</el-button
@@ -39,10 +39,10 @@ export default {
       },
     };
   },
-  
+
   methods: {
     submitForm(formName) {
-     
+
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.$bus.$emit("fn", this.formInline.id);
