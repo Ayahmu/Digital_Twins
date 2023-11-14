@@ -364,6 +364,7 @@
 <script>
 import * as model from "../model.js";
 import * as connect from "../connect";
+import jsonData from "../../public/json/HydrogenSysInfo.json";
 
 import UnitPanel from "../components/UnitPanel.vue";
 import SystemPanel from "../components/SyetemPanel.vue";
@@ -377,6 +378,7 @@ import HealthState from "../components/HealthState.vue";
 import PageGather from "@/components/PageGather.vue";
 import WarnInfo from "@/components/WarnInfo.vue";
 import SearchItem from "@/components/SearchItem.vue";
+import {searchModel} from "../model.js";
 
 export default {
   name: "HomeView",
@@ -388,7 +390,7 @@ export default {
         headerBGC: "#3472bb",
         oddRowBGC: "transparent",
         evenRowBGC: "rgba(122, 202, 236,0.3)",
-        columnWidth: [153, 255, 71],
+        columnWidth: [173,235, 71],
         align: ["center", "center", "center"],
         header: ["编号", "设备名称", "状态"],
         row: "",
@@ -447,58 +449,29 @@ export default {
           ],
         ],
       },
-      searchList: [
-        { ID: "Mesh.2971", Name: "气体控制柜门", State: "正常" },
-        { ID: "Mesh.1898", Name: "净化单元柜门", State: "正常" },
-        { ID: "Mesh.633", Name: "制氢单元柜门", State: "正常" },
-        { ID: "10QM018", Name: "电磁阀", State: "正常" },
-        { ID: "10QM023", Name: "电磁阀", State: "正常" },
-        { ID: "10QM028", Name: "电磁阀", State: "正常" },
-        { ID: "10QM401", Name: "电磁阀", State: "正常" },
-        { ID: "10QM402", Name: "电磁阀", State: "正常" },
-        { ID: "10QM403", Name: "电磁阀", State: "正常" },
-        { ID: "10QM404", Name: "电磁阀", State: "正常" },
-        { ID: "10QM614", Name: "电磁阀", State: "正常" },
-        { ID: "10QM615", Name: "电磁阀", State: "正常" },
-        { ID: "10QM616", Name: "电磁阀", State: "正常" },
-        { ID: "30QM109", Name: "电磁阀", State: "正常" },
-        { ID: "Mesh.3655", Name: "气动球阀", State: "正常" },
-        { ID: "Mesh.4092", Name: "气动球阀", State: "正常" },
-        { ID: "10QN001-5", Name: "气动球阀", State: "正常" },
-        { ID: "10QM001", Name: "氢站进氢门", State: "正常" },
-        { ID: "10QM003", Name: "进空自动门", State: "正常" },
-        { ID: "10QN003", Name: "气动球阀", State: "正常" },
-        { ID: "10QM015", Name: "气动球阀", State: "正常" },
-        { ID: "Mesh.2449", Name: "气动球阀", State: "正常" },
-        { ID: "Mesh.2437", Name: "气动球阀", State: "正常" },
-        { ID: "Mesh.2427", Name: "气动球阀", State: "正常" },
-        { ID: "Mesh.2415", Name: "气动球阀", State: "正常" },
-        { ID: "Mesh.2383", Name: "气动球阀", State: "正常" },
-        { ID: "Mesh.2398", Name: "气动球阀", State: "正常" },
-        { ID: "Mesh.1788", Name: "气动球阀", State: "正常" },
-        { ID: "Mesh.2394", Name: "气动球阀", State: "正常" },
-        { ID: "Mesh.1151", Name: "气动球阀", State: "正常" },
-        { ID: "Mesh.3694", Name: "气动球阀", State: "正常" },
-      ],
+      searchList: jsonData,
       nameList: [],
       idList: [],
 
       displayList: [],
       formatList: [],
+      resetList:[],
     };
   },
 
   mounted() {
-    window.resizeTo(1985, 1240);
     this.updateDateTime(); // 初始化时立即更新日期时间
     setInterval(this.updateDateTime, 1000); // 每秒更新日期时间
+
+    this.getJson();
+    console.log(111);
   },
   created() {
-    this.$bus.$on("fn", this.handleFormEvent);
+    this.$bus.$on("fn", this.FormEvent);
     this.$bus.$on("reset", this.doReset);
   },
   beforeDestroy() {
-    this.$bus.$off("fn", this.handleFormEvent);
+    this.$bus.$off("fn", this.FormEvent);
     this.$bus.$off("reset", this.doReset);
   },
   methods: {
@@ -518,7 +491,26 @@ export default {
     sendMessage() {
       connect.sendMessage();
     },
-
+    //使用json文件中的设备信息配置轮播表和搜索数据库
+     getJson(){
+      this.carouselList = this.searchList.map((item) => [
+        `<span style='color: #00ffff;font-size:18px;'>${item.ID}</span>`,
+        `<span style='color: #00ffff;font-size:18px;'>${item.Name}</span>`,
+        `<span style='color: #00ffff;font-size:18px;'>正常</span>`,
+      ]);
+      this.status = {
+        headerBGC: "#3472bb",
+        oddRowBGC: "transparent",
+        evenRowBGC: "rgba(122, 202, 236,0.3)",
+        columnWidth: [173,235, 71],
+        align: ["center", "center", "center"],
+        header: ["编号", "设备名称", "状态"],
+        row: "",
+        rowNum: 4,
+        waitTime: 5000,
+        data: this.carouselList,
+      };
+     },
     // 模糊搜索备选框由轮播表代替, 不影响原本轮播表的点击事件
     //后续可以使用json配置数据库中的设备信息,此处只使用固定设备信息进行示例
     FormEvent(bus_id) {
@@ -532,13 +524,14 @@ export default {
       this.formatList = this.displayList.map((item) => [
         `<span style='color: #00ffff;font-size:18px;'>${item.ID}</span>`,
         `<span style='color: #00ffff;font-size:18px;'>${item.Name}</span>`,
-        `<span style='color: #00ffff;font-size:18px;'>${item.State}</span>`,
+        `<span style='color: #00ffff;font-size:18px;'>正常</span>`,
       ]);
+
       this.status = {
         headerBGC: "#3472bb",
         oddRowBGC: "transparent",
         evenRowBGC: "rgba(122, 202, 236,0.3)",
-        columnWidth: [153, 255, 71],
+        columnWidth: [173,235, 71],
         align: ["center", "center", "center"],
         header: ["编号", "设备名称", "状态"],
         row: "",
@@ -549,80 +542,40 @@ export default {
     },
     doReset(reset) {
       if (reset == 1) {
+        this.resetList = this.searchList.map((item) => [
+        `<span style='color: #00ffff;font-size:18px;'>${item.ID}</span>`,
+        `<span style='color: #00ffff;font-size:18px;'>${item.Name}</span>`,
+        `<span style='color: #00ffff;font-size:18px;'>正常</span>`,
+      ]);
         this.status = {
           headerBGC: "#3472bb",
           oddRowBGC: "transparent",
           evenRowBGC: "rgba(122, 202, 236,0.3)",
-          columnWidth: [153, 255, 71],
+          columnWidth: [173,235, 71],
           align: ["center", "center", "center"],
           header: ["编号", "设备名称", "状态"],
           row: "",
           rowNum: 4,
           waitTime: 5000,
-          data: [
-            [
-              "<span style='color: #00ffff;font-size:18px;'>Mesh.2971</span>",
-              "<span style='color: #00ffff;font-size:18px;'>气体控制柜门</span>",
-              "<span style='color: #00ffff;font-size:18px;'>正常</span>",
-            ],
-            [
-              "<span style='color: #00ffff;font-size:18px;'>10QM023</span>",
-              "<span style='color: #00ffff;font-size:18px;'>电磁阀</span>",
-              "<span style='color: #00ffff;font-size:18px;'>正常</span>",
-            ],
-            [
-              "<span style='color: #00ffff;font-size:18px;'>10QM009</span>",
-              "<span style='color: #00ffff;font-size:18px;'>气动球阀</span>",
-              "<span style='color: #00ffff;font-size:18px;'>正常</span>",
-            ],
-            [
-              "<span style='color: #00ffff;font-size:18px;'>20QM410</span>",
-              "<span style='color: #00ffff;font-size:18px;'>氢气阻火器</span>",
-              "<span style='color: #00ffff;font-size:18px;'>正常</span>",
-            ],
-            [
-              "<span style='color: #00ffff;font-size:18px;'>20QM028</span>",
-              "<span style='color: #00ffff;font-size:18px;'>阻断阀</span>",
-              "<span style='color: #00ffff;font-size:18px;'>正常</span>",
-            ],
-            [
-              "<span style='color: #00ffff;font-size:18px;'>10BP102</span>",
-              "<span style='color: #00ffff;font-size:18px;'>压力变送器</span>",
-              "<span style='color: #00ffff;font-size:18px;'>正常</span>",
-            ],
-            [
-              "<span style='color: #00ffff;font-size:18px;'>10KF102</span>",
-              "<span style='color: #00ffff;font-size:18px;'>氢气分析仪</span>",
-              "<span style='color: #00ffff;font-size:18px;'>正常</span>",
-            ],
-            [
-              "<span style='color: #00ffff;font-size:18px;'>30BL001</span>",
-              "<span style='color: #00ffff;font-size:18px;'>浮球液位计</span>",
-              "<span style='color: #00ffff;font-size:18px;'>正常</span>",
-            ],
-            [
-              "<span style='color: #00ffff;font-size:18px;'>30PG101</span>",
-              "<span style='color: #00ffff;font-size:18px;'>压力表</span>",
-              "<span style='color: #00ffff;font-size:18px;'>正常</span>",
-            ],
-            [
-              "<span style='color: #00ffff;font-size:18px;'>10BF503</span>",
-              "<span style='color: #00ffff;font-size:18px;'>常压流量计</span>",
-              "<span style='color: #00ffff;font-size:18px;'>正常</span>",
-            ],
-          ],
+          data: this.resetList
+
         };
       }
     },
 
     chooseModule(module) {
-      console.log(module.row);
-      alert("暂无详细设备信息");
-      //设备详情界面跳转预留区
-      //
-      //
-      //
-      //
+
+      let pattern = />([^<]+)</; // 匹配 > 和 < 之间的字母和数字
+      let match = module.row[0].match(pattern);
+      console.log(module.row[0])
+      console.log(match)
+      if (match) {
+        let extractedString = match[1]; // 提取匹配的部分
+        console.log(extractedString);
+        searchModel(extractedString);
+      }else {
+        alert("暂无详细设备信息");
+      }
     },
   },
 
