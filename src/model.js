@@ -4,7 +4,6 @@ import * as BABYLON from "babylonjs";
 import "babylonjs-loaders";
 import * as GUI from "babylonjs-gui";
 import data1 from "../public/json/HydrogenSysInfo.json";
-import data2 from "../public/json/pipe.json";
 import equipments from "../public/json/equipments.json";
 import { camera_config } from "./config.js";
 import { getJson, getPDF, getURL } from "./connect.js";
@@ -24,7 +23,6 @@ canvas.style.zIndex = "3";
 
 
 export let objectArray;
-export let pipeArray;
 let idToDoor = {};
 idToDoor["Mesh.2971"] = 0;
 idToDoor["Mesh.1898"] = 1;
@@ -68,18 +66,7 @@ objectArray = data1.map(
       jsonObject.Animation
     )
 );
-pipeArray = data2.map(
-  (jsonObject) =>
-    new MyObject(
-      jsonObject.ID,
-      jsonObject.Name,
-      jsonObject.Info,
-      jsonObject.Manual,
-      jsonObject.Url,
-      jsonObject.LocID,
-      jsonObject.Animation
-    )
-);
+
 
 // 创建一个哈希表，将 ID 映射到数组索引
 export const idToIndexMap1 = {};
@@ -88,9 +75,6 @@ export const idToIndexMap2 = {};
 // 填充哈希表
 objectArray.forEach((obj, index) => {
   idToIndexMap1[obj.ID] = index;
-});
-pipeArray.forEach((obj, index) => {
-  idToIndexMap2[obj.ID] = index;
 });
 
 // 要查找的特定 ID
@@ -1233,6 +1217,7 @@ function flowProcess(ProcessName){
         let mesh = scene.getMeshById(it);
         // mesh.unfreezeWorldMatrix();
         mesh.material= equipmentsmaterialgreen_alpha;
+        objectArray[idToIndexMap1[it]].State="全开"
         // mesh.freezeWorldMatrix();
       })
       let Equipments_12=["Mesh.3791","10QN003"];
@@ -1240,6 +1225,7 @@ function flowProcess(ProcessName){
         let mesh = scene.getMeshById(it);
         // mesh.unfreezeWorldMatrix();
         mesh.material= equipmentsmaterialyellow;
+        objectArray[idToIndexMap1[it]].State="1-2"
         // mesh.freezeWorldMatrix();
       })
       // 柜外管道流向改变
@@ -1295,6 +1281,7 @@ function flowProcess(ProcessName){
       let mesh = scene.getMeshById(it);
       // mesh.unfreezeWorldMatrix();
       mesh.material= equipmentsmaterialgreen_alpha;
+      objectArray[idToIndexMap1[it]].State="全开"
       // mesh.freezeWorldMatrix();
     })
     let Equipments_13=["Mesh.3798","Mesh.3791","Mesh.3691","Mesh.4092","10QN003"];
@@ -1302,6 +1289,7 @@ function flowProcess(ProcessName){
       let mesh = scene.getMeshById(it);
       // mesh.unfreezeWorldMatrix();
       mesh.material= equipmentsmaterialgreen;
+      objectArray[idToIndexMap1[it]].State="1-3"
       // mesh.freezeWorldMatrix();
     })
     //柜外管道流向改变
@@ -1370,11 +1358,13 @@ function flowProcess(ProcessName){
     OpenEquipments.forEach(function(it){
       let mesh = scene.getMeshById(it);
       mesh.material= equipmentsmaterialgreen_alpha
+      objectArray[idToIndexMap1[it]].State="全开"
     })
     let Equipments_12=["Mesh.3691","Mesh.3798","Mesh.4092"];
     Equipments_12.forEach(function(it){
       let mesh = scene.getMeshById(it);
       mesh.material= equipmentsmaterialyellow
+      objectArray[idToIndexMap1[it]].State="1-2"
     })
     //柜外管道流动重新启动
     // particleSystem7.start(); //Brep053
@@ -1431,11 +1421,13 @@ function flowProcess(ProcessName){
     OpenEquipments.forEach(function(it){
       let mesh = scene.getMeshById(it);
       mesh.material= equipmentsmaterialgreen_alpha
+      objectArray[idToIndexMap1[it]].State="全开"
     })
     let Equipments_12=["Mesh.3691","Mesh.3798","Mesh.4092"];
     Equipments_12.forEach(function(it){
       let mesh = scene.getMeshById(it);
       mesh.material= equipmentsmaterialyellow
+      objectArray[idToIndexMap1[it]].State="1-2"
     })
     //柜外管道流动重新启动
     // particleSystem7.start(); //Brep053
@@ -1454,12 +1446,13 @@ function flowProcess(ProcessName){
     Equipments_13.forEach(function(it){
       let mesh = scene.getMeshById(it);
       mesh.material= equipmentsmaterialgreen
+      objectArray[idToIndexMap1[it]].State="1-3"
     })
     //柜外管道流动暂停
-    particleSystem7.stop(); //Brep053
-    particleSystem8.stop();
-    particleSystem9.stop();
-    particleSystem10.stop();
+    // particleSystem7.stop(); //Brep053
+    // particleSystem8.stop();
+    // particleSystem9.stop();
+    // particleSystem10.stop();
   }
   if(ProcessName=="purificationH2"){
     uvflowing("Brep.155",1,1,0,"绿色")
@@ -1536,6 +1529,7 @@ function flowProcess(ProcessName){
     OpenEquipments.forEach(function(it){
       let mesh = scene.getMeshById(it);
       mesh.material= equipmentsmaterialgreen_alpha
+      objectArray[idToIndexMap1[it]].State="全开"
     })
   }
   if(ProcessName=="makeH2"){
@@ -1681,6 +1675,7 @@ function flowProcess(ProcessName){
     OpenEquipments.forEach(function(it){
       let mesh = scene.getMeshById(it);
       mesh.material= equipmentsmaterialgreen_alpha
+      objectArray[idToIndexMap1[it]].State="全开"
     })
   }
   if(ProcessName=="outsideH2_1"){
@@ -1814,49 +1809,36 @@ function uvflowing(meshid,direction,block,transfer=0,color){
   }
 
 }
-//分块引入模型以提高加载模型速度
+
 BABYLON.SceneLoader.ImportMesh(
-  "",
-  "model/",
-  "modelv20_2.glb",
-  scene,
-  function (Meshes) {
-      console.log("2:",Meshes)
-      Meshes.forEach(function(it){
-        it.doNotSyncBoundingInfo = true;
-        it.cullingStrategy = BABYLON.AbstractMesh.CULLINGSTRATEGY_BOUNDINGSPHERE_ONLY;
-      })
-      let importedMesh = Meshes[0];
-      // console.log(Meshes);
-      importedMesh.getChildren().forEach(function (mesh){
-          //仅为json文件中存在的设备绑定事件
-          if(getJson(mesh.id) !== '暂无设备信息'){
-              childMesh.push(mesh);
-              mesh.actionManager = actionManager;
-              modelsPosition.set(mesh.id,mesh.position);
-          }else {
-              mesh.actionManeger = nullManager;
-          }
-      });
-      // console.log("modeldocument",document.getElementById("model"))
-      // window.onload = function () {
-        document.getElementById("model").appendChild(canvas);
-      // };
-      // engine.snapshotRenderingMode = BABYLON.Constants.SNAPSHOTRENDERING_STANDARD;
-      // engine.snapshotRendering = true;
-      // console.log("here")
-  });
-  BABYLON.SceneLoader.ImportMesh(
     "",
     "model/",
-    "modelv20_3.glb",
+    "modelv20d.glb",
     scene,
     function (Meshes) {
-        console.log("3:",Meshes)
-        Meshes.forEach(function(it){
-          it.doNotSyncBoundingInfo = true;
-          it.cullingStrategy = BABYLON.AbstractMesh.CULLINGSTRATEGY_BOUNDINGSPHERE_ONLY;
-        })
+        console.log("Meshes:",Meshes)
+        changematerial3();
+        changematerial1(Meshes);
+        changematerial2(Meshes);
+        flowProcess("outsideH2_1")
+        flowProcess("outsideH2_2")
+        flowProcess("outsideH2_3")
+        flowProcess("outsideCO2_1")
+        flowProcess("outsideCO2_2")
+        flowProcess("outsidewater_1")
+        flowProcess("outsidewater_2")
+        flowProcess("outsideoil_1")
+        flowProcess("outsideoil_2")
+        flowProcess("outsideoil_3")
+        flowProcess("outsideoil_4")
+        // particlestart();
+        flowProcess("fillCO2");
+        // flowProcess("exhaustH2");
+        // flowProcess("fillH2fromPowerPlant");
+        flowProcess("fillH2fromConfluence");
+        // flowProcess("operationNormally");
+        flowProcess("purificationH2");
+        flowProcess("makeH2");
         let importedMesh = Meshes[0];
         // console.log(Meshes);
         importedMesh.getChildren().forEach(function (mesh){
@@ -1869,7 +1851,7 @@ BABYLON.SceneLoader.ImportMesh(
                 mesh.actionManeger = nullManager;
             }
         });
-        // console.log("modeldocument",document.getElementById("model"))
+        console.log("modeldocument",document.getElementById("model"))
         // window.onload = function () {
           document.getElementById("model").appendChild(canvas);
         // };
@@ -1877,151 +1859,6 @@ BABYLON.SceneLoader.ImportMesh(
         // engine.snapshotRendering = true;
         // console.log("here")
     });
-    BABYLON.SceneLoader.ImportMesh(
-      "",
-      "model/",
-      "modelv20_12.glb",
-      scene,
-      function (Meshes) {
-          console.log("12:",Meshes)
-          Meshes.forEach(function(it){
-            it.doNotSyncBoundingInfo = true;
-            it.cullingStrategy = BABYLON.AbstractMesh.CULLINGSTRATEGY_BOUNDINGSPHERE_ONLY;
-          })
-          changematerial3();
-          let importedMesh = Meshes[0];
-          // console.log(Meshes);
-          importedMesh.getChildren().forEach(function (mesh){
-              //仅为json文件中存在的设备绑定事件
-              if(getJson(mesh.id) !== '暂无设备信息'){
-                  childMesh.push(mesh);
-                  mesh.actionManager = actionManager;
-                  modelsPosition.set(mesh.id,mesh.position);
-              }else {
-                  mesh.actionManeger = nullManager;
-              }
-          });
-          // console.log("modeldocument",document.getElementById("model"))
-          // window.onload = function () {
-            document.getElementById("model").appendChild(canvas);
-          // };
-          // engine.snapshotRenderingMode = BABYLON.Constants.SNAPSHOTRENDERING_STANDARD;
-          // engine.snapshotRendering = true;
-          // console.log("here")
-      });
-      BABYLON.SceneLoader.ImportMesh(
-        "",
-        "model/",
-        "modelv20_13.glb",
-        scene,
-        function (Meshes) {
-            console.log("13:",Meshes)
-            Meshes.forEach(function(it){
-              it.doNotSyncBoundingInfo = true;
-              it.cullingStrategy = BABYLON.AbstractMesh.CULLINGSTRATEGY_BOUNDINGSPHERE_ONLY;
-            })
-            changematerial1(Meshes);
-            flowProcess("fillCO2");
-            // flowProcess("exhaustH2");
-            // flowProcess("fillH2fromPowerPlant");
-            flowProcess("fillH2fromConfluence");
-            flowProcess("purificationH2");
-            flowProcess("makeH2");
-            let importedMesh = Meshes[0];
-            // console.log(Meshes);
-            importedMesh.getChildren().forEach(function (mesh){
-                //仅为json文件中存在的设备绑定事件
-                if(getJson(mesh.id) !== '暂无设备信息'){
-                    childMesh.push(mesh);
-                    mesh.actionManager = actionManager;
-                    modelsPosition.set(mesh.id,mesh.position);
-                }else {
-                    mesh.actionManeger = nullManager;
-                }
-            });
-            // console.log("modeldocument",document.getElementById("model"))
-            // window.onload = function () {
-              document.getElementById("model").appendChild(canvas);
-            // };
-            // engine.snapshotRenderingMode = BABYLON.Constants.SNAPSHOTRENDERING_STANDARD;
-            // engine.snapshotRendering = true;
-            // console.log("here")
-        });
-      BABYLON.SceneLoader.ImportMesh(
-        "",
-        "model/",
-        "modelv20_123.glb",
-        scene,
-        function (Meshes) {
-            console.log("123:",Meshes)
-            Meshes.forEach(function(it){
-              it.doNotSyncBoundingInfo = true;
-              it.cullingStrategy = BABYLON.AbstractMesh.CULLINGSTRATEGY_BOUNDINGSPHERE_ONLY;
-            })
-            changematerial2(Meshes);
-            flowProcess("outsideH2_1")
-            flowProcess("outsideH2_2")
-            flowProcess("outsideH2_3")
-            flowProcess("outsideCO2_1")
-            flowProcess("outsideCO2_2")
-            flowProcess("outsidewater_1")
-            flowProcess("outsidewater_2")
-            flowProcess("outsideoil_1")
-            flowProcess("outsideoil_2")
-            flowProcess("outsideoil_3")
-            flowProcess("outsideoil_4")
-            let importedMesh = Meshes[0];
-            // console.log(Meshes);
-            importedMesh.getChildren().forEach(function (mesh){
-                //仅为json文件中存在的设备绑定事件
-                if(getJson(mesh.id) !== '暂无设备信息'){
-                    childMesh.push(mesh);
-                    mesh.actionManager = actionManager;
-                    modelsPosition.set(mesh.id,mesh.position);
-                }else {
-                    mesh.actionManeger = nullManager;
-                }
-            });
-            // console.log("modeldocument",document.getElementById("model"))
-            // window.onload = function () {
-              document.getElementById("model").appendChild(canvas);
-            // };
-            // engine.snapshotRenderingMode = BABYLON.Constants.SNAPSHOTRENDERING_STANDARD;
-            // engine.snapshotRendering = true;
-            // console.log("here")
-        });
-// BABYLON.SceneLoader.ImportMesh(
-//     "",
-//     "model/",
-//     "modelv20d.glb",
-//     scene,
-//     function (Meshes) {
-//         console.log("Meshes:",Meshes)
-
-//         // particlestart();
-
-
-//         // flowProcess("operationNormally")
-//         let importedMesh = Meshes[0];
-//         // console.log(Meshes);
-//         importedMesh.getChildren().forEach(function (mesh){
-//             //仅为json文件中存在的设备绑定事件
-//             if(getJson(mesh.id) !== '暂无设备信息'){
-//                 childMesh.push(mesh);
-//                 mesh.actionManager = actionManager;
-//                 modelsPosition.set(mesh.id,mesh.position);
-//             }else {
-//                 mesh.actionManeger = nullManager;
-//             }
-//         });
-//         console.log("modeldocument",document.getElementById("model"))
-//         // window.onload = function () {
-//           document.getElementById("model").appendChild(canvas);
-//         // };
-//         // engine.snapshotRenderingMode = BABYLON.Constants.SNAPSHOTRENDERING_STANDARD;
-//         // engine.snapshotRendering = true;
-//         // console.log("here")
-//     });
 
 
 //鼠标按下时取消绑定事件,防止卡顿
