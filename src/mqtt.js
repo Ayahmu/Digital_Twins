@@ -1449,7 +1449,7 @@ Paho.MQTT = (function (global) {
                     this.onConnectionLost({errorCode:errorCode, errorMessage:errorText});
             } else {
                 // Otherwise we never had a connection, so indicate that the connect has failed.
-                if (this.connectOptions.mqttVersion === 4 && this.connectOptions.mqttVersionExplicit === false) {
+                if (this.connectOptions.mqttVersion === 4) {
                     this._trace("Failed to connect V4, dropping back to V3")
                     this.connectOptions.mqttVersion = 3;
                     if (this.connectOptions.uris) {
@@ -1727,12 +1727,8 @@ Paho.MQTT = (function (global) {
             }
 
             if (connectOptions.mqttVersion === undefined) {
-                connectOptions.mqttVersionExplicit = false;
                 connectOptions.mqttVersion = 4;
-            } else {
-                connectOptions.mqttVersionExplicit = true;
             }
-
             //Check that if password is set, so is username
             if (connectOptions.password === undefined && connectOptions.userName !== undefined)
                 throw new Error(format(ERROR.INVALID_ARGUMENT, [connectOptions.password, "connectOptions.password"]))

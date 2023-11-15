@@ -5,9 +5,11 @@ import {
     idToIndexMap2,
     createWarningMessage,
     deleteWarningMessage,
+    flowProcess,
 } from './model.js'
 import path from 'path-browserify'
 import {mqtt_config, getConfig } from "./config.js";
+import * as MQTT from './mqtt.js'
 
 let host = mqtt_config.host;  // MQTT服务器地址
 let port = mqtt_config.port;  // MQTT服务器端口
@@ -51,27 +53,15 @@ function onConnectFailure(errorMessage) {
 client.onConnectionLost = function (message){
     console.log('连接丢失',message);
     console.log('正在尝试重新连接...');
-    setTimeout(()=>{
-        client.connect(connect_options);
-    },1000);
+    client.connect(connect_options);
 }
 
 //接收消息
 client.onMessageArrived = function (message){
     console.log('收到消息:', message.destinationName, message.payloadString);
-    let messageJSON = JSON.parse(message.payloadString);
-    let modelID = messageJSON.id;
-    let url = messageJSON.url;
 
-    if(!modelID){
-        return
-    }
+    handleMQTTMessage(message);
 
-    if(!warningMessageArray.has(modelID)){
-        createWarningMessage(modelID, url);
-    }
-    //存入模型id与计时器,存在覆盖
-    warningMessageArray.set(modelID, 0);
 };
 
 let warningMessageArray = new Map();
@@ -164,17 +154,130 @@ export function getPDF(Manual){
 
 export function getURL(Url){
     const config = getConfig();
-       if(Url==""){
-           alert("暂无设备资料");
-       }else {
-           const config = getConfig();
-           let file_path = path.join(config.baseUrl,Url);
-           file_path = file_path.replace('http:/','http://');
-           console.log(file_path);
-           window.open(file_path, '_blank');
+    if(Url==""){
+       alert("暂无设备资料");
+    }else {
+       const config = getConfig();
+       let file_path = path.join(config.baseUrl,Url);
+       file_path = file_path.replace('http:/','http://');
+       console.log(file_path);
+       window.open(file_path, '_blank');
        }
-   }
-export function sendMessage(){
-    const message = {id: "Mesh.1449", url: "http://www.baidu.com"};
-    client.send("test/topic",JSON.stringify(message),0,false);
+}
+
+
+function handleMQTTMessage(message){
+    let messageJSON = JSON.parse(message.payloadString);
+
+    console.log(messageJSON)
+
+    if(messageJSON.animation){
+        handleAnimation(messageJSON.animation);
+    }
+    if(messageJSON.status){
+        handleStatus(messageJSON.status);
+    }
+    if(messageJSON.healthLevel){
+        handleHealthLevel(messageJSON.healthLevel);
+    }
+    if(messageJSON.parameters){
+        handleParameters(messageJSON.parameters);
+    }
+    if(messageJSON.pressure){
+        handlePressure(messageJSON.pressure);
+    }
+    if(messageJSON.density){
+        handleDensity(messageJSON.density);
+    }
+    if(messageJSON.humidity){
+        handleHumidity(messageJSON.humidity);
+    }
+    if(messageJSON.flow){
+        handleFlow(messageJSON.flow);
+    }
+    if(messageJSON.energy){
+        handleEnergy(messageJSON.energy);
+    }
+    if(messageJSON.water){
+        handleWater(messageJSON.water);
+    }
+    if(messageJSON.cost){
+        handleCost(messageJSON.cost);
+    }
+    if(messageJSON.economy){
+        handleEconomy(messageJSON.economy);
+    }
+    if(messageJSON.failure){
+        handleFailure(messageJSON.failure);
+    }
+    if(messageJSON.handling){
+        handleHandling(messageJSON.handling);
+    }
+    if(messageJSON.alarm){
+        handleAlarm(messageJSON.alarm);
+    }
+}
+
+function handleAnimation(info) {
+    for (let key in info) {
+        if (info.hasOwnProperty(key)) {
+            if(info[key]){
+                flowProcess(key)
+            }
+        }
+    }
+}
+function handleStatus(info) {
+
+}
+function handleHealthLevel(info) {
+
+}
+function handleParameters(info) {
+
+}
+function handlePressure(info) {
+
+}
+function handleDensity(info) {
+
+}
+function handleHumidity(info) {
+
+}
+function handleFlow(info) {
+
+}
+function handleEnergy(info) {
+
+}
+function handleWater(info) {
+
+}
+function handleCost(info) {
+
+}
+function handleEconomy(info) {
+
+}
+function handleFailure(info) {
+
+}
+function handleHandling(info) {
+
+}
+
+//处理报警信息
+function handleAlarm(info){
+    let modelID = info.id;
+
+    if(!modelID){
+        return
+    }
+
+    if(!warningMessageArray.has(modelID)){
+        createWarningMessage(modelID);
+    }
+    //存入模型id与计时器,存在覆盖
+    warningMessageArray.set(modelID, 0);
 }

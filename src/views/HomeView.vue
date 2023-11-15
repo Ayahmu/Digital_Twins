@@ -161,7 +161,7 @@
             height: 12.09068vw;
             left: 0;
             background-color: rgba(0, 0, 0, 0.22);
-            margin-bottom:1.5vw
+            margin-bottom:1.5vw;
             border-radius: 1vw;
           "
           ><HealthState></HealthState>
@@ -464,7 +464,6 @@ export default {
     setInterval(this.updateDateTime, 1000); // 每秒更新日期时间
 
     this.getJson();
-    console.log(111);
   },
   created() {
     this.$bus.$on("fn", this.FormEvent);

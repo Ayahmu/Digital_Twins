@@ -1184,7 +1184,7 @@ function opendoor(mesh, labelName) {
 
 //     }
 // }
-function flowProcess(ProcessName){
+export function flowProcess(ProcessName){
   if(ProcessName=="fillCO2"){
       uvflowing("Brep.093",1,2,0,"紫色")
       uvflowing("Brep.094",2,1,0,"紫色")
@@ -1832,13 +1832,13 @@ BABYLON.SceneLoader.ImportMesh(
         flowProcess("outsideoil_3")
         flowProcess("outsideoil_4")
         // particlestart();
-        flowProcess("fillCO2");
+        // flowProcess("fillCO2");
         // flowProcess("exhaustH2");
         // flowProcess("fillH2fromPowerPlant");
-        flowProcess("fillH2fromConfluence");
+        // flowProcess("fillH2fromConfluence");
         // flowProcess("operationNormally");
-        flowProcess("purificationH2");
-        flowProcess("makeH2");
+        // flowProcess("purificationH2");
+        // flowProcess("makeH2");
         let importedMesh = Meshes[0];
         // console.log(Meshes);
         importedMesh.getChildren().forEach(function (mesh){
@@ -1889,7 +1889,7 @@ scene.onPointerObservable.add((pointerInfo) => {
 //报警设备Map,便于图标跟随
 let warningModels = new Map();
 
-export function createWarningMessage(modelID, url) {
+export function createWarningMessage(modelID) {
   let warningModel = scene.getMeshById(modelID);
 
   //生成报警图标
@@ -1914,12 +1914,8 @@ export function createWarningMessage(modelID, url) {
   });
   inputElement.addEventListener("click", function () {
     // createWarningLabel(modelID,warningModel);
-    window.open(url, "_blank");
+    // window.open(url, "_blank");
   });
-  clonedIcon.addEventListener("mouseover", function () {
-    //createLabel();
-  });
-
   setWarningPosition(warningModels);
 }
 
@@ -2036,7 +2032,7 @@ scene.registerBeforeRender(function () {
 
   //计算帧率
   let fps = engine.getFps().toFixed();
-  
+
   // let fpsDisplay = document.getElementById("fpsDisplay");
   // fpsDisplay.innerHTML = "FPS:" + fps;
   // console.log("fps",fps)

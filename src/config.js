@@ -18,7 +18,7 @@ export var mqtt_config = {
   host: "broker.emqx.io",
   port: 8083,
   clientId: "yourClientId",
-  topic: "test/topic",
+  topic: "ykkk",
 };
 
 // export var http_config = {
