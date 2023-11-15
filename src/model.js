@@ -1184,6 +1184,390 @@ function opendoor(mesh, labelName) {
 
 //     }
 // }
+export function stopProcess(ProcessName){
+  let pipematerial=new BABYLON.PBRMaterial("equipmentsmaterialgreen", scene); //创建pbr 绿色设备管道材料
+  pipematerial.albedoColor=new BABYLON.Color3.White(); // 反射颜色
+  pipematerial.metallic=1 // 金属
+  pipematerial.roughness=0.5 // 粗糙
+  pipematerial.alpha=0.9;
+  let equipmentsmaterialred=new BABYLON.PBRMaterial("equipmentsmaterialred", scene); //创建pbr 红色设备管道材料
+  equipmentsmaterialred.albedoColor=new BABYLON.Color3.Red(); // 反射颜色
+  equipmentsmaterialred.metallic=1 // 金属
+  equipmentsmaterialred.roughness=0.5 // 粗糙
+  equipmentsmaterialred.alpha=0.8;
+  if(ProcessName=="fillCO2"){
+      // scene.onBeforeRenderObservable.clear();
+      scene.getMeshById("Brep.093").material=pipematerial
+      scene.getMeshById("Brep.094").material=pipematerial
+      scene.getMeshById("Brep.095").material=pipematerial
+      scene.getMeshById("Brep.096").material=pipematerial
+      scene.getMeshById("Brep.097").material=pipematerial
+      scene.getMeshById("Brep.098").material=pipematerial
+      scene.getMeshById("Brep.099").material=pipematerial
+      scene.getMeshById("Brep.100").material=pipematerial
+      scene.getMeshById("Brep.101").material=pipematerial
+      scene.getMeshById("Brep.102").material=pipematerial
+      scene.getMeshById("Brep.103").material=pipematerial
+      scene.getMeshById("Brep.104").material=pipematerial
+      scene.getMeshById("Brep.105").material=pipematerial
+      scene.getMeshById("Brep.106").material=pipematerial
+      //阀门回归原色
+      let Equipments=["Mesh.3655","Mesh.3656","Mesh.3657","10QM018","Mesh.3791","10QN003"];
+      Equipments.forEach(function(it){
+        let mesh = scene.getMeshById(it);
+        // mesh.unfreezeWorldMatrix();
+        mesh.material= equipmentsmaterialred;
+        objectArray[idToIndexMap1[it]].State="正常"
+        // mesh.freezeWorldMatrix();
+      })
+  }
+  if(ProcessName=="exhaustH2"){
+    // scene.onBeforeRenderObservable.clear();
+    console.log("pipematerial",pipematerial)
+    scene.getMeshById("Brep.106").material=pipematerial
+    scene.getMeshById("Brep.105").material=pipematerial
+    scene.getMeshById("Brep.109").material=pipematerial
+    scene.getMeshById("Brep.110").material=pipematerial
+    scene.getMeshById("Brep.111").material=pipematerial
+    scene.getMeshById("Brep.112").material=pipematerial
+    scene.getMeshById("Brep.113").material=pipematerial
+    scene.getMeshById("Brep.114").material=pipematerial
+    scene.getMeshById("Brep.115").material=pipematerial
+    scene.getMeshById("Brep.116").material=pipematerial
+    scene.getMeshById("Brep.117").material=pipematerial
+    scene.getMeshById("Brep.118").material=pipematerial
+    scene.getMeshById("Brep.119").material=pipematerial
+    scene.getMeshById("Brep.120").material=pipematerial
+    scene.getMeshById("Brep.121").material=pipematerial
+    //阀门回归原色
+    let Equipments=["10QM401","10QM402","10QM403","10QM404","Mesh.3798","Mesh.3791","Mesh.3691","Mesh.4092","10QN003"];
+    Equipments.forEach(function(it){
+      let mesh = scene.getMeshById(it);
+      // mesh.unfreezeWorldMatrix();
+      mesh.material= equipmentsmaterialred;
+      objectArray[idToIndexMap1[it]].State="正常"
+      // mesh.freezeWorldMatrix();
+    })
+  }
+  if(ProcessName=="fillH2fromPowerPlant"){
+    // scene.onBeforeRenderObservable.clear();
+    scene.getMeshById("Brep.122").material=pipematerial
+    scene.getMeshById("Brep.123").material=pipematerial
+    scene.getMeshById("Brep.149").material=pipematerial
+    scene.getMeshById("Brep.150").material=pipematerial
+    scene.getMeshById("Brep.125").material=pipematerial
+    scene.getMeshById("Brep.126").material=pipematerial
+    scene.getMeshById("Brep.127").material=pipematerial
+    scene.getMeshById("Brep.128").material=pipematerial
+    scene.getMeshById("Brep.129").material=pipematerial
+    scene.getMeshById("Brep.130").material=pipematerial
+    scene.getMeshById("Brep.131").material=pipematerial
+    scene.getMeshById("Brep.132").material=pipematerial
+    scene.getMeshById("Brep.133").material=pipematerial
+    scene.getMeshById("Brep.134").material=pipematerial
+    scene.getMeshById("Brep.135").material=pipematerial
+    scene.getMeshById("Brep.136").material=pipematerial
+    scene.getMeshById("Brep.137").material=pipematerial
+    scene.getMeshById("Brep.138").material=pipematerial
+    scene.getMeshById("Brep.139").material=pipematerial
+    scene.getMeshById("Brep.140").material=pipematerial
+    scene.getMeshById("Brep.141").material=pipematerial
+    scene.getMeshById("Brep.142").material=pipematerial
+    scene.getMeshById("Brep.143").material=pipematerial
+    scene.getMeshById("Brep.144").material=pipematerial
+    scene.getMeshById("Brep.145").material=pipematerial
+    scene.getMeshById("Brep.146").material=pipematerial
+    scene.getMeshById("Brep.147").material=pipematerial
+    scene.getMeshById("Brep.148").material=pipematerial
+    scene.getMeshById("Brep.111").material=pipematerial
+    scene.getMeshById("Brep.112").material=pipematerial
+    scene.getMeshById("Brep.113").material=pipematerial
+        //阀门回归原色
+        let Equipments=["Mesh.3660","Mesh.3658","10QM015","10QN001-5","10QN001-4","10QN001-1","Mesh.3691","Mesh.3798","Mesh.4092"];
+        Equipments.forEach(function(it){
+          let mesh = scene.getMeshById(it);
+          // mesh.unfreezeWorldMatrix();
+          mesh.material= equipmentsmaterialred;
+          objectArray[idToIndexMap1[it]].State="正常"
+          // mesh.freezeWorldMatrix();
+        })
+  }
+  if(ProcessName=="fillH2fromConfluence"){
+    // scene.onBeforeRenderObservable.clear();
+    scene.getMeshById("Brep.151").material=pipematerial
+    scene.getMeshById("Brep.152").material=pipematerial
+    scene.getMeshById("Brep.153").material=pipematerial
+    scene.getMeshById("Brep.154").material=pipematerial
+    scene.getMeshById("Brep.150").material=pipematerial
+    scene.getMeshById("Brep.125").material=pipematerial
+    scene.getMeshById("Brep.126").material=pipematerial
+    scene.getMeshById("Brep.127").material=pipematerial
+    scene.getMeshById("Brep.128").material=pipematerial
+    scene.getMeshById("Brep.129").material=pipematerial
+    scene.getMeshById("Brep.130").material=pipematerial
+    scene.getMeshById("Brep.131").material=pipematerial
+    scene.getMeshById("Brep.132").material=pipematerial
+    scene.getMeshById("Brep.133").material=pipematerial
+    scene.getMeshById("Brep.134").material=pipematerial
+    scene.getMeshById("Brep.135").material=pipematerial
+    scene.getMeshById("Brep.136").material=pipematerial
+    scene.getMeshById("Brep.137").material=pipematerial
+    scene.getMeshById("Brep.138").material=pipematerial
+    scene.getMeshById("Brep.139").material=pipematerial
+    scene.getMeshById("Brep.140").material=pipematerial
+    scene.getMeshById("Brep.141").material=pipematerial
+    scene.getMeshById("Brep.142").material=pipematerial
+    scene.getMeshById("Brep.143").material=pipematerial
+    scene.getMeshById("Brep.144").material=pipematerial
+    scene.getMeshById("Brep.145").material=pipematerial
+    scene.getMeshById("Brep.146").material=pipematerial
+    scene.getMeshById("Brep.147").material=pipematerial
+    scene.getMeshById("Brep.148").material=pipematerial
+    scene.getMeshById("Brep.111").material=pipematerial
+    scene.getMeshById("Brep.112").material=pipematerial
+    scene.getMeshById("Brep.113").material=pipematerial
+    //阀门回归原色
+    let Equipments=["Mesh.3678","Mesh.3679","10QM001","10QN001-5","10QN001-4","10QN001-1","Mesh.3691","Mesh.3798","Mesh.4092"];
+    Equipments.forEach(function(it){
+      let mesh = scene.getMeshById(it);
+      // mesh.unfreezeWorldMatrix();
+      mesh.material= equipmentsmaterialred;
+      objectArray[idToIndexMap1[it]].State="正常"
+      // mesh.freezeWorldMatrix();
+    })
+  }
+  if(ProcessName=="operationNormally"){
+    // scene.onBeforeRenderObservable.clear();
+        //阀门回归原色
+        let Equipments=["Mesh.3798","Mesh.3791","Mesh.3691","Mesh.4092","10QN003"];
+        Equipments.forEach(function(it){
+          let mesh = scene.getMeshById(it);
+          // mesh.unfreezeWorldMatrix();
+          mesh.material= equipmentsmaterialred;
+          objectArray[idToIndexMap1[it]].State="正常"
+          // mesh.freezeWorldMatrix();
+        })
+  }
+  if(ProcessName=="purificationH2"){
+    // scene.onBeforeRenderObservable.clear();
+    scene.getMeshById("Brep.155").material=pipematerial
+    scene.getMeshById("Brep.156").material=pipematerial
+    scene.getMeshById("Brep.157").material=pipematerial
+    scene.getMeshById("Brep.158").material=pipematerial
+    scene.getMeshById("Brep.159").material=pipematerial
+    scene.getMeshById("Brep.160").material=pipematerial
+    scene.getMeshById("Brep.161").material=pipematerial
+    scene.getMeshById("Brep.162").material=pipematerial
+    scene.getMeshById("Brep.163").material=pipematerial
+    scene.getMeshById("Brep.164").material=pipematerial
+    scene.getMeshById("Brep.165").material=pipematerial
+    scene.getMeshById("Brep.166").material=pipematerial
+    scene.getMeshById("Brep.167").material=pipematerial
+    scene.getMeshById("Brep.168").material=pipematerial
+    scene.getMeshById("Brep.169").material=pipematerial
+    scene.getMeshById("Brep.170").material=pipematerial
+    scene.getMeshById("Brep.171").material=pipematerial
+    scene.getMeshById("Brep.172").material=pipematerial
+    scene.getMeshById("Brep.173").material=pipematerial
+    scene.getMeshById("Brep.174").material=pipematerial
+    scene.getMeshById("Brep.175").material=pipematerial
+    scene.getMeshById("Brep.176").material=pipematerial
+    scene.getMeshById("Brep.177").material=pipematerial
+    scene.getMeshById("Brep.178").material=pipematerial
+    scene.getMeshById("Brep.179").material=pipematerial
+    scene.getMeshById("Brep.180").material=pipematerial
+    scene.getMeshById("Brep.181").material=pipematerial
+    scene.getMeshById("Brep.182").material=pipematerial
+    scene.getMeshById("Brep.183").material=pipematerial
+    scene.getMeshById("Brep.184").material=pipematerial
+    scene.getMeshById("Brep.185").material=pipematerial
+    scene.getMeshById("Brep.186").material=pipematerial
+    scene.getMeshById("Brep.187").material=pipematerial
+    scene.getMeshById("Brep.188").material=pipematerial
+    scene.getMeshById("Brep.189").material=pipematerial
+    scene.getMeshById("Brep.190").material=pipematerial
+    scene.getMeshById("Brep.191").material=pipematerial
+    scene.getMeshById("Brep.192").material=pipematerial
+    scene.getMeshById("Brep.193").material=pipematerial
+    scene.getMeshById("Brep.194").material=pipematerial
+    scene.getMeshById("Brep.195").material=pipematerial
+    scene.getMeshById("Brep.196").material=pipematerial
+    scene.getMeshById("Brep.197").material=pipematerial
+    scene.getMeshById("Brep.198").material=pipematerial
+    scene.getMeshById("Brep.199").material=pipematerial
+    scene.getMeshById("Brep.200").material=pipematerial
+    scene.getMeshById("Brep.217").material=pipematerial
+    scene.getMeshById("Brep.201").material=pipematerial
+    scene.getMeshById("Brep.202").material=pipematerial
+    scene.getMeshById("Brep.203").material=pipematerial
+    scene.getMeshById("Brep.204").material=pipematerial
+    scene.getMeshById("Brep.205").material=pipematerial
+    scene.getMeshById("Brep.206").material=pipematerial
+    scene.getMeshById("Brep.207").material=pipematerial
+    scene.getMeshById("Brep.208").material=pipematerial
+    scene.getMeshById("Brep.209").material=pipematerial
+    scene.getMeshById("Brep.210").material=pipematerial
+    scene.getMeshById("Brep.211").material=pipematerial
+    scene.getMeshById("Brep.212").material=pipematerial
+    scene.getMeshById("Brep.213").material=pipematerial
+    scene.getMeshById("Brep.214").material=pipematerial
+    scene.getMeshById("Brep.215").material=pipematerial
+    scene.getMeshById("Brep.216").material=pipematerial
+        //阀门回归原色
+        let Equipments=["Mesh.2397","Mesh.2398","Mesh.2461","Mesh.1788","Mesh.2383","Mesh.2390","20QM005","20QM009","20QM003","10BM101","10BM102"];
+        Equipments.forEach(function(it){
+          let mesh = scene.getMeshById(it);
+          // mesh.unfreezeWorldMatrix();
+          mesh.material= equipmentsmaterialred;
+          objectArray[idToIndexMap1[it]].State="正常"
+          // mesh.freezeWorldMatrix();
+        })
+  }
+  if(ProcessName=="makeH2"){
+    // scene.onBeforeRenderObservable.clear();
+    scene.getMeshById("Brep.218").material=pipematerial
+    scene.getMeshById("Brep.219").material=pipematerial
+    scene.getMeshById("Brep.220").material=pipematerial
+    scene.getMeshById("Brep.221").material=pipematerial
+    scene.getMeshById("Brep.222").material=pipematerial
+    scene.getMeshById("Brep.223").material=pipematerial
+    scene.getMeshById("Brep.224").material=pipematerial
+    scene.getMeshById("Brep.225").material=pipematerial
+    scene.getMeshById("Brep.226").material=pipematerial
+    scene.getMeshById("Brep.227").material=pipematerial
+    scene.getMeshById("Brep.228").material=pipematerial
+    scene.getMeshById("Brep.229").material=pipematerial
+    scene.getMeshById("Brep.230").material=pipematerial
+    scene.getMeshById("Brep.231").material=pipematerial
+    scene.getMeshById("Brep.232").material=pipematerial
+    scene.getMeshById("Brep.233").material=pipematerial
+    scene.getMeshById("Brep.234").material=pipematerial
+    scene.getMeshById("Brep.235").material=pipematerial
+    scene.getMeshById("Brep.236").material=pipematerial
+    scene.getMeshById("Brep.237").material=pipematerial
+    scene.getMeshById("Brep.238").material=pipematerial
+    scene.getMeshById("Brep.239").material=pipematerial
+    scene.getMeshById("Brep.240").material=pipematerial
+    scene.getMeshById("Brep.241").material=pipematerial
+    scene.getMeshById("Brep.242").material=pipematerial
+    scene.getMeshById("Brep.243").material=pipematerial
+    scene.getMeshById("Brep.244").material=pipematerial
+    scene.getMeshById("Brep.245").material=pipematerial
+    scene.getMeshById("Brep.246").material=pipematerial
+    scene.getMeshById("Brep.247").material=pipematerial
+    scene.getMeshById("Brep.248").material=pipematerial
+    scene.getMeshById("Brep.249").material=pipematerial
+    scene.getMeshById("Brep.250").material=pipematerial
+    scene.getMeshById("Brep.251").material=pipematerial
+    scene.getMeshById("Brep.252").material=pipematerial
+    scene.getMeshById("Brep.253").material=pipematerial
+    scene.getMeshById("Brep.254").material=pipematerial
+    scene.getMeshById("Brep.255").material=pipematerial
+    scene.getMeshById("Brep.256").material=pipematerial
+    scene.getMeshById("Brep.257").material=pipematerial
+    scene.getMeshById("Brep.258").material=pipematerial
+    scene.getMeshById("Brep.259").material=pipematerial
+    scene.getMeshById("Brep.260").material=pipematerial
+    scene.getMeshById("Brep.261").material=pipematerial
+    scene.getMeshById("Brep.262").material=pipematerial
+    scene.getMeshById("Brep.263").material=pipematerial
+    scene.getMeshById("Brep.264").material=pipematerial
+    scene.getMeshById("Brep.265").material=pipematerial
+    scene.getMeshById("Brep.266").material=pipematerial
+    scene.getMeshById("Brep.267").material=pipematerial
+    scene.getMeshById("Brep.268").material=pipematerial
+    scene.getMeshById("Brep.269").material=pipematerial
+    scene.getMeshById("Brep.270").material=pipematerial
+    scene.getMeshById("Brep.271").material=pipematerial
+    scene.getMeshById("Brep.272").material=pipematerial
+    scene.getMeshById("Brep.273").material=pipematerial
+    scene.getMeshById("Brep.274").material=pipematerial
+    scene.getMeshById("Brep.275").material=pipematerial
+    scene.getMeshById("Brep.276").material=pipematerial
+    scene.getMeshById("Brep.277").material=pipematerial
+    scene.getMeshById("Brep.278").material=pipematerial
+    scene.getMeshById("Brep.279").material=pipematerial
+    scene.getMeshById("Brep.280").material=pipematerial
+    scene.getMeshById("Brep.281").material=pipematerial
+    scene.getMeshById("Brep.282").material=pipematerial
+    scene.getMeshById("Brep.283").material=pipematerial
+    scene.getMeshById("Brep.284").material=pipematerial
+    scene.getMeshById("Brep.285").material=pipematerial
+    scene.getMeshById("Brep.286").material=pipematerial
+    scene.getMeshById("Brep.287").material=pipematerial
+    scene.getMeshById("Brep.288").material=pipematerial
+    scene.getMeshById("Brep.289").material=pipematerial
+    scene.getMeshById("Brep.290").material=pipematerial
+    scene.getMeshById("Brep.291").material=pipematerial
+    scene.getMeshById("Brep.292").material=pipematerial
+    scene.getMeshById("Brep.293").material=pipematerial
+    scene.getMeshById("Brep.294").material=pipematerial
+    scene.getMeshById("Brep.295").material=pipematerial
+    scene.getMeshById("Brep.296").material=pipematerial
+    scene.getMeshById("Brep.297").material=pipematerial
+    scene.getMeshById("Brep.298").material=pipematerial
+    scene.getMeshById("Brep.299").material=pipematerial
+    scene.getMeshById("Brep.300").material=pipematerial
+    scene.getMeshById("Brep.301").material=pipematerial
+    scene.getMeshById("Brep.302").material=pipematerial
+    scene.getMeshById("Brep.303").material=pipematerial
+    scene.getMeshById("Brep.304").material=pipematerial
+    scene.getMeshById("Brep.305").material=pipematerial
+    scene.getMeshById("Brep.306").material=pipematerial
+    scene.getMeshById("Brep.307").material=pipematerial
+    scene.getMeshById("Brep.308").material=pipematerial
+    scene.getMeshById("Brep.309").material=pipematerial
+    scene.getMeshById("Brep.310").material=pipematerial
+    scene.getMeshById("Brep.311").material=pipematerial
+    scene.getMeshById("Brep.312").material=pipematerial
+    scene.getMeshById("Brep.313").material=pipematerial
+    scene.getMeshById("Brep.314").material=pipematerial
+    scene.getMeshById("Brep.315").material=pipematerial
+    scene.getMeshById("Brep.316").material=pipematerial
+    scene.getMeshById("Brep.317").material=pipematerial
+    scene.getMeshById("Brep.318").material=pipematerial
+    scene.getMeshById("Brep.319").material=pipematerial
+    scene.getMeshById("Brep.320").material=pipematerial
+    scene.getMeshById("Brep.321").material=pipematerial
+    scene.getMeshById("Brep.322").material=pipematerial
+    scene.getMeshById("Brep.323").material=pipematerial
+    scene.getMeshById("Brep.324").material=pipematerial
+    scene.getMeshById("Brep.325").material=pipematerial
+    scene.getMeshById("Brep.326").material=pipematerial
+    scene.getMeshById("Brep.327").material=pipematerial
+    scene.getMeshById("Brep.328").material=pipematerial
+    scene.getMeshById("Brep.329").material=pipematerial
+    scene.getMeshById("Brep.330").material=pipematerial
+    scene.getMeshById("Brep.331").material=pipematerial
+    scene.getMeshById("Brep.332").material=pipematerial
+    scene.getMeshById("Brep.333").material=pipematerial
+    scene.getMeshById("Brep.334").material=pipematerial
+    scene.getMeshById("Brep.335").material=pipematerial
+    scene.getMeshById("Brep.336").material=pipematerial
+    scene.getMeshById("Brep.337").material=pipematerial
+    scene.getMeshById("Brep.338").material=pipematerial
+    scene.getMeshById("Brep.339").material=pipematerial
+    scene.getMeshById("Brep.340").material=pipematerial
+    scene.getMeshById("Brep.341").material=pipematerial
+    scene.getMeshById("Brep.342").material=pipematerial
+    scene.getMeshById("Brep.343").material=pipematerial
+    scene.getMeshById("Brep.344").material=pipematerial
+    scene.getMeshById("Brep.345").material=pipematerial
+    scene.getMeshById("Brep.346").material=pipematerial
+    scene.getMeshById("Brep.347").material=pipematerial
+    scene.getMeshById("Brep.348").material=pipematerial
+        //阀门回归原色
+        let Equipments=["Mesh.1151","Mesh.1035","30QM013"];
+        Equipments.forEach(function(it){
+          let mesh = scene.getMeshById(it);
+          // mesh.unfreezeWorldMatrix();
+          mesh.material= equipmentsmaterialred;
+          objectArray[idToIndexMap1[it]].State="正常"
+          // mesh.freezeWorldMatrix();
+        })
+  }
+}
+
 export function flowProcess(ProcessName){
   if(ProcessName=="fillCO2"){
       uvflowing("Brep.093",1,2,0,"紫色")
@@ -1789,8 +2173,7 @@ function uvflowing(meshid,direction,block,transfer=0,color){
   materialSphere3.diffuseTexture.vOffset = 1;//垂直翻转百分比
   tube.material=materialSphere3;
   // setInterval(render(),3000)
-  render();
-  function render(){
+
     scene.onBeforeRenderObservable.add(() => {
 
       if(direction==2){
@@ -1806,10 +2189,10 @@ function uvflowing(meshid,direction,block,transfer=0,color){
           materialSphere3.diffuseTexture.uOffset += 0.05;
     }
   })
-  }
+  
 
 }
-
+// let pipematerial;
 BABYLON.SceneLoader.ImportMesh(
     "",
     "model/",
@@ -1817,6 +2200,7 @@ BABYLON.SceneLoader.ImportMesh(
     scene,
     function (Meshes) {
         console.log("Meshes:",Meshes)
+        // pipematerial=scene.getMeshById("Brep.093")
         changematerial3();
         changematerial1(Meshes);
         changematerial2(Meshes);

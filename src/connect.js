@@ -6,6 +6,7 @@ import {
     createWarningMessage,
     deleteWarningMessage,
     flowProcess,
+    stopProcess
 } from './model.js'
 import path from 'path-browserify'
 import {mqtt_config, getConfig } from "./config.js";
@@ -221,9 +222,19 @@ function handleMQTTMessage(message){
 function handleAnimation(info) {
     for (let key in info) {
         if (info.hasOwnProperty(key)) {
+            if(!info[key]){
+                stopProcess(key)
+                console.log("stopProcess",key)
+            }
+        }
+    }
+    for (let key in info) {
+        if (info.hasOwnProperty(key)) {
             if(info[key]){
                 flowProcess(key)
+                console.log("flowProcess",key)
             }
+
         }
     }
 }
