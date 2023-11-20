@@ -5,10 +5,22 @@
   </div>
 </template>
 <script>
-import * as echarts from "echarts";
+import * as echarts from "echarts/core";
+import { GridComponent } from "echarts/components";
+import { LineChart } from "echarts/charts";
+import { UniversalTransition } from "echarts/features";
+import { CanvasRenderer } from "echarts/renderers";
+
+echarts.use([GridComponent, LineChart, CanvasRenderer, UniversalTransition]);
+
+import connectdata from "../connect.js";
+let occureddata = connectdata[12];
+let handlingdata = connectdata[13];
 export default {
   data() {
     return {
+      occureddata,
+      handlingdata,
       option: {
         backgroundColor: "transparent   ",
         tooltip: {
@@ -28,7 +40,7 @@ export default {
         // },
         grid: {
           left: "10%",
-          right: "10%",
+          right: "3%",
           top: "15%",
           bottom: "10%",
           containLabel: true,
@@ -48,8 +60,8 @@ export default {
               interval: 0, // 调整间距
             },
             axisLabel: {
-              color:"#87CEEB",
-              fontSize:14,
+              color: "#87CEEB",
+              fontSize: 14,
             },
           },
         ],
@@ -72,7 +84,7 @@ export default {
             show: false,
           },
           axisLabel: {
-             color:"#87CEEB",
+            color: "#87CEEB",
             fontSize: 14,
             fontFamily: "Digital-7",
           },
@@ -117,7 +129,7 @@ export default {
               color: "#cececd",
               position: "top",
             },
-            data:[1,2,2,1,0,1,0],
+            data: occureddata,
           },
 
           {
@@ -167,7 +179,7 @@ export default {
               color: "#76e7ea",
               position: "top",
             },
-            data: [1,2,2,1,0,1,0],
+            data: handlingdata,
           },
         ],
       },
@@ -198,6 +210,5 @@ export default {
   z-index: 222;
   font-size: 27px;
   width: 100%;
-  
 }
 </style>

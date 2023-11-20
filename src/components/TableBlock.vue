@@ -3,49 +3,57 @@
     <div class="block" ref="childRef">
       <dv-border-box-8 style="width: 100%; height: 100%"
         ><div class="title" data-id="1">氢气压力</div>
-        <p>500.14</p>
+        <p>{{parameters[0]}}</p>
         <span>kPa</span></dv-border-box-8
       >
     </div>
     <div class="block" ref="childRef">
       <dv-border-box-8 style="width: 100%; height: 100%"
         ><div class="title" data-id="2">制氢浓度</div>
-        <p>98.01</p>
+        <p>{{parameters[1]}}</p>
         <span>%</span></dv-border-box-8
       >
     </div>
     <div class="block" ref="childRef">
       <dv-border-box-8 style="width: 100%; height: 100%"
         ><div class="title" data-id="3">氢气湿度</div>
-        <p>-14.25</p>
+        <p>{{parameters[2]}}</p>
         <span>℃</span></dv-border-box-8
       >
     </div>
     <div class="block" ref="childRef">
       <dv-border-box-8 style="width: 100%; height: 100%"
         ><div class="title" data-id="4">制氢流量</div>
-        <p>20.15</p>
+        <p>{{parameters[3]}}</p>
         <span>Nm³/h</span></dv-border-box-8
       >
     </div>
     <div class="block">
       <dv-border-box-8 style="width: 100%; height: 100%"
         ><div class="title" data-id="5">制氢能耗</div>
-        <p>4.25</p>
+        <p>{{parameters[4]}}</p>
         <span>kWh/Nm³</span></dv-border-box-8
       >
     </div>
     <div class="block">
       <dv-border-box-8 style="width: 100%; height: 100%"
         ><div class="title" data-id="6">制氢水耗</div>
-        <p>50.36</p>
+        <p>{{parameters[5]}}</p>
         <span>L/kg</span></dv-border-box-8
       >
     </div>
   </div>
 </template>
 <script>
+
+import connectdata from "../connect.js";
+let parameters = connectdata[2];
 export default {
+  data(){
+    return{
+  parameters
+    }
+  },
   methods: {
     handleClick(event) {
       if (event.target.parentNode.childNodes[0].tagName === "DIV") {

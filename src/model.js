@@ -182,7 +182,7 @@ actionManager.registerAction(
           }else {
               highLight(event.meshUnderPointer, event.meshUnderPointer.id);
           }
-          console.log(event.meshUnderPointer.id);
+          // console.log(event.meshUnderPointer.id);
           break;
       }
     }
@@ -2199,7 +2199,7 @@ BABYLON.SceneLoader.ImportMesh(
     "modelv20d.glb",
     scene,
     function (Meshes) {
-        console.log("Meshes:",Meshes)
+        // console.log("Meshes:",Meshes)
         // pipematerial=scene.getMeshById("Brep.093")
         changematerial3();
         changematerial1(Meshes);
@@ -2235,7 +2235,7 @@ BABYLON.SceneLoader.ImportMesh(
                 mesh.actionManeger = nullManager;
             }
         });
-        console.log("modeldocument",document.getElementById("model"))
+        // console.log("modeldocument",document.getElementById("model"))
         // window.onload = function () {
           document.getElementById("model").appendChild(canvas);
         // };

@@ -5,10 +5,20 @@
   </div>
 </template>
 <script>
-import * as echarts from "echarts";
+import * as echarts from "echarts/core";
+import { GridComponent } from "echarts/components";
+import { LineChart } from "echarts/charts";
+import { UniversalTransition } from "echarts/features";
+import { CanvasRenderer } from "echarts/renderers";
+
+echarts.use([GridComponent, LineChart, CanvasRenderer, UniversalTransition]);
+import connectdata from "../connect.js";
+
+let handlingrate = connectdata[14];
 export default {
   data() {
     return {
+      handlingrate,
       option: {
         backgroundColor: "transparent",
 
@@ -63,8 +73,8 @@ export default {
             },
             axisLabel: {
               color: "#4ed2fd",
-             
-              fontSize:18,
+
+              fontSize: 18,
             },
             splitLine: {
               show: false,
@@ -162,7 +172,7 @@ export default {
                 shadowBlur: 20,
               },
             },
-            data: [98.76, 98.99, 98.77, 98.89, 99.12, 99.33, 99.56],
+            data: handlingrate,
           },
           {
             name: "注册总量",
@@ -254,6 +264,5 @@ export default {
   z-index: 222;
   font-size: 27px;
   width: 100%;
-
 }
 </style>

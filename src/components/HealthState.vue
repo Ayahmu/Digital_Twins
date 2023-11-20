@@ -1,42 +1,97 @@
 <template>
   <div class="basic">
-    <span class="title" style="">系统健康状态</span>
+    <span class="title" style="transform:translateX(0.5vw)">系统健康状态</span>
     <dv-decoration-9 class="picture">
-      <span class="number">99%</span></dv-decoration-9
+      <span class="number">{{ number }}%</span></dv-decoration-9
     >
     <div class="icon">
       <el-row>
         <el-col :span="6"><div class="content">氢气品质</div></el-col>
-        <el-col :span="3"> <div class="circle"></div> </el-col>
+        <el-col :span="3">
+          <div class="circle" :style="{ backgroundColor: choosecolor1 }"></div>
+        </el-col>
 
         <el-col :span="6"><div class="content">漏氢状态</div></el-col>
-        <el-col :span="6"> <div class="circle"></div> </el-col>
+        <el-col :span="6">
+          <div class="circle" :style="{ backgroundColor: choosecolor2 }"></div>
+        </el-col>
       </el-row>
       <el-row>
         <el-col :span="6"><div class="content">漏液状态</div></el-col>
-        <el-col :span="3"> <div class="circle"></div> </el-col
+        <el-col :span="3">
+          <div
+            class="circle"
+            :style="{ backgroundColor: choosecolor3 }"
+          ></div> </el-col
         ><el-col :span="6"><div class="content">制氢纯度</div></el-col>
-        <el-col :span="6"> <div class="circle"></div>  </el-col>
+        <el-col :span="6">
+          <div class="circle" :style="{ backgroundColor: choosecolor4 }"></div>
+        </el-col>
       </el-row>
       <el-row
         ><el-col :span="6"><div class="content">制氢电压</div></el-col>
-        <el-col :span="3"> <div class="circle"></div>  </el-col>
+        <el-col :span="3">
+          <div class="circle" :style="{ backgroundColor: choosecolor5 }"></div>
+        </el-col>
         <el-col :span="6"><div class="content">提纯状态</div></el-col>
-        <el-col :span="6"> <div class="circle"></div> </el-col>
+        <el-col :span="6">
+          <div class="circle" :style="{ backgroundColor: choosecolor6 }"></div>
+        </el-col>
       </el-row>
     </div>
   </div>
 </template>
 <script>
+import connectdata from "../connect.js";
+let healthlevel = connectdata[1];
+let number = healthlevel[0];
+let choosecolor1,
+  choosecolor2,
+  choosecolor3,
+  choosecolor4,
+  choosecolor5,
+  choosecolor6;
+if (healthlevel[1] == 0) {
+  choosecolor1 = "#fc2100";
+} else if (healthlevel[1] == 1) {
+  choosecolor1 = "rgb(0, 158, 0)";
+}
+if (healthlevel[2] == 0) {
+  choosecolor2 = "#fc2100";
+} else if (healthlevel[2] == 1) {
+  choosecolor2 = "rgb(0, 158, 0)";
+}
+if (healthlevel[3] == 0) {
+  choosecolor3 = "#fc2100";
+} else if (healthlevel[3] == 1) {
+  choosecolor3 = "rgb(0, 158, 0)";
+}
+if (healthlevel[4] == 0) {
+  choosecolor4 = "#fc2100";
+} else if (healthlevel[4] == 1) {
+  choosecolor4 = "rgb(0, 158, 0)";
+}
+if (healthlevel[5] == 0) {
+  choosecolor5 = "#fc2100";
+} else if (healthlevel[5] == 1) {
+  choosecolor5 = "rgb(0, 158, 0)";
+}
+if (healthlevel[6] == 0) {
+  choosecolor6 = "#fc2100";
+} else if (healthlevel[6] == 1) {
+  choosecolor6 = "rgb(0, 158, 0)";
+}
+
 export default {
   data() {
     return {
-      value1: true,
-      value2: true,
-      value3: true,
-      value4: true,
-      value5: true,
-      value6: true,
+      number,
+      choosecolor1,
+      choosecolor2,
+      choosecolor3,
+      choosecolor4,
+      choosecolor5,
+      choosecolor6,
     };
   },
 };
@@ -68,6 +123,7 @@ el-switch {
 span {
   text-align: center;
   background-image: linear-gradient(to bottom, white, #48c8ff);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   left: -15px;
@@ -100,7 +156,7 @@ el-button {
   border-radius: 50%;
   background-color: rgb(0, 158, 0);
   text-align: bottom;
-  transform: translate(0px,0.4vw);
+  transform: translate(0px, 0.4vw);
 }
 
 .circle::before {

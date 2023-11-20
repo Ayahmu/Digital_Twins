@@ -3,64 +3,74 @@
     <div class="box">电解水制氢成本占比</div>
     <dv-active-ring-chart
       :config="config"
-      style="width: 11.5944vw; height: 13.5944vw;  border-radius: 1vw; transform: scale(1, 1.25) translate(0.0957vw, 2vw);
-          transform-origin: bottom;"
+      style="
+        width: 11.5944vw;
+        height: 13.5944vw;
+        border-radius: 1vw;
+        transform: scale(1, 1.25) translate(0.0957vw, 2vw);
+        transform-origin: bottom;
+      "
     />
-    <div class="pie" ref="pie" style="width: 12.1414vw; height: 19.3513vw"></div>
+    <div
+      class="pie"
+      ref="pie"
+      style="width: 12.1414vw; height: 19.3513vw"
+    ></div>
   </div>
 </template>
 <script>
 import * as echarts from "echarts";
-// import * as chartUtils from '../chartUtils.js';
+import connectdata from "../connect.js";
+let cost = connectdata[9];
+
 export default {
   data() {
     return {
+      cost,
       config: {
         // digitalFlopStyle: {
- digitalFlopStyle: {
-  fontSize: 16,
-  fill: '#fff'
-},
-        lineWidth:20,
+        digitalFlopStyle: {
+          fontSize: 16,
+          fill: "#fff",
+        },
+        lineWidth: 20,
         activeTimeGap: 6000,
         data: [
           {
             name: "电  费",
-            value: 85.3,
+            value: cost[0],
           },
           {
             name: "固定成本",
-            value: 7.8,
+            value: cost[1],
           },
           {
             name: "水  费",
-            value: 2.8,
+            value: cost[2],
           },
           {
             name: "设备维护",
-            value: 4.1,
+            value: cost[3],
           },
         ],
-        color: ['#00ffff','#00cfff','#006ced','#ffe000'],
+        color: ["#00ffff", "#00cfff", "#006ced", "#ffe000"],
         digitalFlopToFixed: 1,
       },
     };
   },
-  methods:{
-    
-      getViewportWidth() {
-        return window.innerWidth || document.documentElement.clientWidth;
-      },
-  
-      calculateLabelSize() {
-        var viewportWidth = this.getViewportWidth();
-        var labelSize = viewportWidth * 0.01; // 假设为视口宽度的1%
-        return labelSize;
-      }
-    
+  methods: {
+    getViewportWidth() {
+      return window.innerWidth || document.documentElement.clientWidth;
+    },
+
+    calculateLabelSize() {
+      var viewportWidth = this.getViewportWidth();
+      var labelSize = viewportWidth * 0.01; // 假设为视口宽度的1%
+      return labelSize;
+    },
   },
   mounted() {
- const ba=this.calculateLabelSize();
+    const ba = this.calculateLabelSize();
 
     const data = [
       {
@@ -82,14 +92,14 @@ export default {
     ];
     this.myChart = echarts.init(this.$refs.pie);
     this.option = {
-      color: ['#00ffff','#00cfff','#006ced','#ffe000'],
+      color: ["#00ffff", "#00cfff", "#006ced", "#ffe000"],
       legend: {
         // top: "-3%",
         left: "41%",
-        orient: 'vertical',
+        orient: "vertical",
         textStyle: {
           color: "#4edbff",
-          fontSize: 1.0556*ba+"px",
+          fontSize: 1.0556 * ba + "px",
         },
         icon: "roundRect",
         data: [
@@ -214,7 +224,6 @@ export default {
   left: 30%;
 
   transform: translate(1vw, -9.236vw);
- 
 }
 
 .box {
@@ -228,6 +237,5 @@ export default {
   z-index: 2;
   font-size: 1.3602vw;
   width: 100%;
-
 }
 </style>

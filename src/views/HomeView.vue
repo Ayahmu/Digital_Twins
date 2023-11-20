@@ -131,11 +131,25 @@
           "
         >
           <div class="three">
-            <div class="one">运行</div>
+            <div
+              class="one"
+              :style="{
+                color: unitcolor,
+              }"
+            >
+              {{ first }}
+            </div>
             <!-- <div class="one"></div> -->
-            <div class="one">运行</div>
+            <div
+              class="one"
+              :style="{
+                color: systemcolor,
+              }"
+            >
+              {{ second }}
+            </div>
             <div class="one" style="transform: translate(-2vw, 0vw)">
-              960.18MV
+              {{ three }}
             </div>
           </div>
           <div class="total">
@@ -161,7 +175,7 @@
             height: 12.09068vw;
             left: 0;
             background-color: rgba(0, 0, 0, 0.22);
-            margin-bottom:1.5vw;
+            margin-bottom: 1.5vw;
             border-radius: 1vw;
           "
           ><HealthState></HealthState>
@@ -225,10 +239,10 @@
         <dv-border-box-12
           style="
             width: 100%;
-            height: 15.0629vw;
+            height: 14.0629vw;
             background-color: rgba(0, 0, 0, 0.22);
             border-radius: 1vw;
-            margin-bottom: 1.5vw;
+            margin-bottom: 1vw;
           "
           ><dv-scroll-board
             class="place"
@@ -247,9 +261,9 @@
         <dv-border-box-12
           style="
             width: 100%;
-            height: 6.19647vw;
+            height: 8.19647vw;
             background-color: rgba(0, 0, 0, 0.22);
-            margin-bottom: 1.5vw;
+            margin-bottom: 1vw;
             border-radius: 1vw;
           "
           ><WarnInfo></WarnInfo
@@ -331,32 +345,6 @@
           </dv-border-box-12>
         </div>
       </div>
-      <!-- 最底部装饰盒子 -->
-      <!-- <div class="max">
-          <div class="first">
-            <dv-decoration-10
-              style="width: 92%; height: 10px"
-              :color="['#00ffff', '#5558f0']"
-              :dur="10"
-            />
-          </div>
-          <div class="second">
-            <dv-decoration-8
-              style="width: 300px; height: 50px; flex-basis: 33%"
-              :color="['#7ce7fd', '#7ce7fd']"
-            />
-
-            <dv-decoration-6
-              style="width: 300px; height: 60px; flex-basis: 33%"
-              :color="['#00ffff', '#00ffff']"
-            />
-            <dv-decoration-8
-              :reverse="true"
-              style="width: 300px; height: 50px; flex-basis: 33%"
-              :color="['#7ce7fd', '#7ce7fd']"
-            />
-          </div>
-        </div>  -->
     </div>
   </div>
 </template>
@@ -378,19 +366,52 @@ import HealthState from "../components/HealthState.vue";
 import PageGather from "@/components/PageGather.vue";
 import WarnInfo from "@/components/WarnInfo.vue";
 import SearchItem from "@/components/SearchItem.vue";
-import {searchModel} from "../model.js";
-
+import { searchModel } from "../model.js";
+import { ref } from "vue";
+import connectdata from "../connect.js";
+let status = connectdata[0];
+let first = ref();
+let second = ref();
+let three = ref();
+let unitcolor;
+let systemcolor;
+if (status[0] == 0) {
+  first.value = "停止";
+  unitcolor = "#ff7b82";
+} else if (status[0] == 1) {
+  first.value = "运行";
+  unitcolor = "#78f4ad";
+} else if (status[0] == 2) {
+  first.value = "盘车";
+  unitcolor = "#ffe161";
+}
+if (status[1] == 0) {
+  second.value = "停止";
+  systemcolor = "#ff7b82";
+} else if (status[1] == 1) {
+  second.value = "运行";
+  systemcolor = "#78f4ad";
+} else if (status[1] == 2) {
+  second.value = "置换";
+  systemcolor = "#ffe161";
+}
+three.value = status[2];
 export default {
   name: "HomeView",
   data() {
     return {
+      unitcolor,
+      systemcolor,
+      first,
+      second,
+      three,
       showPopup: false,
       currentDateTime: "",
       status: {
         headerBGC: "#3472bb",
         oddRowBGC: "transparent",
         evenRowBGC: "rgba(122, 202, 236,0.3)",
-        columnWidth: [173,235, 71],
+        columnWidth: [173, 235, 71],
         align: ["center", "center", "center"],
         header: ["编号", "设备名称", "状态"],
         row: "",
@@ -455,7 +476,7 @@ export default {
 
       displayList: [],
       formatList: [],
-      resetList:[],
+      resetList: [],
     };
   },
 
@@ -491,7 +512,7 @@ export default {
       connect.sendMessage();
     },
     //使用json文件中的设备信息配置轮播表和搜索数据库
-     getJson(){
+    getJson() {
       this.carouselList = this.searchList.map((item) => [
         `<span style='color: #00ffff;font-size:18px;'>${item.ID}</span>`,
         `<span style='color: #00ffff;font-size:18px;'>${item.Name}</span>`,
@@ -501,7 +522,7 @@ export default {
         headerBGC: "#3472bb",
         oddRowBGC: "transparent",
         evenRowBGC: "rgba(122, 202, 236,0.3)",
-        columnWidth: [173,235, 71],
+        columnWidth: [173, 235, 71],
         align: ["center", "center", "center"],
         header: ["编号", "设备名称", "状态"],
         row: "",
@@ -509,7 +530,7 @@ export default {
         waitTime: 5000,
         data: this.carouselList,
       };
-     },
+    },
     // 模糊搜索备选框由轮播表代替, 不影响原本轮播表的点击事件
     //后续可以使用json配置数据库中的设备信息,此处只使用固定设备信息进行示例
     FormEvent(bus_id) {
@@ -530,7 +551,7 @@ export default {
         headerBGC: "#3472bb",
         oddRowBGC: "transparent",
         evenRowBGC: "rgba(122, 202, 236,0.3)",
-        columnWidth: [173,235, 71],
+        columnWidth: [173, 235, 71],
         align: ["center", "center", "center"],
         header: ["编号", "设备名称", "状态"],
         row: "",
@@ -542,37 +563,35 @@ export default {
     doReset(reset) {
       if (reset == 1) {
         this.resetList = this.searchList.map((item) => [
-        `<span style='color: #00ffff;font-size:18px;'>${item.ID}</span>`,
-        `<span style='color: #00ffff;font-size:18px;'>${item.Name}</span>`,
-        `<span style='color: #00ffff;font-size:18px;'>正常</span>`,
-      ]);
+          `<span style='color: #00ffff;font-size:18px;'>${item.ID}</span>`,
+          `<span style='color: #00ffff;font-size:18px;'>${item.Name}</span>`,
+          `<span style='color: #00ffff;font-size:18px;'>正常</span>`,
+        ]);
         this.status = {
           headerBGC: "#3472bb",
           oddRowBGC: "transparent",
           evenRowBGC: "rgba(122, 202, 236,0.3)",
-          columnWidth: [173,235, 71],
+          columnWidth: [173, 235, 71],
           align: ["center", "center", "center"],
           header: ["编号", "设备名称", "状态"],
           row: "",
           rowNum: 4,
           waitTime: 5000,
-          data: this.resetList
-
+          data: this.resetList,
         };
       }
     },
 
     chooseModule(module) {
-
       let pattern = />([^<]+)</; // 匹配 > 和 < 之间的字母和数字
       let match = module.row[0].match(pattern);
-      console.log(module.row[0])
-      console.log(match)
+      console.log(module.row[0]);
+      // console.log(match);
       if (match) {
         let extractedString = match[1]; // 提取匹配的部分
-        console.log(extractedString);
+        // console.log(extractedString);
         searchModel(extractedString);
-      }else {
+      } else {
         alert("暂无详细设备信息");
       }
     },

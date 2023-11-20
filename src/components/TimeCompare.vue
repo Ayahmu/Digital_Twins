@@ -5,10 +5,22 @@
   </div>
 </template>
 <script>
-import * as echarts from "echarts";
+import * as echarts from "echarts/core";
+import { GridComponent } from "echarts/components";
+import { LineChart } from "echarts/charts";
+import { UniversalTransition } from "echarts/features";
+import { CanvasRenderer } from "echarts/renderers";
+
+echarts.use([GridComponent, LineChart, CanvasRenderer, UniversalTransition]);
+
+import connectdata from "../connect.js";
+let supplement = connectdata[10];
+let purification = connectdata[11];
 export default {
   data() {
     return {
+      supplement,
+      purification,
       option: {
         backgroundColor: "transparent   ",
         tooltip: {
@@ -28,7 +40,7 @@ export default {
         // },
         grid: {
           left: "10%",
-          right: "10%",
+          right: "3%",
           top: "15%",
           bottom: "10%",
           containLabel: true,
@@ -111,13 +123,14 @@ export default {
                 ),
               },
             },
-            barWidth: "15",
+            barWidth: "18",
             label: {
               show: true,
               color: "#cececd",
               position: "outside",
+              fontSize: 10,
             },
-            data: [22, 23, 30, 26, 28, 25, 29],
+            data: supplement,
           },
 
           {
@@ -166,8 +179,9 @@ export default {
               show: true,
               color: "#76e7ea",
               position: "outside",
+              fontSize: 10,
             },
-            data: [49, 55, 55, 53, 57, 59, 58],
+            data: purification,
           },
         ],
       },
