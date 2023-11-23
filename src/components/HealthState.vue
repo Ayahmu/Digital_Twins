@@ -23,13 +23,13 @@
             class="circle"
             :style="{ backgroundColor: choosecolor3 }"
           ></div> </el-col
-        ><el-col :span="6"><div class="content">制氢纯度</div></el-col>
+        ><el-col :span="6"><div class="content">制氢功率</div></el-col>
         <el-col :span="6">
           <div class="circle" :style="{ backgroundColor: choosecolor4 }"></div>
         </el-col>
       </el-row>
       <el-row
-        ><el-col :span="6"><div class="content">制氢电压</div></el-col>
+        ><el-col :span="6"><div class="content">制氢状态</div></el-col>
         <el-col :span="3">
           <div class="circle" :style="{ backgroundColor: choosecolor5 }"></div>
         </el-col>
@@ -110,7 +110,7 @@ el-switch {
 }
 .basic {
   position: relative;
-  height: 100%;
+  height: 120%;
   cursor: default;
 }
 .content {
@@ -137,7 +137,7 @@ span {
   width: 178px;
   height: 178px;
   float: left;
-  transform: translate(15px, 42px);
+  transform: translate(15px, 3.5vw);
 }
 .number {
   color: #29eef3;

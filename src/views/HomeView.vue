@@ -88,8 +88,8 @@
           width: 412px;
           height: 1.8136vw;
           position: absolute;
-          top: 6%;
-          left: 50%;
+          top: 8%;
+          left: 48%;
           transform: translate(24.21158vw, -2vw);
           font-family: Digital-7;
           font-weight: bold;
@@ -102,13 +102,13 @@
       <div class="text" style="z-index: 3; top: 9vw" id="home_btn">
         <p @click="consoleLog" style="cursor: pointer">智能氢气控制系统</p>
       </div>
-      <!-- 左三个 -->
+      <!-- 左两个 -->
       <div
         style="
           position: absolute;
           width: 25%;
           height: 37.5vw;
-          top: 9vw;
+          top: 14vw;
           z-index: 3;
           transform: scale(0.8);
           transform-origin: top left;
@@ -119,7 +119,7 @@
         <dv-border-box-12
           style="
             width: 100%;
-            height: 10.07556vw;
+            height: 11.07556vw;
             padding-top: 40px;
             transform: translate(0px, 28px);
             position: relative;
@@ -127,7 +127,7 @@
             left: 0;
             background-color: rgba(0, 0, 0, 0.22);
             border-radius: 1vw;
-            margin-bottom: 1.5vw;
+            margin-bottom: 2.5vw;
           "
         >
           <div class="three">
@@ -172,20 +172,7 @@
         <dv-border-box-12
           style="
             width: 100%;
-            height: 12.09068vw;
-            left: 0;
-            background-color: rgba(0, 0, 0, 0.22);
-            margin-bottom: 1.5vw;
-            border-radius: 1vw;
-          "
-          ><HealthState></HealthState>
-        </dv-border-box-12>
-
-        <!-- 第三部分 -->
-        <dv-border-box-12
-          style="
-            width: 100%;
-            height: 11.5869vw;
+            height: 7.9869vw;
             left: 0;
             background-color: rgba(0, 0, 0, 0.22);
             border-radius: 1vw;
@@ -202,7 +189,7 @@
           width: 25%;
           height: 37.5vw;
           z-index: 3;
-          top: 9vw;
+          top: 12vw;
           transform: scale(0.8);
           transform-origin: top right;
         "
@@ -239,10 +226,10 @@
         <dv-border-box-12
           style="
             width: 100%;
-            height: 14.0629vw;
+            height: 14.9629vw;
             background-color: rgba(0, 0, 0, 0.22);
             border-radius: 1vw;
-            margin-bottom: 1vw;
+            margin-bottom: 2.5vw;
           "
           ><dv-scroll-board
             class="place"
@@ -250,7 +237,7 @@
             ref="scrollBoard"
             style="
               width: 97%;
-              height: 95%;
+              height: 93%;
               top: 8px;
               z-index: 77;
               position: absolute;
@@ -268,17 +255,6 @@
           "
           ><WarnInfo></WarnInfo
         ></dv-border-box-12>
-
-        <dv-border-box-12
-          style="
-            width: 100%;
-            height: 12.9921vw;
-            background-color: rgba(0, 0, 0, 0.22);
-            border-radius: 1vw;
-          "
-        >
-          <LineChart></LineChart>
-        </dv-border-box-12>
       </div>
 
       <!-- 下方盒子 -->
@@ -328,7 +304,7 @@
               border-radius: 1vw;
             "
           >
-            <TimeCompare></TimeCompare>
+            <HealthState></HealthState>
           </dv-border-box-12>
         </div>
         <!-- 四号 -->
@@ -341,7 +317,7 @@
               border-radius: 1vw;
             "
           >
-            <DoublePole></DoublePole>
+            <LineChart></LineChart>
           </dv-border-box-12>
         </div>
       </div>
@@ -358,10 +334,10 @@ import UnitPanel from "../components/UnitPanel.vue";
 import SystemPanel from "../components/SyetemPanel.vue";
 import UnitPower from "../components/UnitPower.vue";
 import TableBlock from "../components/TableBlock.vue";
-import DoublePole from "../components/DoublePole.vue";
+// import DoublePole from "../components/DoublePole.vue";
 import LineChart from "../components/LineChart.vue";
 import CostPie from "../components/CostPie.vue";
-import TimeCompare from "../components/TimeCompare.vue";
+
 import HealthState from "../components/HealthState.vue";
 import PageGather from "@/components/PageGather.vue";
 import WarnInfo from "@/components/WarnInfo.vue";
@@ -411,79 +387,61 @@ export default {
         headerBGC: "#3472bb",
         oddRowBGC: "transparent",
         evenRowBGC: "rgba(122, 202, 236,0.3)",
-        columnWidth: [173, 235, 71],
-        align: ["center", "center", "center"],
-        header: ["编号", "设备名称", "状态"],
+        columnWidth: [203, 265],
+        align: ["center", "center"],
+        header: [
+          "<span style='color: #fff;font-size:15px;'>编号</span>",
+          "<span style='color: #fff;font-size:15px;'>设备名称</span>",
+        ],
         row: "",
         rowNum: 4,
         waitTime: 5000,
         data: [
           [
-            "<span style='color: #00ffff;font-size:18px;'>Mesh.2971</span>",
-            "<span style='color: #00ffff;font-size:18px;'>气体控制柜门</span>",
-            "<span style='color: #00ffff;font-size:18px;'>正常</span>",
-          ],
-          [
-            "<span style='color: #00ffff;font-size:18px;'>10QM023</span>",
-            "<span style='color: #00ffff;font-size:18px;'>电磁阀</span>",
-            "<span style='color: #00ffff;font-size:18px;'>正常</span>",
-          ],
-          [
-            "<span style='color: #00ffff;font-size:18px;'>10QM009</span>",
-            "<span style='color: #00ffff;font-size:18px;'>气动球阀</span>",
-            "<span style='color: #00ffff;font-size:18px;'>正常</span>",
-          ],
-          [
-            "<span style='color: #00ffff;font-size:18px;'>20QM410</span>",
-            "<span style='color: #00ffff;font-size:18px;'>氢气阻火器</span>",
-            "<span style='color: #00ffff;font-size:18px;'>正常</span>",
-          ],
-          [
-            "<span style='color: #00ffff;font-size:18px;'>20QM028</span>",
-            "<span style='color: #00ffff;font-size:18px;'>阻断阀</span>",
-            "<span style='color: #00ffff;font-size:18px;'>正常</span>",
-          ],
-          [
-            "<span style='color: #00ffff;font-size:18px;'>10BP102</span>",
-            "<span style='color: #00ffff;font-size:18px;'>压力变送器</span>",
-            "<span style='color: #00ffff;font-size:18px;'>正常</span>",
-          ],
-          [
-            "<span style='color: #00ffff;font-size:18px;'>10KF102</span>",
-            "<span style='color: #00ffff;font-size:18px;'>氢气分析仪</span>",
-            "<span style='color: #00ffff;font-size:18px;'>正常</span>",
-          ],
-          [
-            "<span style='color: #00ffff;font-size:18px;'>30BL001</span>",
-            "<span style='color: #00ffff;font-size:18px;'>浮球液位计</span>",
-            "<span style='color: #00ffff;font-size:18px;'>正常</span>",
-          ],
-          [
-            "<span style='color: #00ffff;font-size:18px;'>30PG101</span>",
-            "<span style='color: #00ffff;font-size:18px;'>压力表</span>",
-            "<span style='color: #00ffff;font-size:18px;'>正常</span>",
-          ],
-          [
-            "<span style='color: #00ffff;font-size:18px;'>10BF503</span>",
-            "<span style='color: #00ffff;font-size:18px;'>常压流量计</span>",
-            "<span style='color: #00ffff;font-size:18px;'>正常</span>",
+            "<span style='color: #00ffff;font-size:15px;'>10BF503</span>",
+            "<span style='color: #00ffff;font-size:15px;'>常压流量计</span>",
           ],
         ],
       },
       searchList: jsonData,
+      //树状用
+      tenList: [],
+      twentyList: [],
+      thrityList: [],
+      MeshList: [],
+
+      //搜索用
       nameList: [],
       idList: [],
 
+      //展示用
       displayList: [],
       formatList: [],
-      resetList: [],
+      resetList: [
+        [
+          "<span style='color: #00ffff;font-size:15px;'>MKG10GH001</span>",
+          "<span style='color: #00ffff;font-size:15px;'>气体控制单元</span>",
+        ],
+        [
+          "<span style='color: #00ffff;font-size:15px;'>MKG20GH001</span>",
+          "<span style='color: #00ffff;font-size:15px;'>氢气提纯单元</span>",
+        ],
+        [
+          "<span style='color: #00ffff;font-size:15px;'>MKG30GH001</span>",
+          "<span style='color: #00ffff;font-size:15px;'>氢气补充单元</span>",
+        ],
+        [
+          "<span style='color: #00ffff;font-size:15px;'>MKGMesh</span>",
+          "<span style='color: #00ffff;font-size:15px;'>其它功能单元</span>",
+        ],
+      ],
     };
   },
 
   mounted() {
     this.updateDateTime(); // 初始化时立即更新日期时间
     setInterval(this.updateDateTime, 1000); // 每秒更新日期时间
-
+    this.doSeparate();
     this.getJson();
   },
   created() {
@@ -511,24 +469,39 @@ export default {
     sendMessage() {
       connect.sendMessage();
     },
+
+    //对json文件中的设备分区
+    doSeparate() {
+      this.tenList = this.searchList.filter(
+        (item) => item.ID.substring(0, 2) === "10"
+      );
+      this.twentyList = this.searchList.filter(
+        (item) => item.ID.substring(0, 2) === "20"
+      );
+      this.thrityList = this.searchList.filter(
+        (item) => item.ID.substring(0, 2) === "30"
+      );
+      this.MeshList = this.searchList.filter(
+        (item) => item.ID.substring(0, 4) === "Mesh" || "Z-BV3"
+      );
+    },
+
     //使用json文件中的设备信息配置轮播表和搜索数据库
     getJson() {
-      this.carouselList = this.searchList.map((item) => [
-        `<span style='color: #00ffff;font-size:18px;'>${item.ID}</span>`,
-        `<span style='color: #00ffff;font-size:18px;'>${item.Name}</span>`,
-        `<span style='color: #00ffff;font-size:18px;'>正常</span>`,
-      ]);
       this.status = {
         headerBGC: "#3472bb",
         oddRowBGC: "transparent",
         evenRowBGC: "rgba(122, 202, 236,0.3)",
-        columnWidth: [173, 235, 71],
-        align: ["center", "center", "center"],
-        header: ["编号", "设备名称", "状态"],
+        columnWidth: [203, 265],
+        align: ["center", "center"],
+        header: [
+          "<span style='color: #fff;font-size:15px;'>编号</span>",
+          "<span style='color: #fff;font-size:15px;'>设备名称</span>",
+        ],
         row: "",
         rowNum: 4,
         waitTime: 5000,
-        data: this.carouselList,
+        data: this.resetList,
       };
     },
     // 模糊搜索备选框由轮播表代替, 不影响原本轮播表的点击事件
@@ -542,18 +515,20 @@ export default {
       this.displayList =
         this.idList.length > this.nameList.length ? this.idList : this.nameList;
       this.formatList = this.displayList.map((item) => [
-        `<span style='color: #00ffff;font-size:18px;'>${item.ID}</span>`,
-        `<span style='color: #00ffff;font-size:18px;'>${item.Name}</span>`,
-        `<span style='color: #00ffff;font-size:18px;'>正常</span>`,
+        `<span style='color: #00ffff;font-size:15px;'>${item.ID}</span>`,
+        `<span style='color: #00ffff;font-size:15px;'>${item.Name}</span>`,
       ]);
 
       this.status = {
         headerBGC: "#3472bb",
         oddRowBGC: "transparent",
         evenRowBGC: "rgba(122, 202, 236,0.3)",
-        columnWidth: [173, 235, 71],
-        align: ["center", "center", "center"],
-        header: ["编号", "设备名称", "状态"],
+        columnWidth: [203, 265],
+        align: ["center", "center"],
+        header: [
+          "<span style='color: #fff;font-size:15px;'>编号</span>",
+          "<span style='color: #fff;font-size:15px;'>设备名称</span>",
+        ],
         row: "",
         rowNum: 4,
         waitTime: 5000,
@@ -562,18 +537,16 @@ export default {
     },
     doReset(reset) {
       if (reset == 1) {
-        this.resetList = this.searchList.map((item) => [
-          `<span style='color: #00ffff;font-size:18px;'>${item.ID}</span>`,
-          `<span style='color: #00ffff;font-size:18px;'>${item.Name}</span>`,
-          `<span style='color: #00ffff;font-size:18px;'>正常</span>`,
-        ]);
         this.status = {
           headerBGC: "#3472bb",
           oddRowBGC: "transparent",
           evenRowBGC: "rgba(122, 202, 236,0.3)",
-          columnWidth: [173, 235, 71],
-          align: ["center", "center", "center"],
-          header: ["编号", "设备名称", "状态"],
+          columnWidth: [203, 265],
+          align: ["center", "center"],
+          header: [
+            "<span style='color: #fff;font-size:15px;'>编号</span>",
+            "<span style='color: #fff;font-size:15px;'>设备名称</span>",
+          ],
           row: "",
           rowNum: 4,
           waitTime: 5000,
@@ -581,18 +554,75 @@ export default {
         };
       }
     },
-
     chooseModule(module) {
-      let pattern = />([^<]+)</; // 匹配 > 和 < 之间的字母和数字
-      let match = module.row[0].match(pattern);
-      console.log(module.row[0]);
-      // console.log(match);
-      if (match) {
-        let extractedString = match[1]; // 提取匹配的部分
-        // console.log(extractedString);
-        searchModel(extractedString);
+      if (
+        module.row[0] ===
+          "<span style='color: #00ffff;font-size:15px;'>MKG10GH001</span>" ||
+        module.row[0] ===
+          "<span style='color: #00ffff;font-size:15px;'>MKG20GH001</span>" ||
+        module.row[0] ===
+          "<span style='color: #00ffff;font-size:15px;'>MKG30GH001</span>" ||
+        module.row[0] ===
+          "<span style='color: #00ffff;font-size:15px;'>MKGMesh</span>"
+      ) {
+        switch (module.rowIndex) {
+          case 0: {
+            this.formatList = this.tenList.map((item) => [
+              `<span style='color: #00ffff;font-size:15px;'>${item.ID}</span>`,
+              `<span style='color: #00ffff;font-size:15px;'>${item.Name}</span>`,
+            ]);
+            break;
+          }
+          case 1: {
+            this.formatList = this.twentyList.map((item) => [
+              `<span style='color: #00ffff;font-size:15px;'>${item.ID}</span>`,
+              `<span style='color: #00ffff;font-size:15px;'>${item.Name}</span>`,
+            ]);
+            break;
+          }
+          case 2: {
+            this.formatList = this.thrityList.map((item) => [
+              `<span style='color: #00ffff;font-size:15px;'>${item.ID}</span>`,
+              `<span style='color: #00ffff;font-size:15px;'>${item.Name}</span>`,
+            ]);
+            break;
+          }
+          case 3: {
+            this.formatList = this.MeshList.map((item) => [
+              `<span style='color: #00ffff;font-size:15px;'>${item.ID}</span>`,
+              `<span style='color: #00ffff;font-size:15px;'>${item.Name}</span>`,
+            ]);
+            break;
+          }
+        }
+        console.log(this.formatList);
+        this.status = {
+          headerBGC: "#3472bb",
+          oddRowBGC: "transparent",
+          evenRowBGC: "rgba(122, 202, 236,0.3)",
+          columnWidth: [203, 265],
+          align: ["center", "center"],
+          header: [
+            "<span style='color: #fff;font-size:15px;'>编号</span>",
+            "<span style='color: #fff;font-size:15px;'>设备名称</span>",
+          ],
+          row: "",
+          rowNum: 4,
+          waitTime: 5000,
+          data: this.formatList,
+        };
       } else {
-        alert("暂无详细设备信息");
+        let pattern = />([^<]+)</; // 匹配 > 和 < 之间的字母和数字
+        let match = module.row[0].match(pattern);
+        console.log(module.row[0]);
+        // console.log(match);
+        if (match) {
+          let extractedString = match[1]; // 提取匹配的部分
+          // console.log(extractedString);
+          searchModel(extractedString);
+        } else {
+          alert("暂无详细设备信息");
+        }
       }
     },
   },
@@ -602,9 +632,8 @@ export default {
     SystemPanel,
     UnitPower,
     TableBlock,
-    DoublePole,
+    // DoublePole,
     LineChart,
-    TimeCompare,
     CostPie,
     HealthState,
     PageGather,

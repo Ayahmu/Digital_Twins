@@ -269,7 +269,5 @@
 {"ID":"30CT007","Name":"温度变送器","Info":"温度变送器.","Manual":"","Url":"","LocID":"Mesh.10001","Animation":"0"},
 {"ID":"30CT008","Name":"温度变送器","Info":"温度变送器.","Manual":"","Url":"","LocID":"Mesh.10001","Animation":"0"},
 {"ID":"30PG101","Name":"压力表","Info":"压力表.","Manual":"","Url":"","LocID":"Mesh.10001","Animation":"0"},
-{"ID":"30ρT101","Name":"电阻仪","Info":"电阻仪.","Manual":"","Url":"","LocID":"Mesh.10001","Animation":"0"},
-{"ID":"Brep","Name":"楼板1","Info":"","Manual":"","Url":"","LocID":"","Animation":"0"},
-{"ID":"Brep.091","Name":"楼板2","Info":"","Manual":"","Url":"","LocID":"","Animation":"0"},
-{"ID":"Brep.092","Name":"楼板3","Info":"","Manual":"","Url":"","LocID":"","Animation":"0"}]
+{"ID":"30ρT101","Name":"电阻仪","Info":"电阻仪.","Manual":"","Url":"","LocID":"Mesh.10001","Animation":"0"}
+]

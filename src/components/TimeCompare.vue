@@ -18,7 +18,7 @@ let supplement = connectdata[10];
 let purification = connectdata[11];
 export default {
   data() {
-    return {
+    return {minValue : Math.min(...supplement) - 10,
       supplement,
       purification,
       option: {
@@ -41,7 +41,7 @@ export default {
         grid: {
           left: "10%",
           right: "3%",
-          top: "15%",
+          top: "18%",
           bottom: "10%",
           containLabel: true,
         },
@@ -62,6 +62,7 @@ export default {
             axisLabel: {
               color: "#87CEEB",
               fontSize: 14,
+              interval:0
             },
           },
         ],

@@ -9,7 +9,7 @@
     </div>
     <div class="block" ref="childRef">
       <dv-border-box-8 style="width: 100%; height: 100%"
-        ><div class="title" data-id="2">制氢浓度</div>
+        ><div class="title" data-id="2">氢气纯度</div>
         <p>{{parameters[1]}}</p>
         <span>%</span></dv-border-box-8
       >
@@ -26,20 +26,6 @@
         ><div class="title" data-id="4">制氢流量</div>
         <p>{{parameters[3]}}</p>
         <span>Nm³/h</span></dv-border-box-8
-      >
-    </div>
-    <div class="block">
-      <dv-border-box-8 style="width: 100%; height: 100%"
-        ><div class="title" data-id="5">制氢能耗</div>
-        <p>{{parameters[4]}}</p>
-        <span>kWh/Nm³</span></dv-border-box-8
-      >
-    </div>
-    <div class="block">
-      <dv-border-box-8 style="width: 100%; height: 100%"
-        ><div class="title" data-id="6">制氢水耗</div>
-        <p>{{parameters[5]}}</p>
-        <span>L/kg</span></dv-border-box-8
       >
     </div>
   </div>
@@ -83,17 +69,18 @@ export default {
   flex: 0 1 49%;
   /* width: 33%; */
 
-  height: 32%;
+  height: 47%;
 }
 .title {
   transform: translate(-19px, 6px);
-  font-size: 20px;
+  font-size: 1.2vw;
   color: #32c5e9;
+  align-content: center;
 }
 p {
   font-family: "Digital-7", Arial, sans-serif;
-  transform: translate(119px, 50%);
-  font-size: 24px;
+  transform: translate(119px, 30%);
+  font-size: 1.4vw;
   color: #fc2e00;
 
 
@@ -101,9 +88,9 @@ p {
 }
 span {
   font-family: "Digital-7", Arial, sans-serif;
-  font-size: 25px;
+  font-size: 1.5vw;
   display: inline-block;
-  transform: translate(122px, 50%);
+  transform: translate(122px, 30%);
   color: #51c8ef;
 }
 </style>

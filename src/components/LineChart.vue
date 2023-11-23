@@ -1,6 +1,6 @@
 <template>
   <div style="height: 100%">
-    <div class="box">故障处理率</div>
+    <div class="box">氢气提纯经济效益</div>
     <div ref="line" class="line"></div>
   </div>
 </template>
@@ -14,17 +14,20 @@ import { CanvasRenderer } from "echarts/renderers";
 echarts.use([GridComponent, LineChart, CanvasRenderer, UniversalTransition]);
 import connectdata from "../connect.js";
 
-let handlingrate = connectdata[14];
+let supplement = connectdata[10];
+let purification = connectdata[11];
 export default {
   data() {
     return {
-      handlingrate,
+      supplement,
+      purification,
       option: {
         backgroundColor: "transparent",
 
         tooltip: {
           trigger: "axis",
           axisPointer: {
+            type: "line",
             lineStyle: {
               color: {
                 type: "linear",
@@ -51,11 +54,12 @@ export default {
             },
           },
         },
+
         grid: {
-          top: "15%",
-          left: "5%",
-          right: "5%",
-          bottom: "15%",
+          top: "24%",
+          left: "6%",
+          right: "6%",
+          bottom: "22%",
           // containLabel: true
         },
         xAxis: [
@@ -64,17 +68,17 @@ export default {
             axisLine: {
               show: true,
             },
-            splitArea: {
-              // show: true,
-              color: "#f00",
-              lineStyle: {
-                color: "#f00",
-              },
-            },
+            // splitArea: {
+            //   // show: true,
+            //   color: "#f00",
+            //   lineStyle: {
+            //     color: "#f00",
+            //   },
+            // },
             axisLabel: {
               color: "#4ed2fd",
-
-              fontSize: 18,
+              interval: 0,
+              fontSize: 15,
             },
             splitLine: {
               show: false,
@@ -87,7 +91,12 @@ export default {
         yAxis: [
           {
             type: "value",
-            min: 97,
+            min: function (value) {
+              return value.min - 10;
+            },
+            max: function (value) {
+              return value.max + 10;
+            },
             // max: 140,
             splitNumber: 4,
             splitLine: {
@@ -113,20 +122,20 @@ export default {
         ],
         series: [
           {
-            name: "注册总量",
+            name: "氢气提纯",
             type: "line",
             // smooth: true, //是否平滑
             showAllSymbol: true,
             // symbol: 'image://./static/images/guang-circle.png',
             symbol: "circle",
-            symbolSize: 14,
+            symbolSize: 9,
             lineStyle: {
               normal: {
                 color: "#2c8cfe",
                 shadowColor: "rgba(0, 0, 0, .3)",
                 shadowBlur: 0,
-                shadowOffsetY: 5,
-                shadowOffsetX: 5,
+                shadowOffsetY: 4,
+                shadowOffsetX: 4,
               },
             },
             label: {
@@ -147,7 +156,7 @@ export default {
               shadowOffsetX: 2,
             },
             tooltip: {
-              show: false,
+              show: true,
             },
             areaStyle: {
               normal: {
@@ -172,10 +181,10 @@ export default {
                 shadowBlur: 20,
               },
             },
-            data: handlingrate,
+            data: purification,
           },
           {
-            name: "注册总量",
+            name: "传统补氢",
             type: "line",
             // smooth: true, //是否平滑
             showAllSymbol: true,
@@ -184,7 +193,7 @@ export default {
             symbolSize: 5,
             lineStyle: {
               normal: {
-                color: "#fff",
+                color: "#00b18a",
                 shadowColor: "rgba(0, 0, 0, .3)",
                 shadowBlur: 0,
                 shadowOffsetY: 5,
@@ -200,8 +209,8 @@ export default {
             },
 
             itemStyle: {
-              color: "#fff ",
-              borderColor: "#fff",
+              color: "#00b18a ",
+              borderColor: "#00b18a",
               borderWidth: 3,
               shadowColor: "rgba(0, 0, 0, .3)",
               shadowBlur: 0,
@@ -209,7 +218,7 @@ export default {
               shadowOffsetX: 2,
             },
             tooltip: {
-              show: false,
+              show: true,
             },
             areaStyle: {
               normal: {
@@ -234,7 +243,7 @@ export default {
                 shadowBlur: 20,
               },
             },
-            data: [98, 98, 98, 98, 98, 98, 98],
+            data: supplement,
           },
         ],
       },
@@ -261,8 +270,7 @@ export default {
   background-clip: text;
   position: absolute;
   top: 10px;
-  z-index: 222;
-  font-size: 27px;
+  font-size: 1.4vw;
   width: 100%;
 }
 </style>

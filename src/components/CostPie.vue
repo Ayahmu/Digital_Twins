@@ -30,31 +30,24 @@ export default {
       config: {
         // digitalFlopStyle: {
         digitalFlopStyle: {
-          fontSize: 16,
+          fontSize: 14,
           fill: "#fff",
         },
-        lineWidth: 20,
-        activeTimeGap: 6000,
+        lineWidth: 18,
+        activeTimeGap: 8000,
         data: [
           {
-            name: "电  费",
+            name: "能耗",
             value: cost[0],
           },
+
           {
-            name: "固定成本",
+            name: "水耗",
             value: cost[1],
           },
-          {
-            name: "水  费",
-            value: cost[2],
-          },
-          {
-            name: "设备维护",
-            value: cost[3],
-          },
         ],
-        color: ["#00ffff", "#00cfff", "#006ced", "#ffe000"],
-        digitalFlopToFixed: 1,
+        color: ["#00ffff", "#ffe963"],
+        digitalFlopToFixed: 2,
       },
     };
   },
@@ -74,50 +67,34 @@ export default {
 
     const data = [
       {
-        name: "电  费",
-        value: 85.3,
+        name: "能耗",
+        value: cost[0],
       },
       {
-        name: "固定成本",
-        value: 7.8,
-      },
-      {
-        name: "水  费",
-        value: 2.8,
-      },
-      {
-        name: "设备维护",
-        value: 4.1,
+        name: "水耗",
+        value: cost[1],
       },
     ];
     this.myChart = echarts.init(this.$refs.pie);
     this.option = {
-      color: ["#00ffff", "#00cfff", "#006ced", "#ffe000"],
+      color: ["#00ffff", "#ffe963"],
       legend: {
-        // top: "-3%",
+        top: "3%",
         left: "41%",
         orient: "vertical",
         textStyle: {
           color: "#4edbff",
-          fontSize: 1.0556 * ba + "px",
+          fontSize: 1.3556 * ba + "px",
         },
         icon: "roundRect",
         data: [
           {
-            name: "电  费",
-            value: 85.3,
+            name: "能耗",
+            value: cost[0],
           },
           {
-            name: "固定成本",
-            value: 7.8,
-          },
-          {
-            name: "水  费",
-            value: 2.8,
-          },
-          {
-            name: "设备维护",
-            value: 4.1,
+            name: "水耗",
+            value: cost[1],
           },
         ],
       },
