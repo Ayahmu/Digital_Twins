@@ -328,7 +328,6 @@
 <script>
 import * as model from "../model.js";
 import * as connect from "../connect";
-import jsonData from "../../public/json/HydrogenSysInfo.json";
 
 import UnitPanel from "../components/UnitPanel.vue";
 import SystemPanel from "../components/SyetemPanel.vue";
@@ -345,6 +344,9 @@ import SearchItem from "@/components/SearchItem.vue";
 import { searchModel } from "../model.js";
 import { ref } from "vue";
 import connectdata from "../connect.js";
+import axios from "axios";
+let jsonData;
+
 let status = connectdata[0];
 let first = ref();
 let second = ref();
@@ -403,7 +405,7 @@ export default {
           ],
         ],
       },
-      searchList: jsonData,
+      searchList: [],
       //树状用
       tenList: [],
       twentyList: [],
@@ -469,21 +471,39 @@ export default {
     sendMessage() {
       connect.sendMessage();
     },
-
+    doAxios() {
+      return axios
+        .get("/json/HydrogenSysInfo.json")
+        .then((response) => {
+          this.searchList = response.data;
+        })
+        .catch((err) => {
+          console.error("Failed to load HydrogenSysInfo.json:", err);
+        });
+    },
     //对json文件中的设备分区
     doSeparate() {
-      this.tenList = this.searchList.filter(
-        (item) => item.ID.substring(0, 2) === "10"
-      );
-      this.twentyList = this.searchList.filter(
-        (item) => item.ID.substring(0, 2) === "20"
-      );
-      this.thrityList = this.searchList.filter(
-        (item) => item.ID.substring(0, 2) === "30"
-      );
-      this.MeshList = this.searchList.filter(
-        (item) => item.ID.substring(0, 4) === "Mesh" || "Z-BV3"
-      );
+      this.doAxios()
+        .then(() => {
+          // 在这里可以访问 this.searchList 的数据
+          console.log(this.searchList);
+          this.tenList = this.searchList.filter(
+            (item) => item.ID.substring(0, 2) === "10"
+          );
+          this.twentyList = this.searchList.filter(
+            (item) => item.ID.substring(0, 2) === "20"
+          );
+          this.thrityList = this.searchList.filter(
+            (item) => item.ID.substring(0, 2) === "30"
+          );
+          this.MeshList = this.searchList.filter(
+            (item) => item.ID.substring(0, 4) === "Mesh" || "Z-BV3"
+          );
+        })
+        .catch((err) => {
+          // 处理错误情况
+          console.log("err");
+        });
     },
 
     //使用json文件中的设备信息配置轮播表和搜索数据库
