@@ -183,68 +183,68 @@ export default {
             },
             data: purification,
           },
-          {
-            name: "传统补氢",
-            type: "line",
-            // smooth: true, //是否平滑
-            showAllSymbol: true,
-            // symbol: 'image://./static/images/guang-circle.png',
-            symbol: "circle",
-            symbolSize: 5,
-            lineStyle: {
-              normal: {
-                color: "#00b18a",
-                shadowColor: "rgba(0, 0, 0, .3)",
-                shadowBlur: 0,
-                shadowOffsetY: 5,
-                shadowOffsetX: 5,
-              },
-            },
-            label: {
-              show: true,
-              position: "top",
-              textStyle: {
-                color: "#00ca95",
-              },
-            },
+          // {
+          //   name: "传统补氢",
+          //   type: "line",
+          //   // smooth: true, //是否平滑
+          //   showAllSymbol: true,
+          //   // symbol: 'image://./static/images/guang-circle.png',
+          //   symbol: "circle",
+          //   symbolSize: 5,
+          //   lineStyle: {
+          //     normal: {
+          //       color: "#00b18a",
+          //       shadowColor: "rgba(0, 0, 0, .3)",
+          //       shadowBlur: 0,
+          //       shadowOffsetY: 5,
+          //       shadowOffsetX: 5,
+          //     },
+          //   },
+          //   label: {
+          //     show: true,
+          //     position: "top",
+          //     textStyle: {
+          //       color: "#00ca95",
+          //     },
+          //   },
 
-            itemStyle: {
-              color: "#00b18a ",
-              borderColor: "#00b18a",
-              borderWidth: 3,
-              shadowColor: "rgba(0, 0, 0, .3)",
-              shadowBlur: 0,
-              shadowOffsetY: 2,
-              shadowOffsetX: 2,
-            },
-            tooltip: {
-              show: true,
-            },
-            areaStyle: {
-              normal: {
-                color: new echarts.graphic.LinearGradient(
-                  0,
-                  0,
-                  0,
-                  1,
-                  [
-                    {
-                      offset: 0,
-                      color: "rgba(44, 140, 254,0.3)",
-                    },
-                    {
-                      offset: 1,
-                      color: "rgba(44, 140, 254,0)  ",
-                    },
-                  ],
-                  false
-                ),
-                shadowColor: "rgba(0,202,149, 0.9)",
-                shadowBlur: 20,
-              },
-            },
-            data: supplement,
-          },
+          //   itemStyle: {
+          //     color: "#00b18a ",
+          //     borderColor: "#00b18a",
+          //     borderWidth: 3,
+          //     shadowColor: "rgba(0, 0, 0, .3)",
+          //     shadowBlur: 0,
+          //     shadowOffsetY: 2,
+          //     shadowOffsetX: 2,
+          //   },
+          //   tooltip: {
+          //     show: true,
+          //   },
+          //   areaStyle: {
+          //     normal: {
+          //       color: new echarts.graphic.LinearGradient(
+          //         0,
+          //         0,
+          //         0,
+          //         1,
+          //         [
+          //           {
+          //             offset: 0,
+          //             color: "rgba(44, 140, 254,0.3)",
+          //           },
+          //           {
+          //             offset: 1,
+          //             color: "rgba(44, 140, 254,0)  ",
+          //           },
+          //         ],
+          //         false
+          //       ),
+          //       shadowColor: "rgba(0,202,149, 0.9)",
+          //       shadowBlur: 20,
+          //     },
+          //   },
+          //   data: supplement,
+          // },
         ],
       },
     };

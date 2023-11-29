@@ -38,7 +38,7 @@ export default {
 
       boxes: [
         { isActive: true, content: "氢气压力数据" },
-        { isActive: false, content: "氢气浓度数据" },
+        { isActive: false, content: "氢气纯度数据" },
         { isActive: false, content: "氢气湿度数据" },
         { isActive: false, content: "制氢流量数据" },
       ],
