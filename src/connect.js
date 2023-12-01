@@ -9,60 +9,83 @@ import {
   stopProcess,
 } from "./model.js";
 import path from "path-browserify";
-import { mqtt_config, getConfig } from "./config.js";
-import * as MQTT from "./mqtt.js";
+import * as MQTT from './mqtt.js'
+import axios from "axios";
 
-let host = mqtt_config.host; // MQTT服务器地址
-let port = mqtt_config.port; // MQTT服务器端口
-let clientId = mqtt_config.clientId; // 客户端ID
-let topic = mqtt_config.topic; //MQTT服务器订阅主题
+let config = {}
+let initialConfig = false;
+let client
+axios.get('/json/config.json')
+    .then((response)=>{
+      config = response.data;
+      initialConfig = true
 
-// let url = http_config.url;
 
-let client = new Paho.MQTT.Client(host, port, clientId);
+      let host = config.mqtt.host;  // MQTT服务器地址
+      let port = config.mqtt.port;  // MQTT服务器端口
+      let clientId = config.mqtt.clientId;  // 客户端ID
+      let topic = config.mqtt.topic; //MQTT服务器订阅主题
 
-// 设置连接选项
-let connect_options = {
-  timeout: 3,
-  onSuccess: onConnect,
-  onFailure: onConnectFailure,
-  useSSL: false,
-};
+      // let url = http_config.url;
 
-client.connect(connect_options);
+      client = new Paho.MQTT.Client(host, port, clientId);
+      // 设置连接选项
+      let connect_options = {
+        onSuccess: onConnect,
+        onFailure: onConnectFailure,
+        useSSL: false
+      };
 
-//设置订阅选项
-let subscribe_options = {
-  qos: 2, //订阅的服务质量等级
-  onSuccess: onSubscribe,
-  onFailure: onSubscribeFailure,
-  timeout: 5000, //订阅操作的超时时间，以毫秒为单位
-};
+      client.connect(connect_options);
 
-//连接成功回调函数
-function onConnect() {
-  console.log(`Connected to ${host}`);
-  // 连接成功后的操作
-  client.subscribe(topic, subscribe_options);
-}
+      //设置订阅选项
+      let subscribe_options={
+        qos: 0, //订阅的服务质量等级
+        onSuccess: onSubscribe,
+        onFailure: onSubscribeFailure,
+        timeout: 50000 //订阅操作的超时时间，以毫秒为单位
+      }
 
-// 连接失败回调函数
-function onConnectFailure(errorMessage) {
-  console.error(`Failed to connect to ${host}: ` + errorMessage.errorMessage);
-}
+      //连接成功回调函数
+      function onConnect() {
+        console.log(`Connected to ${host}`);
+        // 连接成功后的操作
+        client.subscribe(topic, subscribe_options);
+      }
 
-client.onConnectionLost = function (message) {
-  console.log("连接丢失", message);
-  console.log("正在尝试重新连接...");
-  client.connect(connect_options);
-};
+      // 连接失败回调函数
+      function onConnectFailure(errorMessage) {
+        console.error(`Failed to connect to ${host}: ` + errorMessage.errorMessage);
+      }
 
-//接收消息
-client.onMessageArrived = function (message) {
-  console.log("收到消息:", message.destinationName, message.payloadString);
+      client.onConnectionLost = function (message){
+        console.log('连接丢失',message);
+        console.log('正在尝试重新连接...');
+        setTimeout(()=>{
+          client.connect(connect_options);
+        },1000);
+      }
 
-  handleMQTTMessage(message);
-};
+      //接收消息
+      client.onMessageArrived = function (message){
+        console.log('收到消息:', message.destinationName, message.payloadString);
+        handleMQTTMessage(message);
+      };
+
+      //订阅主题成功回调函数
+      function onSubscribe(){
+        console.log(`Success to subscribe topic: ${topic} `);
+      }
+
+      //订阅主题失败回调函数
+      function onSubscribeFailure(){
+        console.log(`Failed to subscribe topic: ${topic} `)
+      }
+
+    })
+    .catch((err)=>{
+      console.error("Failed to load config:",err);
+    })
 
 let warningMessageArray = new Map();
 
@@ -80,14 +103,6 @@ setInterval(function () {
 }, 1000);
 
 //订阅主题成功回调函数
-function onSubscribe() {
-  console.log(`Success to subscribe topic: ${topic} `);
-}
-
-//订阅主题失败回调函数
-function onSubscribeFailure() {
-  console.log(`Failed to subscribe topic: ${topic} `);
-}
 
 export function getJson(labelName, property) {
   let targetObject = objectArray[idToIndexMap1[labelName]];
@@ -128,11 +143,9 @@ export function getPipeJson(labelName, property) {
   }
 }
 export function getPDF(Manual) {
-  let config = getConfig();
-  if (Manual == "") {
+  if (Manual === "") {
     alert("暂无设备说明书");
   } else {
-    let config = getConfig();
     let file_path = path.join(config.basePath, Manual);
     file_path = file_path.replace("http:/", "http://");
     console.log(file_path);
@@ -141,11 +154,9 @@ export function getPDF(Manual) {
 }
 
 export function getURL(Url) {
-  let config = getConfig();
-  if (Url == "") {
+  if (Url === "") {
     alert("暂无设备资料");
   } else {
-    let config = getConfig();
     let file_path = path.join(config.baseUrl, Url);
     file_path = file_path.replace("http:/", "http://");
     console.log(file_path);
@@ -161,8 +172,8 @@ let pressure = [500.14, 500.57, 501.56, 500.53, 501.06, 499.54, 498.18];
 let density = [98.01, 99.12, 98.65, 98.07, 99.25, 99.37, 98.24];
 let humidity = [-14.25, -14.32, -13.98, -14.78, -13.05, -13.98, -14.45];
 let flow = [20.15, 19.76, 21.08, 20.98, 18.85, 19.25, 20.19];
-// let energy = [4.25, 4.28, 4.78, 4.43, 4.01, 4.09, 4.01];
-// let water = [50.36, 51.36, 50.18, 51.08, 51.13, 49.74, 49.35];
+let energy = [4.25, 4.28, 4.78, 4.43, 4.01, 4.09, 4.01];
+let water = [50.36, 51.36, 50.18, 51.08, 51.13, 49.74, 49.35];
 let cost = [85.16, 14.84];
 let supplement = [22.06, 23.18, 22.35, 22.98, 23.01, 22.19, 22.23];
 let purification = [49.36, 55.19, 55.23, 54.42, 55.41, 48.27, 49.36];
@@ -414,7 +425,7 @@ function handleFailure(info) {
     i++;
   }
   for (let key in failure[0]) {
-    handling[j] = failure[0][key];
+    handlingdata[j] = failure[0][key];
     j++;
   }
   for (let key in failure[1]) {

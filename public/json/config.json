@@ -5,5 +5,16 @@
     "设备说明书储存地址,以小米页面示例":"这是注释",
     "basePath":"https://www.mi.com/",
 
-    "singleLight": true
+    "singleLight": true,
+
+    "mqtt": {
+        "host": "broker.emqx.io",
+        "port": 8083,
+        "clientId": "yourClientId",
+        "topic": "ykkk"
+    },
+    "camera": {
+        "camera_panningSensibility": 30,
+        "camera_wheelPrecision": 2.5
+    }
 }
