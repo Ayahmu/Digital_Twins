@@ -178,10 +178,10 @@ let cost = [85.16, 14.84];
 let supplement = [22.06, 23.18, 22.35, 22.98, 23.01, 22.19, 22.23];
 let purification = [49.36, 55.19, 55.23, 54.42, 55.41, 48.27, 49.36];
 let economy = [];
-let occureddata = [1, 2, 3, 0, 1, 0, 0];
-let handlingdata = [1, 2, 1, 1, 1, 0, 0];
+let occuredData = [1, 2, 3, 0, 1, 0, 0];
+let handlingData = [1, 2, 1, 1, 1, 0, 0];
 let failure = [];
-let handlingrate = [99.18, 98.99, 97.01, 99.15, 98.24, 99.01, 99.28];
+let handlingRate = [99.18, 98.99, 97.01, 99.15, 98.24, 99.01, 99.28];
 let alarm = [
   {
     id: "B0002",
@@ -425,11 +425,11 @@ function handleFailure(info) {
     i++;
   }
   for (let key in failure[0]) {
-    handlingdata[j] = failure[0][key];
+    handlingData[j] = failure[0][key];
     j++;
   }
   for (let key in failure[1]) {
-    occureddata[u] = failure[1][key];
+    occuredData[u] = failure[1][key];
     u++;
   }
 }
@@ -440,7 +440,7 @@ function handleHandling(info) {
   let i = 0;
   for (let key in info) {
     if (info.hasOwnProperty(key)) {
-      handlingrate[i] = info[key];
+      handlingRate[i] = info[key];
     }
     i++;
   }
@@ -471,9 +471,9 @@ let connectdata = [
   cost,
   supplement,
   purification,
-  occureddata,
-  handlingdata,
-  handlingrate,
+  occuredData,
+  handlingData,
+  handlingRate,
   alarm,
 ];
 export default connectdata;
