@@ -345,7 +345,7 @@ import { searchModel } from "../model.js";
 import { ref } from "vue";
 import connectdata from "../connect.js";
 import axios from "axios";
-let jsonData;
+import { Mesh } from "babylonjs";
 
 let status = connectdata[0];
 let first = ref();
@@ -472,8 +472,13 @@ export default {
       connect.sendMessage();
     },
     doAxios() {
+      const config = {
+        headers: {
+          "Cache-Control": "no-cache", //不缓存
+        },
+      };
       return axios
-        .get("/json/HydrogenSysInfo.json")
+        .get("/json/HydrogenSysInfo.json",config)
         .then((response) => {
           this.searchList = response.data;
         })
@@ -486,7 +491,6 @@ export default {
       this.doAxios()
         .then(() => {
           // 在这里可以访问 this.searchList 的数据
-          console.log(this.searchList);
           this.tenList = this.searchList.filter(
             (item) => item.ID.substring(0, 2) === "10"
           );
@@ -497,7 +501,7 @@ export default {
             (item) => item.ID.substring(0, 2) === "30"
           );
           this.MeshList = this.searchList.filter(
-            (item) => item.ID.substring(0, 4) === "Mesh" || "Z-BV3"
+            (item) => item.ID.substring(0, 4) === ("Mesh" || "Z-BV")
           );
         })
         .catch((err) => {
@@ -615,7 +619,6 @@ export default {
             break;
           }
         }
-        console.log(this.formatList);
         this.status = {
           headerBGC: "#3472bb",
           oddRowBGC: "transparent",
