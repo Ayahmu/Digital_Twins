@@ -40,7 +40,7 @@ axios.get('/json/config.json')
 
       //设置订阅选项
       let subscribe_options={
-        qos: 0, //订阅的服务质量等级
+        qos: 2, //订阅的服务质量等级
         onSuccess: onSubscribe,
         onFailure: onSubscribeFailure,
         timeout: 50000 //订阅操作的超时时间，以毫秒为单位
