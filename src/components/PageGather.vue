@@ -69,7 +69,6 @@ export default {
       this.boxes.forEach((box) => {
         box.isActive = false;
       });
-      console.log(index);
       this.boxes[index - 1].isActive = true;
     },
     init(shunxu) {
