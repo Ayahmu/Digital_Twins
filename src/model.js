@@ -2352,10 +2352,14 @@ export function searchModel(modelID) {
   if (modelPosition) {
     resetCamera();
     let mesh = scene.getMeshById(modelID);
-    highLightLayer.addMesh(mesh, BABYLON.Color3.Blue());
-    camera.setPosition(new BABYLON.Vector3(modelPosition.x, 30, -45));
+    highLight(mesh, modelID);
+      if(modelID === 'Mesh.633' || modelID === 'Mesh.1898' || modelID === 'Mesh.2971'){
+        camera.setPosition(new BABYLON.Vector3(modelPosition.x, 30, -45));
+      }else {
+        camera.setPosition(new BABYLON.Vector3(modelPosition.x, 30, 170));
+      }
 
-    const targetPosition = (modelPosition.scale(2)).subtract(camera.position)
+    const targetPosition = (modelPosition.scale(8)).subtract(camera.position).scale(0.1428)
     camera.setTarget(targetPosition.add(new BABYLON.Vector3(0, 1, 0)));
     console.log(modelPosition);
   } else {
@@ -2425,7 +2429,7 @@ scene.registerBeforeRender(function () {
 //渲染场景
 engine.runRenderLoop(() => {
   scene.render();
-  // console.log(camera.position);
+  console.log(camera.position);
 });
 
 //监听窗口大小改变
