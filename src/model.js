@@ -2230,18 +2230,13 @@ BABYLON.SceneLoader.ImportMesh(
             if(getJson(mesh.id) !== '暂无设备信息'){
                 childMesh.push(mesh);
                 mesh.actionManager = actionManager;
-                modelsPosition.set(mesh.id,mesh.position);
+                modelsPosition.set(mesh.id,new BABYLON.Vector3(-mesh.position.x,mesh.position.y,mesh.position.z));
             }else {
                 mesh.actionManeger = nullManager;
             }
         });
-        // console.log("modeldocument",document.getElementById("model"))
-        // window.onload = function () {
-          document.getElementById("model").appendChild(canvas);
-        // };
-        // engine.snapshotRenderingMode = BABYLON.Constants.SNAPSHOTRENDERING_STANDARD;
-        // engine.snapshotRendering = true;
-        // console.log("here")
+        document.getElementById("model").appendChild(canvas);
+
     });
 
 
@@ -2350,7 +2345,6 @@ export function searchModel(modelID) {
   let modelPosition = modelsPosition.get(modelID);
   console.log(modelsPosition);
   if (modelPosition) {
-    resetCamera();
     let mesh = scene.getMeshById(modelID);
     highLight(mesh, modelID);
       if(modelID === 'Mesh.633' || modelID === 'Mesh.1898' || modelID === 'Mesh.2971'){
@@ -2359,9 +2353,10 @@ export function searchModel(modelID) {
         camera.setPosition(new BABYLON.Vector3(modelPosition.x, 30, 170));
       }
 
-    const targetPosition = (modelPosition.scale(8)).subtract(camera.position).scale(0.1428)
+    const targetPosition = (modelPosition.scale(10)).subtract(camera.position).scale(0.11111)
     camera.setTarget(targetPosition.add(new BABYLON.Vector3(0, 1, 0)));
     console.log(modelPosition);
+    console.log(camera.position);
   } else {
     alert("未查找到指定设备");
   }
@@ -2429,7 +2424,7 @@ scene.registerBeforeRender(function () {
 //渲染场景
 engine.runRenderLoop(() => {
   scene.render();
-  console.log(camera.position);
+  // console.log(camera.position);
 });
 
 //监听窗口大小改变
