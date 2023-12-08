@@ -163,16 +163,16 @@ export default {
 .popup-overlay {
   position: absolute;
   top: -80vw;
-  left: -120vw;
-  width: 250vw;
+  left: -20vw;
+  width: 350vw;
   height: 250vw;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 100;
+  z-index: 100!important;
 }
 .popup {
   position: fixed;
   top: 45%;
-  left: -55%;
+  left: 130%;
   transform: translate(-50%, -50%);
   /* background-color: #fff; */
   padding: 20px;
