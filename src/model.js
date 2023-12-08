@@ -87,7 +87,6 @@ objectArray = data1.map(
 
 // 创建一个哈希表，将 ID 映射到数组索引
 export const idToIndexMap1 = {};
-export const idToIndexMap2 = {};
 
 // 填充哈希表
 objectArray.forEach((obj, index) => {
@@ -507,21 +506,6 @@ function changematerial2(meshes){//管道和隔板
     clapboard1.isVisible=false;
     clapboard2.isVisible=false;
     clapboard3.isVisible=false;
-    // clapboardbegin=clapboard2.material;
-    // let myclapboardMaterial=new BABYLON.PBRMaterial("myclapboardMaterial", scene);
-    // myclapboardMaterial.albedoColor=new BABYLON.Color3.White(); // 反射颜色
-    // myclapboardMaterial.diffuseColor=new BABYLON.Color3.White(); // 反射颜色
-    // myclapboardMaterial.metallic=0.2 // 金属
-    // myclapboardMaterial.roughness=0.8 // 粗糙
-    // myclapboardMaterial.alpha=1;
-    // clapboard1.material = myclapboardMaterial;
-    // clapboard1.alpha = 1;
-    // clapboard2.material = myclapboardMaterial;
-    // clapboard2.alpha = 1;
-    // clapboard3.material = myclapboardMaterial;
-    // clapboard3.alpha = 1;
-
-
 }
 function changematerial3(){//发动机外壳
       //发动机外壳
@@ -536,612 +520,7 @@ function changematerial3(){//发动机外壳
       machine.material = mymachineMaterial;
       // machine.freezeWorldMatrix();
 }
-//flowing流动方案-粒子效果
-let countnum = 1;
-function makeparticle(
-  mesh,
-  particleSystem,
-  color1,
-  color2,
-  colorDead,
-  minLifeTime = 0.75,
-  maxLifeTime = 1
-) {
-  countnum++;
-  //Texture of each particle
-  particleSystem.particleTexture = new BABYLON.Texture(
-    "/texture/flare.png",
-    scene
-  );
-  // Where the particles come from
-  particleSystem.emitter = mesh; //设置emitter发射器
-  // Colors of all particles
-  particleSystem.color1 = color1;
-  particleSystem.color2 = color2;
-  particleSystem.colorDead = colorDead;
-  // Size of each particle (random between...
-  particleSystem.minSize = 0.1;
-  particleSystem.maxSize = 0.3;
-  // Life time of each particle (random between...
-  particleSystem.minLifeTime = minLifeTime;
-  particleSystem.maxLifeTime = maxLifeTime;
-  particleSystem.minEmitBox = new BABYLON.Vector3(0.08, 0.08, 0.08); //控制盒子
-  particleSystem.maxEmitBox = new BABYLON.Vector3(-0.08, -0.08, -0.08);
-  // Emission rate
-  particleSystem.emitRate = 10000;
-  // Speed
-  particleSystem.minEmitPower = 0.1;
-  particleSystem.maxEmitPower = 0.3;
-  particleSystem.updateSpeed = 0.005;
-  //gravity
-  particleSystem.gravity=new BABYLON.Vector3(0,-0.2,0);
-}
-const slide = function (dist, movdirection) {
-  //after covering dist apply turn
-  this.dist = dist;
-  this.movdirection = movdirection; //正在沿movaxis移动
-};
-function moveparticle(track, mesh, x, y, z, time) {
-  setTimeout(function () {
-    let distance = 0;
-    let step = 2;
-    let p = 0;
-    scene.onBeforeRenderObservable.add(() => {
-      if (track[p].movdirection === "left") {
-        mesh.movePOV(-step, 0, 0);
-      }
-      if (track[p].movdirection === "right") {
-        mesh.movePOV(step, 0, 0);
-      }
-      if (track[p].movdirection === "up") {
-        mesh.movePOV(0, step, 0);
-      }
-      if (track[p].movdirection === "down") {
-        mesh.movePOV(0, -step, 0);
-      }
-      if (track[p].movdirection === "front") {
-        mesh.movePOV(0, 0, step);
-      }
-      if (track[p].movdirection === "behind") {
-        mesh.movePOV(0, 0, -step);
-      }
 
-      distance += step;
-      if (distance > track[p].dist) {
-        // sphere.rotate(track044[p].rotaxis, track044[p].turn, BABYLON.Space.LOCAL);
-        // particleSystem.gravity = track044[p].gravity;
-        p += 1;
-        p %= track.length;
-        if (p === 0) {
-          distance = 0;
-          mesh.position = new BABYLON.Vector3(x, y, z); //reset to initial conditions
-          // sphere.rotation = BABYLON.Vector3.Zero();//prevents error accumulation
-        }
-      }
-    });
-  }, time);
-}
-function moveparticlemesh(){
-    //发射器们：
-    let sphere = BABYLON.MeshBuilder.CreateSphere(
-      "sphere",
-      { diameter: 0.01, segments: 8 },
-      scene
-    );
-    // sphere.material = new BABYLON.StandardMaterial("mat", scene);
-    // sphere.material.wireframe = true;
-    sphere.position = new BABYLON.Vector3(51, 25, 91);
-    let sphere004cl1 = sphere.clone("sphere004cl1");
-    sphere004cl1.position = new BABYLON.Vector3(51, 25, 91);
-    let sphere008 = sphere.clone("sphere008");
-    sphere008.position = new BABYLON.Vector3(3.5, 27.8, 71.8);
-    let sphere008cl1 = sphere008.clone("sphere008cl1");
-    let sphere049 = sphere.clone("sphere008");
-    sphere049.position = new BABYLON.Vector3(-8, 9.57, 79.6);
-    let sphere049cl1 = sphere049.clone("sphere049cl1");
-    let sphere053 = sphere.clone("sphere053");
-    sphere053.position = new BABYLON.Vector3(25.3, 27.6, 61.4);
-    let sphere053cl1 = sphere053.clone("sphere053cl1");
-    let sphere053cl2 = sphere053.clone("sphere053cl2");
-    let sphere053cl3 = sphere053.clone("sphere053cl3");
-    let sphere053_2 = sphere.clone("sphere053");
-    sphere053_2.position = new BABYLON.Vector3(-94.3, 130.4, -0.1);
-    let sphere053_2cl1 = sphere053_2.clone("sphere053cl1");
-    let sphere053_2cl2 = sphere053_2.clone("sphere053cl2");
-    let sphere053_2cl3 = sphere053_2.clone("sphere053cl3");
-    let sphere041 = sphere.clone("sphere041");
-    sphere041.position = new BABYLON.Vector3(-71.05, 25.64, 35.54);
-    let sphere041cl1 = sphere041.clone("sphere041cl1");
-    let sphere041cl2 = sphere041.clone("sphere041cl2");
-    let sphere041cl3 = sphere041.clone("sphere041cl3");
-    let sphere042 = sphere.clone("sphere042");
-    sphere042.position = new BABYLON.Vector3(-81, 161.5, 41.4);
-    let sphere042cl1 = sphere042.clone("sphere042cl1");
-    let sphere042cl2 = sphere042.clone("sphere042cl2");
-    let sphere042cl3 = sphere042.clone("sphere042cl3");
-    var sphere051 = sphere.clone("sphere051");
-    sphere051.position = new BABYLON.Vector3(-96.67, 100.2, -17.83);
-    var sphere051cl1 = sphere051.clone("sphere051cl1");
-    var sphere051cl2 = sphere051.clone("sphere051cl2");
-    var sphere051cl3 = sphere051.clone("sphere051cl3");
-    var sphere020 = sphere.clone("sphere020");
-    sphere020.position = new BABYLON.Vector3(-73.47, 56.6, -39.93);
-    var sphere02152 = sphere.clone("sphere02152");
-    sphere02152.position = new BABYLON.Vector3(-104.3, 142.8, 50.64);
-    var sphere02152cl1 = sphere02152.clone("sphere02152cl1");
-    var sphere02152cl2 = sphere02152.clone("sphere02152cl2");
-    var sphere02152cl3 = sphere02152.clone("sphere02152cl3");
-    var sphere00552 = sphere.clone("sphere00552");
-    sphere00552.position = new BABYLON.Vector3(-104.267, 142.802, -48.2834);
-    var sphere00552cl1 = sphere00552.clone("sphere00552cl1");
-    var sphere00552cl2 = sphere00552.clone("sphere00552cl2");
-    var sphere00552cl3 = sphere00552.clone("sphere00552cl3");
-    // let sphere053cl6=sphere053.clone("sphere053cl6");
-
-    const track044 = []; //管道Brep.044的轨迹
-    track044.push(new slide(5.8, "up")); //first side length 6
-    track044.push(new slide(5.8 + 1, "front")); //at finish of second side distance covered is 18+9
-    track044.push(new slide(5.8 + 1 + 14.5, "right")); //at finish of second side distance covered is 18+9
-    track044.push(new slide(5.8 + 1 + 14.5 + 28, "front")); //at finish of second side distance covered is 18+9
-    track044.push(new slide(5.8 + 1 + 14.5 + 28 + 6, "right")); //at finish of second side distance covered is 18+9
-    track044.push(new slide(5.8 + 1 + 14.5 + 28 + 6 + 3.3, "down")); //最后一条
-    //all sides cover
-
-    //创建一个绿色的粒子系统
-    let particleSystem1 = new BABYLON.ParticleSystem("particles1", 10000, scene); //自动给每个粒子系统编号
-    makeparticle(
-      sphere,
-      particleSystem1,
-      new BABYLON.Color4(0.04, 0.63, 0.02),
-      new BABYLON.Color4(0.14, 0.74, 0.09),
-      new BABYLON.Color4(0.13, 0.55, 0.13, 0.8)
-    );
-    moveparticle(track044, sphere, 51, 25, 91, 0);
-
-    let particleSystem2 = new BABYLON.ParticleSystem("particles2", 10000, scene); //自动给每个粒子系统编号
-    //创建一个绿色的粒子系统
-    makeparticle(
-      sphere004cl1,
-      particleSystem2,
-      new BABYLON.Color4(0.04, 0.63, 0.02),
-      new BABYLON.Color4(0.14, 0.74, 0.09),
-      new BABYLON.Color4(0.13, 0.55, 0.13, 0.8)
-    );
-    moveparticle(track044, sphere004cl1, 51, 25, 91, 7500); //间隔时间
-
-    const track008 = []; //管道Brep.008的轨迹
-    track008.push(new slide(2, "up")); //first side length 6
-    track008.push(new slide(2 + 16.9, "behind")); //at finish of second side distance covered is 18+9
-    // track008.push(new sli23.4+96.5+0.2,"down")); //at finish of second side distance covered is 18+9
-    track008.push(new slide(2 + 16.9 + 27, "left")); //at finish of second side distance covered is 18+9
-    track008.push(new slide(2 + 16.9 + 27 + 18, "front")); //at finish of second side distance covered is 18+9
-    track008.push(new slide(2 + 16.9 + 27 + 18 + 3.5, "down")); //最后一条共70.33
-    let particleSystem3 = new BABYLON.ParticleSystem(`particles3`, 10000, scene); //自动给每个粒子系统编号
-    let particleSystem4 = new BABYLON.ParticleSystem(`particles4`, 10000, scene); //自动给每个粒子系统编号
-    //创建一个绿色的粒子系统
-    makeparticle(
-      sphere008,
-      particleSystem3,
-      new BABYLON.Color4(0.17, 0.97, 0.02),
-      new BABYLON.Color4(0.6, 0.93, 0.57),
-      new BABYLON.Color4(0, 0.2, 0, 0.8)
-    );
-    moveparticle(track008, sphere008, 3.5, 27.8, 71.8, 0);
-    makeparticle(
-      sphere008cl1,
-      particleSystem4,
-      new BABYLON.Color4(0.17, 0.97, 0.02),
-      new BABYLON.Color4(0.6, 0.93, 0.57),
-      new BABYLON.Color4(0, 0.2, 0, 0.8)
-    );
-    moveparticle(track008, sphere008cl1, 3.5, 27.8, 71.8, 8000);
-    const track049 = []; //管道Brep.049的轨迹
-    track049.push(new slide(3.5, "right")); //first side length 6
-    track049.push(new slide(3.5 + 21.2, "up")); //at finish of second side distance covered is 18+9
-    track049.push(new slide(3.5 + 21.2 + 10.2, "behind")); //at finish of second side distance covered is 18+9
-    // track049.push(new sli3.54.1.2+22+10.2+0,"down")); //at finish of second side distance covered is 18+9
-    track049.push(new slide(3.5 + 21.2 + 10.2 + 0 + 47, "left")); //at finish of second side distance covered is 18+9
-    track049.push(new slide(3.5 + 21.2 + 10.2 + 0 + 47 + 23.3, "front"));
-    track049.push(new slide(3.5 + 21.2 + 10.2 + 0 + 47 + 23.3 + 2.5, "right"));
-    track049.push(new slide(3.5 + 21.2 + 10.2 + 0 + 47 + 23.3 + 2.5 + 3.5, "down")); //最后一条共70.3
-
-    let particleSystem5 = new BABYLON.ParticleSystem(`particles5`, 10000, scene);
-    let particleSystem6 = new BABYLON.ParticleSystem(`particles6`, 10000, scene);
-    //创建一个紫色的粒子系统
-    makeparticle(
-      sphere049,
-      particleSystem5,
-      new BABYLON.Color4(0.68, 0, 1),
-      new BABYLON.Color4(0.77, 0.24, 0.93),
-      new BABYLON.Color4(0.71, 0.44, 0.89)
-    );
-    moveparticle(track049, sphere049, -8, 9.57, 79.6, 0);
-    makeparticle(
-      sphere049cl1,
-      particleSystem6,
-      new BABYLON.Color4(0.68, 0, 1),
-      new BABYLON.Color4(0.77, 0.24, 0.93),
-      new BABYLON.Color4(0.71, 0.44, 0.89)
-    );
-    moveparticle(track049, sphere049cl1, -8, 9.57, 79.6, 6000);
-
-    const track053_2=[];
-    track053_2.push(new slide(3, "down")); //first side length 6
-    track053_2.push(new slide(3 + 22, "right")); //at finish of second side distance covered is 18+9
-    track053_2.push(new slide(3 + 22 + 8.5, "up")); //at finish of second side distance covered is 18+9
-    track053_2.push(new slide(3 + 22 + 8.5 + 16.5, "right")); //at finish of second side distance covered is 18+9
-    track053_2.push(new slide(3 + 22 + 8.5 + 16.5 + 104, "down")); //at finish of second side distance covered is 18+9
-    track053_2.push(new slide(3 + 22 + 8.5 + 16.5 + 104 + 39.5, "behind"));
-    track053_2.push(new slide(3 + 22 + 8.5 + 16.5 + 104 + 39.5 + 159.5 , "left"));
-    track053_2.push(new slide(3 + 22 + 8.5 + 16.5 + 104 + 39.5 + 159.5 + 20, "behind"));
-    track053_2.push(new slide(3 + 22 + 8.5 + 16.5 + 104 + 39.5 + 159.5 + 20 + 3.5, "down")); //最后一条 共59.3
-    let particleSystem32 = new BABYLON.ParticleSystem(`particles7`, 10000, scene);
-    let particleSystem33 = new BABYLON.ParticleSystem(`particles8`, 10000, scene);
-    let particleSystem34 = new BABYLON.ParticleSystem(`particles9`, 10000, scene);
-    let particleSystem35 = new BABYLON.ParticleSystem(`particles10`, 10000, scene);
-
-    //创建一个绿色的粒子系统
-    makeparticle(
-      sphere053_2,
-      particleSystem32,
-      new BABYLON.Color4(0.17, 0.97, 0.02),
-      new BABYLON.Color4(0.6, 0.93, 0.57),
-      new BABYLON.Color4(0, 0.2, 0, 0.8)
-    );
-    moveparticle(track053_2, sphere053_2, -94.3, 130.4, -0.1, 1000);
-    makeparticle(
-      sphere053_2cl1,
-      particleSystem33,
-      new BABYLON.Color4(0.17, 0.97, 0.02),
-      new BABYLON.Color4(0.6, 0.93, 0.57),
-      new BABYLON.Color4(0, 0.2, 0, 0.8)
-    );
-    moveparticle(track053_2, sphere053_2cl1, -94.3, 130.4, -0.1, 6000);
-    makeparticle(
-      sphere053_2cl2,
-      particleSystem34,
-      new BABYLON.Color4(0.17, 0.97, 0.02),
-      new BABYLON.Color4(0.6, 0.93, 0.57),
-      new BABYLON.Color4(0, 0.2, 0, 0.8)
-    );
-    moveparticle(track053_2, sphere053_2cl2, -94.3, 130.4, -0.1, 12000);
-    makeparticle(
-      sphere053_2cl3,
-      particleSystem35,
-      new BABYLON.Color4(0.17, 0.97, 0.02),
-      new BABYLON.Color4(0.6, 0.93, 0.57),
-      new BABYLON.Color4(0, 0.2, 0, 0.8)
-    );
-    moveparticle(track053_2, sphere053_2cl3, -94.3, 130.4, -0.1, 18000);
-
-    const track053 = []; //管道Brep.053的轨迹
-    track053.push(new slide(3.5, "up")); //first side length 6
-    track053.push(new slide(3.5 + 20, "front")); //at finish of second side distance covered is 18+9
-    track053.push(new slide(3.5 + 20 + 158.3, "right")); //at finish of second side distance covered is 18+9
-    track053.push(new slide(3.5 + 20 + 158.3 + 41.4, "front")); //at finish of second side distance covered is 18+9
-    track053.push(new slide(3.5 + 20 + 158.3 + 41.4 + 104.2, "up")); //at finish of second side distance covered is 18+9
-    track053.push(new slide(3.5 + 20 + 158.3 + 41.4 + 104.2 + 17.4, "left"));
-    track053.push(new slide(3.5 + 20 + 158.3 + 41.4 + 104.2 + 17.4 + 10, "down"));
-    track053.push(new slide(3.5 + 20 + 158.3 + 41.4 + 104.2 + 17.4 + 10 + 21.3, "left"));
-    track053.push(new slide(3.5 + 20 + 158.3 + 41.4 + 104.2 + 17.4 + 10 + 21.3 + 4.5, "up")); //最后一条 共59.3
-    let particleSystem7 = new BABYLON.ParticleSystem(`particles7`, 10000, scene);
-    let particleSystem8 = new BABYLON.ParticleSystem(`particles8`, 10000, scene);
-    let particleSystem9 = new BABYLON.ParticleSystem(`particles9`, 10000, scene);
-    let particleSystem10 = new BABYLON.ParticleSystem(`particles10`, 10000, scene);
-
-    //创建一个紫色的粒子系统
-    makeparticle(
-      sphere053,
-      particleSystem7,
-      new BABYLON.Color4(0.68, 0, 1),
-      new BABYLON.Color4(0.77, 0.24, 0.93),
-      new BABYLON.Color4(0.71, 0.44, 0.89)
-    );
-    moveparticle(track053, sphere053, 25.3, 27.6, 61.4, 1000);
-    makeparticle(
-      sphere053cl1,
-      particleSystem8,
-      new BABYLON.Color4(0.68, 0, 1),
-      new BABYLON.Color4(0.77, 0.24, 0.93),
-      new BABYLON.Color4(0.71, 0.44, 0.89)
-    );
-    moveparticle(track053, sphere053cl1, 25.3, 27.6, 61.4, 6000);
-    makeparticle(
-      sphere053cl2,
-      particleSystem9,
-      new BABYLON.Color4(0.68, 0, 1),
-      new BABYLON.Color4(0.77, 0.24, 0.93),
-      new BABYLON.Color4(0.71, 0.44, 0.89)
-    );
-    moveparticle(track053, sphere053cl2, 25.3, 27.6, 61.4, 12000);
-    makeparticle(
-      sphere053cl3,
-      particleSystem10,
-      new BABYLON.Color4(0.68, 0, 1),
-      new BABYLON.Color4(0.77, 0.24, 0.93),
-      new BABYLON.Color4(0.71, 0.44, 0.89)
-    );
-    moveparticle(track053, sphere053cl3, 25.3, 27.6, 61.4, 18000);
-
-    const track041 = []; //管道Brep.041的轨迹
-    track041.push(new slide(81, "up")); //first side length 6
-    track041.push(new slide(81 + 73.94, "front")); //at finish of second side distance covered is 18+9
-    track041.push(new slide(81 + 73.94 + 54.7, "up")); //at finish of second side distance covered is 18+9
-    track041.push(new slide(81 + 73.94 + 54.7 + 12.6, "right")); //at finish of second side distance covered is 18+9
-    var particleSystem11 = new BABYLON.ParticleSystem(`particles11`, 10000, scene);
-    var particleSystem12 = new BABYLON.ParticleSystem(`particles12`, 10000, scene);
-    var particleSystem13 = new BABYLON.ParticleSystem(`particles13`, 10000, scene);
-    var particleSystem14 = new BABYLON.ParticleSystem(`particles14`, 10000, scene);
-    //创建一个蓝色的粒子系统
-    makeparticle(
-      sphere041,
-      particleSystem11,
-      new BABYLON.Color4(0, 0.22, 1),
-      new BABYLON.Color4(0.11, 0.19, 0.89),
-      new BABYLON.Color4(0.44, 0.54, 0.85)
-    );
-    moveparticle(track041, sphere041, -71.1, 25.64, 35.54, 1000);
-    makeparticle(
-      sphere041cl1,
-      particleSystem12,
-      new BABYLON.Color4(0, 0.22, 1),
-      new BABYLON.Color4(0.11, 0.19, 0.89),
-      new BABYLON.Color4(0.44, 0.54, 0.85)
-    );
-    moveparticle(track041, sphere041cl1, -71.1, 25.64, 35.54, 6000);
-    makeparticle(
-      sphere041cl2,
-      particleSystem13,
-      new BABYLON.Color4(0, 0.22, 1),
-      new BABYLON.Color4(0.11, 0.19, 0.89),
-      new BABYLON.Color4(0.44, 0.54, 0.85)
-    );
-    moveparticle(track041, sphere041cl2, -71.1, 25.64, 35.54, 12000);
-    makeparticle(
-      sphere041cl3,
-      particleSystem14,
-      new BABYLON.Color4(0, 0.22, 1),
-      new BABYLON.Color4(0.11, 0.19, 0.89),
-      new BABYLON.Color4(0.44, 0.54, 0.85)
-    );
-    moveparticle(track041, sphere041cl3, -71.1, 25.64, 35.54, 18000);
-
-    const track042 = [];//管道Brep.042的轨迹
-    track042.push(new slide(7,"left"));  //first side length 6
-    track042.push(new slide(7+57,"down")); //at finish of second side distance covered is 18+9
-    track042.push(new slide(7+57+31,"front")); //at finish of second side distance covered is 18+9
-    track042.push(new slide(7+57+31+40,"right")); //at finish of second side distance covered is 18+9
-    track042.push(new slide(7+57+31+40+72.98,"down")); //at finish of second side distance covered is 18+9
-    var particleSystem15=new BABYLON.ParticleSystem(`particles15`,10000,scene);
-    var particleSystem16=new BABYLON.ParticleSystem(`particles16`,10000,scene);
-    var particleSystem17=new BABYLON.ParticleSystem(`particles17`,10000,scene);
-    var particleSystem18=new BABYLON.ParticleSystem(`particles18`,10000,scene);
-    //创建一个蓝色的粒子系统
-    makeparticle(
-      sphere042,
-      particleSystem15,
-      new BABYLON.Color4(0, 0.22, 1),
-      new BABYLON.Color4(0.11, 0.19, 0.89),
-      new BABYLON.Color4(0.44, 0.54, 0.85)
-    );
-    moveparticle(track042, sphere042, -81, 161.5, 41.4, 1000);
-    makeparticle(
-      sphere042cl1,
-      particleSystem16,
-      new BABYLON.Color4(0, 0.22, 1),
-      new BABYLON.Color4(0.11, 0.19, 0.89),
-      new BABYLON.Color4(0.44, 0.54, 0.85)
-    );
-    moveparticle(track042, sphere042cl1, -81, 161.5, 41.4, 6000);
-    makeparticle(
-      sphere042cl2,
-      particleSystem17,
-      new BABYLON.Color4(0, 0.22, 1),
-      new BABYLON.Color4(0.11, 0.19, 0.89),
-      new BABYLON.Color4(0.44, 0.54, 0.85)
-    );
-    moveparticle(track042, sphere042cl2, -81, 161.5, 41.4, 12000);
-    makeparticle(
-      sphere042cl3,
-      particleSystem18,
-      new BABYLON.Color4(0, 0.22, 1),
-      new BABYLON.Color4(0.11, 0.19, 0.89),
-      new BABYLON.Color4(0.44, 0.54, 0.85)
-    );
-    moveparticle(track042, sphere042cl3, -81, 161.5, 41.4, 18000);
-
-    const track051 = []; //管道Brep.051的轨迹
-    track051.push(new slide(7.8, "down")); //first side length 6
-    track051.push(new slide(7.8 + 28, "front")); //at finish of second side distance covered is 18+9
-    track051.push(new slide(7.8 + 28 + 32, "left")); //at finish of second side distance covered is 18+9
-    track051.push(new slide(7.8 + 28 + 32 + 68, "down")); //at finish of second side distance covered is 18+9
-    track051.push(new slide(7.8 + 28 + 32 + 68 + 13.26, "behind")); //at finish of second side distance covered is 18+9
-    track051.push(new slide(7.8 + 28 + 32 + 68 + 13.26 + 7.95, "right")); //at finish of second side distance covered is 18+9
-    track051.push(new slide(7.8 + 28 + 32 + 68 + 13.26 + 7.95 + 2.28, "down")); //at finish of second side distance covered is 18+9
-    var particleSystem19 = new BABYLON.ParticleSystem(`particles19`, 10000, scene);
-    var particleSystem20 = new BABYLON.ParticleSystem(`particles20`, 10000, scene);
-    var particleSystem21 = new BABYLON.ParticleSystem(`particles21`, 10000, scene);
-    var particleSystem22 = new BABYLON.ParticleSystem(`particles22`, 10000, scene);
-    //创建一个黄色的粒子系统
-    makeparticle(
-      sphere051,
-      particleSystem19,
-      new BABYLON.Color4(0.85, 1, 0),
-      new BABYLON.Color4(0.77, 0.89, 0.11),
-      new BABYLON.Color4(0.81, 0.85, 0.44)
-    );
-    moveparticle(track051, sphere051, -96.67, 100.2, -17.83, 1000);
-    makeparticle(
-      sphere051cl1,
-      particleSystem20,
-      new BABYLON.Color4(0.85, 1, 0),
-      new BABYLON.Color4(0.77, 0.89, 0.11),
-      new BABYLON.Color4(0.81, 0.85, 0.44)
-    );
-    moveparticle(track051, sphere051cl1, -96.67, 100.2, -17.83, 6000);
-    makeparticle(
-      sphere051cl2,
-      particleSystem21,
-      new BABYLON.Color4(0.85, 1, 0),
-      new BABYLON.Color4(0.77, 0.89, 0.11),
-      new BABYLON.Color4(0.81, 0.85, 0.44)
-    );
-    moveparticle(track051, sphere051cl2, -96.67, 100.2, -17.83, 12000);
-    makeparticle(
-      sphere051cl3,
-      particleSystem22,
-      new BABYLON.Color4(0.85, 1, 0),
-      new BABYLON.Color4(0.77, 0.89, 0.11),
-      new BABYLON.Color4(0.81, 0.85, 0.44)
-    );
-    moveparticle(track051, sphere051cl3, -96.67, 100.2, -17.83, 18000);
-
-    const track020 = []; //管道Brep.020的轨迹
-    track020.push(new slide(6.2, "behind")); //first side length 6
-    track020.push(new slide(6.2 + 9.4, "left")); //at finish of second side distance covered is 18+9
-    track020.push(new slide(6.2 + 9.4 + 13.5, "front")); //at finish of second side distance covered is 18+9
-    var particleSystem23 = new BABYLON.ParticleSystem(`particles23`, 10000, scene);
-    //创建一个黄色的粒子系统
-    makeparticle(
-      sphere020,
-      particleSystem23,
-      new BABYLON.Color4(0.85, 1, 0),
-      new BABYLON.Color4(0.77, 0.89, 0.11),
-      new BABYLON.Color4(0.81, 0.85, 0.44),
-      0.2,
-      0.25
-    );
-    moveparticle(track020, sphere020, -73.47, 56.6, -39.93, 1000);
-
-    const track02152 = []; //管道Brep.021+Brep.052的轨迹
-    track02152.push(new slide(3.5, "behind")); //first side length 6
-    track02152.push(new slide(3.5 + 36, "down")); //at finish of second side distance covered is 18+9
-    track02152.push(new slide(3.5 + 36 + 110, "front")); //at finish of second side distance covered is 18+9
-    track02152.push(new slide(3.5 + 36 + 110 + 40, "left")); //at finish of second side distance covered is 18+9
-    track02152.push(new slide(3.5 + 36 + 110 + 40 + 82.2, "down")); //at finish of second side distance covered is 18+9
-    // track02152.push(new slide(3.5+36+110+42.2+83+1,"left")); //at finish of second side distance covered is 18+9
-    track02152.push(new slide(3.5 + 36 + 110 + 40 + 82.2 + 26, "behind")); //at finish of second side distance covered is 18+9
-    track02152.push(new slide(3.5 + 36 + 110 + 40 + 82.2 + 26 + 8.8, "right")); //at finish of second side distance covered is 18+9
-    track02152.push(new slide(3.5 + 36 + 110 + 40 + 82.2 + 26 + 8.8 + 2.2, "down")); //at finish of second side distance covered is 18+9
-    var particleSystem24 = new BABYLON.ParticleSystem(`particles24`, 10000, scene);
-    var particleSystem25 = new BABYLON.ParticleSystem(`particles25`, 10000, scene);
-    var particleSystem26 = new BABYLON.ParticleSystem(`particles26`, 10000, scene);
-    var particleSystem27 = new BABYLON.ParticleSystem(`particles27`, 10000, scene);
-    //创建一个黄色的粒子系统
-    makeparticle(
-      sphere02152,
-      particleSystem24,
-      new BABYLON.Color4(0.85, 1, 0),
-      new BABYLON.Color4(0.77, 0.89, 0.11),
-      new BABYLON.Color4(0.81, 0.85, 0.44)
-    );
-    moveparticle(track02152, sphere02152, -104.3, 142.8, 50.64, 1000);
-    makeparticle(
-      sphere02152cl1,
-      particleSystem25,
-      new BABYLON.Color4(0.85, 1, 0),
-      new BABYLON.Color4(0.77, 0.89, 0.11),
-      new BABYLON.Color4(0.81, 0.85, 0.44)
-    );
-    moveparticle(track02152, sphere02152cl1, -104.3, 142.8, 50.64, 6000);
-    makeparticle(
-      sphere02152cl2,
-      particleSystem26,
-      new BABYLON.Color4(0.85, 1, 0),
-      new BABYLON.Color4(0.77, 0.89, 0.11),
-      new BABYLON.Color4(0.81, 0.85, 0.44)
-    );
-    moveparticle(track02152, sphere02152cl2, -104.3, 142.8, 50.64, 12000);
-    makeparticle(
-      sphere02152cl3,
-      particleSystem27,
-      new BABYLON.Color4(0.85, 1, 0),
-      new BABYLON.Color4(0.77, 0.89, 0.11),
-      new BABYLON.Color4(0.81, 0.85, 0.44)
-    );
-    moveparticle(track02152, sphere02152cl3, -104.3, 142.8, 50.64, 18000);
-
-    const track00552 = []; //管道Brep.021+Brep.052的轨迹
-    track00552.push(new slide(5.9, "front")); //first side length 6
-    track00552.push(new slide(5.9 + 36, "down")); //at finish of second side distance covered is 18+9
-    track00552.push(new slide(5.9 + 36 + 40, "left")); //at finish of second side distance covered is 18+9
-    track00552.push(new slide(5.9 + 36 + 40 + 82, "down")); //at finish of second side distance covered is 18+9
-    // track00552.push(new sli5.9e(65.5+42+83+1,"left")); //at finish of second side distance covered is 18+9
-    track00552.push(new slide(5.9 + 36 + 40 + 82 + 24.5, "behind")); //at finish of second side distance covered is 18+9
-    track00552.push(new slide(5.9 + 36 + 40 + 82 + 24.5 + 8.8, "right")); //at finish of second side distance covered is 18+9
-    track00552.push(new slide(5.9 + 36 + 40 + 82 + 24.5 + 8.8 + 2.2, "down")); //at finish of second side distance covered is 18+9
-    var particleSystem28 = new BABYLON.ParticleSystem(`particles28`, 10000, scene);
-    var particleSystem29 = new BABYLON.ParticleSystem(`particles29`, 10000, scene);
-    var particleSystem30 = new BABYLON.ParticleSystem(`particles30`, 10000, scene);
-    var particleSystem31 = new BABYLON.ParticleSystem(`particles31`, 10000, scene);
-    //创建一个黄色的粒子系统
-    makeparticle(
-      sphere00552,
-      particleSystem28,
-      new BABYLON.Color4(0.85, 1, 0),
-      new BABYLON.Color4(0.77, 0.89, 0.11),
-      new BABYLON.Color4(0.81, 0.85, 0.44)
-    );
-    moveparticle(track00552, sphere00552, -104.267, 142.802, -48.2834, 1000);
-    makeparticle(
-      sphere00552cl1,
-      particleSystem29,
-      new BABYLON.Color4(0.85, 1, 0),
-      new BABYLON.Color4(0.77, 0.89, 0.11),
-      new BABYLON.Color4(0.81, 0.85, 0.44)
-    );
-    moveparticle(track00552, sphere00552cl1, -104.267, 142.802, -48.2834, 6000);
-    makeparticle(
-      sphere00552cl2,
-      particleSystem30,
-      new BABYLON.Color4(0.85, 1, 0),
-      new BABYLON.Color4(0.77, 0.89, 0.11),
-      new BABYLON.Color4(0.81, 0.85, 0.44)
-    );
-    moveparticle(track00552, sphere00552cl2, -104.267, 142.802, -48.2834, 12000);
-    makeparticle(
-      sphere00552cl3,
-      particleSystem31,
-      new BABYLON.Color4(0.85, 1, 0),
-      new BABYLON.Color4(0.77, 0.89, 0.11),
-      new BABYLON.Color4(0.81, 0.85, 0.44)
-    );
-    moveparticle(track00552, sphere00552cl3, -104.267, 142.802, -48.2834, 18000);
-}
-//
-// function particlestart() {
-//   particleSystem1.start(); //Brep044
-//   // particleSystem2.start();
-//   particleSystem3.start(); //Brep008
-//   // particleSystem4.start();
-//   particleSystem5.start(); //Brep049
-//   // particleSystem6.start();
-//   particleSystem7.start(); //Brep053
-//   particleSystem8.start();
-//   particleSystem9.start();
-//   particleSystem10.start();
-//   particleSystem11.start(); //Brep041
-//   particleSystem12.start();
-//   particleSystem13.start();
-//   particleSystem14.start();
-//   particleSystem15.start(); //Brep042
-//   particleSystem16.start();
-//   particleSystem17.start();
-//   particleSystem18.start();
-//   particleSystem19.start(); //Brep051
-//   particleSystem20.start();
-//   particleSystem21.start();
-//   particleSystem22.start();
-//   particleSystem23.start(); //Brep020
-//   particleSystem24.start(); //Brep02152
-//   particleSystem25.start();
-//   particleSystem26.start();
-//   particleSystem27.start();
-//   particleSystem28.start(); //Brep00552
-//   particleSystem29.start();
-//   particleSystem30.start();
-//   particleSystem31.start();
-// }
 function opendoor(mesh, labelName) {
   //开门/关门
   if (
@@ -1161,29 +540,6 @@ function opendoor(mesh, labelName) {
 
   // selectMesh.setPivotPoint(new BABYLON.Vector3(-6, 0, 0));
 }
-// function alphachange(mesh,labelName){//楼板透明度改变
-//     if((labelName==="Brep")||labelName==="Brep.091"||(labelName==="Brep.092")){
-//         let myclapboardMaterial=new BABYLON.PBRMaterial("myclapboardMaterial", scene);
-//         myclapboardMaterial.albedoColor=new BABYLON.Color3.White(); // 反射颜色
-//         myclapboardMaterial.metallic=0.2 // 金属
-//         myclapboardMaterial.roughness=0.8 // 粗糙
-//         // if(mesh.isVisible===true){
-//         if(mesh.alpha==1){
-//             myclapboardMaterial.alpha=0;
-//             mesh.material = myclapboardMaterial;
-//             mesh.alpha=0;
-//             // mesh.isVisible=false;
-//         }
-//         else{
-//             myclapboardMaterial.alpha=1;
-//             mesh.material = clapboardbegin;
-//             mesh.alpha=1;
-//             // mesh.isVisible=true
-//         }
-//         console.log("isVisible",mesh.isVisible)
-
-//     }
-// }
 export function stopProcess(ProcessName){
   let pipematerial=new BABYLON.PBRMaterial("equipmentsmaterialgreen", scene); //创建pbr 绿色设备管道材料
   pipematerial.albedoColor=new BABYLON.Color3.White(); // 反射颜色
@@ -1196,21 +552,11 @@ export function stopProcess(ProcessName){
   equipmentsmaterialred.roughness=0.5 // 粗糙
   equipmentsmaterialred.alpha=0.8;
   if(ProcessName === "fillCO2"){
-      // scene.onBeforeRenderObservable.clear();
-      scene.getMeshById("Brep.093").material=pipematerial
-      scene.getMeshById("Brep.094").material=pipematerial
-      scene.getMeshById("Brep.095").material=pipematerial
-      scene.getMeshById("Brep.096").material=pipematerial
-      scene.getMeshById("Brep.097").material=pipematerial
-      scene.getMeshById("Brep.098").material=pipematerial
-      scene.getMeshById("Brep.099").material=pipematerial
-      scene.getMeshById("Brep.100").material=pipematerial
-      scene.getMeshById("Brep.101").material=pipematerial
-      scene.getMeshById("Brep.102").material=pipematerial
-      scene.getMeshById("Brep.103").material=pipematerial
-      scene.getMeshById("Brep.104").material=pipematerial
-      scene.getMeshById("Brep.105").material=pipematerial
-      scene.getMeshById("Brep.106").material=pipematerial
+    let Breps=["Brep.093","Brep.094","Brep.095","Brep.096","Brep.097","Brep.098","Brep.099","Brep.100","Brep.101","Brep.102","Brep.103","Brep.104","Brep.105","Brep.106"];
+    Breps.forEach(function(it){
+      let mesh = scene.getMeshById(it);
+      mesh.material= pipematerial
+    })
       //阀门回归原色
       let Equipments=["Mesh.3655","Mesh.3656","Mesh.3657","10QM018","Mesh.3791","10QN003"];
       Equipments.forEach(function(it){
@@ -1222,23 +568,25 @@ export function stopProcess(ProcessName){
       })
   }
   if(ProcessName === "exhaustH2"){
-    // scene.onBeforeRenderObservable.clear();
-    console.log("pipematerial",pipematerial)
-    scene.getMeshById("Brep.106").material=pipematerial
-    scene.getMeshById("Brep.105").material=pipematerial
-    scene.getMeshById("Brep.109").material=pipematerial
-    scene.getMeshById("Brep.110").material=pipematerial
-    scene.getMeshById("Brep.111").material=pipematerial
-    scene.getMeshById("Brep.112").material=pipematerial
-    scene.getMeshById("Brep.113").material=pipematerial
-    scene.getMeshById("Brep.114").material=pipematerial
-    scene.getMeshById("Brep.115").material=pipematerial
-    scene.getMeshById("Brep.116").material=pipematerial
-    scene.getMeshById("Brep.117").material=pipematerial
-    scene.getMeshById("Brep.118").material=pipematerial
-    scene.getMeshById("Brep.119").material=pipematerial
-    scene.getMeshById("Brep.120").material=pipematerial
-    scene.getMeshById("Brep.121").material=pipematerial
+    let Breps=["Brep.106",
+        "Brep.105",
+        "Brep.109",
+        "Brep.110",
+        "Brep.111",
+        "Brep.112",
+        "Brep.113",
+        "Brep.114",
+        "Brep.115",
+        "Brep.116",
+        "Brep.117",
+        "Brep.118",
+        "Brep.119",
+        "Brep.120",
+        "Brep.121"];
+    Breps.forEach(function(it){
+      let mesh = scene.getMeshById(it);
+      mesh.material= pipematerial
+    })
     //阀门回归原色
     let Equipments=["10QM401","10QM402","10QM403","10QM404","Mesh.3798","Mesh.3791","Mesh.3691","Mesh.4092","10QN003"];
     Equipments.forEach(function(it){
@@ -1250,82 +598,90 @@ export function stopProcess(ProcessName){
     })
   }
   if(ProcessName === "fillH2fromPowerPlant"){
-    // scene.onBeforeRenderObservable.clear();
-    scene.getMeshById("Brep.122").material=pipematerial
-    scene.getMeshById("Brep.123").material=pipematerial
-    scene.getMeshById("Brep.149").material=pipematerial
-    scene.getMeshById("Brep.150").material=pipematerial
-    scene.getMeshById("Brep.125").material=pipematerial
-    scene.getMeshById("Brep.126").material=pipematerial
-    scene.getMeshById("Brep.127").material=pipematerial
-    scene.getMeshById("Brep.128").material=pipematerial
-    scene.getMeshById("Brep.129").material=pipematerial
-    scene.getMeshById("Brep.130").material=pipematerial
-    scene.getMeshById("Brep.131").material=pipematerial
-    scene.getMeshById("Brep.132").material=pipematerial
-    scene.getMeshById("Brep.133").material=pipematerial
-    scene.getMeshById("Brep.134").material=pipematerial
-    scene.getMeshById("Brep.135").material=pipematerial
-    scene.getMeshById("Brep.136").material=pipematerial
-    scene.getMeshById("Brep.137").material=pipematerial
-    scene.getMeshById("Brep.138").material=pipematerial
-    scene.getMeshById("Brep.139").material=pipematerial
-    scene.getMeshById("Brep.140").material=pipematerial
-    scene.getMeshById("Brep.141").material=pipematerial
-    scene.getMeshById("Brep.142").material=pipematerial
-    scene.getMeshById("Brep.143").material=pipematerial
-    scene.getMeshById("Brep.144").material=pipematerial
-    scene.getMeshById("Brep.145").material=pipematerial
-    scene.getMeshById("Brep.146").material=pipematerial
-    scene.getMeshById("Brep.147").material=pipematerial
-    scene.getMeshById("Brep.148").material=pipematerial
-    scene.getMeshById("Brep.111").material=pipematerial
-    scene.getMeshById("Brep.112").material=pipematerial
-    scene.getMeshById("Brep.113").material=pipematerial
-        //阀门回归原色
-        let Equipments=["Mesh.3660","Mesh.3658","10QM015","10QN001-5","10QN001-4","10QN001-1","Mesh.3691","Mesh.3798","Mesh.4092"];
-        Equipments.forEach(function(it){
-          let mesh = scene.getMeshById(it);
-          // mesh.unfreezeWorldMatrix();
-          mesh.material= equipmentsmaterialred;
-          objectArray[idToIndexMap1[it]].State="正常"
-          // mesh.freezeWorldMatrix();
-        })
+    let Breps=[ "Brep.122",
+                "Brep.123",
+                "Brep.149",
+                "Brep.150",
+                "Brep.125",
+                "Brep.126",
+                "Brep.127",
+                "Brep.128",
+                "Brep.129",
+                "Brep.130",
+                "Brep.131",
+                "Brep.132",
+                "Brep.133",
+                "Brep.134",
+                "Brep.135",
+                "Brep.136",
+                "Brep.137",
+                "Brep.138",
+                "Brep.139",
+                "Brep.140",
+                "Brep.141",
+                "Brep.142",
+                "Brep.143",
+                "Brep.144",
+                "Brep.145",
+                "Brep.146",
+                "Brep.147",
+                "Brep.148",
+                "Brep.111",
+                "Brep.112",
+                "Brep.113"
+        ];
+    Breps.forEach(function(it){
+      let mesh = scene.getMeshById(it);
+      mesh.material= pipematerial
+    })
+    //阀门回归原色
+    let Equipments=["Mesh.3660","Mesh.3658","10QM015","10QN001-5","10QN001-4","10QN001-1","Mesh.3691","Mesh.3798","Mesh.4092"];
+    Equipments.forEach(function(it){
+      let mesh = scene.getMeshById(it);
+      // mesh.unfreezeWorldMatrix();
+      mesh.material= equipmentsmaterialred;
+      objectArray[idToIndexMap1[it]].State="正常"
+      // mesh.freezeWorldMatrix();
+    })
   }
   if(ProcessName === "fillH2fromConfluence"){
-    // scene.onBeforeRenderObservable.clear();
-    scene.getMeshById("Brep.151").material=pipematerial
-    scene.getMeshById("Brep.152").material=pipematerial
-    scene.getMeshById("Brep.153").material=pipematerial
-    scene.getMeshById("Brep.154").material=pipematerial
-    scene.getMeshById("Brep.150").material=pipematerial
-    scene.getMeshById("Brep.125").material=pipematerial
-    scene.getMeshById("Brep.126").material=pipematerial
-    scene.getMeshById("Brep.127").material=pipematerial
-    scene.getMeshById("Brep.128").material=pipematerial
-    scene.getMeshById("Brep.129").material=pipematerial
-    scene.getMeshById("Brep.130").material=pipematerial
-    scene.getMeshById("Brep.131").material=pipematerial
-    scene.getMeshById("Brep.132").material=pipematerial
-    scene.getMeshById("Brep.133").material=pipematerial
-    scene.getMeshById("Brep.134").material=pipematerial
-    scene.getMeshById("Brep.135").material=pipematerial
-    scene.getMeshById("Brep.136").material=pipematerial
-    scene.getMeshById("Brep.137").material=pipematerial
-    scene.getMeshById("Brep.138").material=pipematerial
-    scene.getMeshById("Brep.139").material=pipematerial
-    scene.getMeshById("Brep.140").material=pipematerial
-    scene.getMeshById("Brep.141").material=pipematerial
-    scene.getMeshById("Brep.142").material=pipematerial
-    scene.getMeshById("Brep.143").material=pipematerial
-    scene.getMeshById("Brep.144").material=pipematerial
-    scene.getMeshById("Brep.145").material=pipematerial
-    scene.getMeshById("Brep.146").material=pipematerial
-    scene.getMeshById("Brep.147").material=pipematerial
-    scene.getMeshById("Brep.148").material=pipematerial
-    scene.getMeshById("Brep.111").material=pipematerial
-    scene.getMeshById("Brep.112").material=pipematerial
-    scene.getMeshById("Brep.113").material=pipematerial
+    let Breps=[ "Brep.151",
+                "Brep.152",
+                "Brep.153",
+                "Brep.154",
+                "Brep.150",
+                "Brep.125",
+                "Brep.126",
+                "Brep.127",
+                "Brep.128",
+                "Brep.129",
+                "Brep.130",
+                "Brep.131",
+                "Brep.132",
+                "Brep.133",
+                "Brep.134",
+                "Brep.135",
+                "Brep.136",
+                "Brep.137",
+                "Brep.138",
+                "Brep.139",
+                "Brep.140",
+                "Brep.141",
+                "Brep.142",
+                "Brep.143",
+                "Brep.144",
+                "Brep.145",
+                "Brep.146",
+                "Brep.147",
+                "Brep.148",
+                "Brep.111",
+                "Brep.112",
+                "Brep.113"
+        ];
+    Breps.forEach(function(it){
+      let mesh = scene.getMeshById(it);
+      mesh.material= pipematerial
+    })
     //阀门回归原色
     let Equipments=["Mesh.3678","Mesh.3679","10QM001","10QN001-5","10QN001-4","10QN001-1","Mesh.3691","Mesh.3798","Mesh.4092"];
     Equipments.forEach(function(it){
@@ -1349,213 +705,221 @@ export function stopProcess(ProcessName){
         })
   }
   if(ProcessName === "purificationH2"){
-    // scene.onBeforeRenderObservable.clear();
-    scene.getMeshById("Brep.155").material=pipematerial
-    scene.getMeshById("Brep.156").material=pipematerial
-    scene.getMeshById("Brep.157").material=pipematerial
-    scene.getMeshById("Brep.158").material=pipematerial
-    scene.getMeshById("Brep.159").material=pipematerial
-    scene.getMeshById("Brep.160").material=pipematerial
-    scene.getMeshById("Brep.161").material=pipematerial
-    scene.getMeshById("Brep.162").material=pipematerial
-    scene.getMeshById("Brep.163").material=pipematerial
-    scene.getMeshById("Brep.164").material=pipematerial
-    scene.getMeshById("Brep.165").material=pipematerial
-    scene.getMeshById("Brep.166").material=pipematerial
-    scene.getMeshById("Brep.167").material=pipematerial
-    scene.getMeshById("Brep.168").material=pipematerial
-    scene.getMeshById("Brep.169").material=pipematerial
-    scene.getMeshById("Brep.170").material=pipematerial
-    scene.getMeshById("Brep.171").material=pipematerial
-    scene.getMeshById("Brep.172").material=pipematerial
-    scene.getMeshById("Brep.173").material=pipematerial
-    scene.getMeshById("Brep.174").material=pipematerial
-    scene.getMeshById("Brep.175").material=pipematerial
-    scene.getMeshById("Brep.176").material=pipematerial
-    scene.getMeshById("Brep.177").material=pipematerial
-    scene.getMeshById("Brep.178").material=pipematerial
-    scene.getMeshById("Brep.179").material=pipematerial
-    scene.getMeshById("Brep.180").material=pipematerial
-    scene.getMeshById("Brep.181").material=pipematerial
-    scene.getMeshById("Brep.182").material=pipematerial
-    scene.getMeshById("Brep.183").material=pipematerial
-    scene.getMeshById("Brep.184").material=pipematerial
-    scene.getMeshById("Brep.185").material=pipematerial
-    scene.getMeshById("Brep.186").material=pipematerial
-    scene.getMeshById("Brep.187").material=pipematerial
-    scene.getMeshById("Brep.188").material=pipematerial
-    scene.getMeshById("Brep.189").material=pipematerial
-    scene.getMeshById("Brep.190").material=pipematerial
-    scene.getMeshById("Brep.191").material=pipematerial
-    scene.getMeshById("Brep.192").material=pipematerial
-    scene.getMeshById("Brep.193").material=pipematerial
-    scene.getMeshById("Brep.194").material=pipematerial
-    scene.getMeshById("Brep.195").material=pipematerial
-    scene.getMeshById("Brep.196").material=pipematerial
-    scene.getMeshById("Brep.197").material=pipematerial
-    scene.getMeshById("Brep.198").material=pipematerial
-    scene.getMeshById("Brep.199").material=pipematerial
-    scene.getMeshById("Brep.200").material=pipematerial
-    scene.getMeshById("Brep.217").material=pipematerial
-    scene.getMeshById("Brep.201").material=pipematerial
-    scene.getMeshById("Brep.202").material=pipematerial
-    scene.getMeshById("Brep.203").material=pipematerial
-    scene.getMeshById("Brep.204").material=pipematerial
-    scene.getMeshById("Brep.205").material=pipematerial
-    scene.getMeshById("Brep.206").material=pipematerial
-    scene.getMeshById("Brep.207").material=pipematerial
-    scene.getMeshById("Brep.208").material=pipematerial
-    scene.getMeshById("Brep.209").material=pipematerial
-    scene.getMeshById("Brep.210").material=pipematerial
-    scene.getMeshById("Brep.211").material=pipematerial
-    scene.getMeshById("Brep.212").material=pipematerial
-    scene.getMeshById("Brep.213").material=pipematerial
-    scene.getMeshById("Brep.214").material=pipematerial
-    scene.getMeshById("Brep.215").material=pipematerial
-    scene.getMeshById("Brep.216").material=pipematerial
-        //阀门回归原色
-        let Equipments=["Mesh.2397","Mesh.2398","Mesh.2461","Mesh.1788","Mesh.2383","Mesh.2390","20QM005","20QM009","20QM003","10BM101","10BM102"];
-        Equipments.forEach(function(it){
-          let mesh = scene.getMeshById(it);
-          // mesh.unfreezeWorldMatrix();
-          mesh.material= equipmentsmaterialred;
-          objectArray[idToIndexMap1[it]].State="正常"
-          // mesh.freezeWorldMatrix();
-        })
+    let Breps=[ "Brep.155",
+                "Brep.156",
+                "Brep.157",
+                "Brep.158",
+                "Brep.159",
+                "Brep.160",
+                "Brep.161",
+                "Brep.162",
+                "Brep.163",
+                "Brep.164",
+                "Brep.165",
+                "Brep.166",
+                "Brep.167",
+                "Brep.168",
+                "Brep.169",
+                "Brep.170",
+                "Brep.171",
+                "Brep.172",
+                "Brep.173",
+                "Brep.174",
+                "Brep.175",
+                "Brep.176",
+                "Brep.177",
+                "Brep.178",
+                "Brep.179",
+                "Brep.180",
+                "Brep.181",
+                "Brep.182",
+                "Brep.183",
+                "Brep.184",
+                "Brep.185",
+                "Brep.186",
+                "Brep.187",
+                "Brep.188",
+                "Brep.189",
+                "Brep.190",
+                "Brep.191",
+                "Brep.192",
+                "Brep.193",
+                "Brep.194",
+                "Brep.195",
+                "Brep.196",
+                "Brep.197",
+                "Brep.198",
+                "Brep.199",
+                "Brep.200",
+                "Brep.217",
+                "Brep.201",
+                "Brep.202",
+                "Brep.203",
+                "Brep.204",
+                "Brep.205",
+                "Brep.206",
+                "Brep.207",
+                "Brep.208",
+                "Brep.209",
+                "Brep.210",
+                "Brep.211",
+                "Brep.212",
+                "Brep.213",
+                "Brep.214",
+                "Brep.215",
+                "Brep.216"
+        ];
+    Breps.forEach(function(it){
+      let mesh = scene.getMeshById(it);
+      mesh.material= pipematerial
+    })
+    //阀门回归原色
+    let Equipments=["Mesh.2397","Mesh.2398","Mesh.2461","Mesh.1788","Mesh.2383","Mesh.2390","20QM005","20QM009","20QM003","10BM101","10BM102"];
+    Equipments.forEach(function(it){
+      let mesh = scene.getMeshById(it);
+      // mesh.unfreezeWorldMatrix();
+      mesh.material= equipmentsmaterialred;
+      objectArray[idToIndexMap1[it]].State="正常"
+      // mesh.freezeWorldMatrix();
+    })
   }
   if(ProcessName === "makeH2"){
-    // scene.onBeforeRenderObservable.clear();
-    scene.getMeshById("Brep.218").material=pipematerial
-    scene.getMeshById("Brep.219").material=pipematerial
-    scene.getMeshById("Brep.220").material=pipematerial
-    scene.getMeshById("Brep.221").material=pipematerial
-    scene.getMeshById("Brep.222").material=pipematerial
-    scene.getMeshById("Brep.223").material=pipematerial
-    scene.getMeshById("Brep.224").material=pipematerial
-    scene.getMeshById("Brep.225").material=pipematerial
-    scene.getMeshById("Brep.226").material=pipematerial
-    scene.getMeshById("Brep.227").material=pipematerial
-    scene.getMeshById("Brep.228").material=pipematerial
-    scene.getMeshById("Brep.229").material=pipematerial
-    scene.getMeshById("Brep.230").material=pipematerial
-    scene.getMeshById("Brep.231").material=pipematerial
-    scene.getMeshById("Brep.232").material=pipematerial
-    scene.getMeshById("Brep.233").material=pipematerial
-    scene.getMeshById("Brep.234").material=pipematerial
-    scene.getMeshById("Brep.235").material=pipematerial
-    scene.getMeshById("Brep.236").material=pipematerial
-    scene.getMeshById("Brep.237").material=pipematerial
-    scene.getMeshById("Brep.238").material=pipematerial
-    scene.getMeshById("Brep.239").material=pipematerial
-    scene.getMeshById("Brep.240").material=pipematerial
-    scene.getMeshById("Brep.241").material=pipematerial
-    scene.getMeshById("Brep.242").material=pipematerial
-    scene.getMeshById("Brep.243").material=pipematerial
-    scene.getMeshById("Brep.244").material=pipematerial
-    scene.getMeshById("Brep.245").material=pipematerial
-    scene.getMeshById("Brep.246").material=pipematerial
-    scene.getMeshById("Brep.247").material=pipematerial
-    scene.getMeshById("Brep.248").material=pipematerial
-    scene.getMeshById("Brep.249").material=pipematerial
-    scene.getMeshById("Brep.250").material=pipematerial
-    scene.getMeshById("Brep.251").material=pipematerial
-    scene.getMeshById("Brep.252").material=pipematerial
-    scene.getMeshById("Brep.253").material=pipematerial
-    scene.getMeshById("Brep.254").material=pipematerial
-    scene.getMeshById("Brep.255").material=pipematerial
-    scene.getMeshById("Brep.256").material=pipematerial
-    scene.getMeshById("Brep.257").material=pipematerial
-    scene.getMeshById("Brep.258").material=pipematerial
-    scene.getMeshById("Brep.259").material=pipematerial
-    scene.getMeshById("Brep.260").material=pipematerial
-    scene.getMeshById("Brep.261").material=pipematerial
-    scene.getMeshById("Brep.262").material=pipematerial
-    scene.getMeshById("Brep.263").material=pipematerial
-    scene.getMeshById("Brep.264").material=pipematerial
-    scene.getMeshById("Brep.265").material=pipematerial
-    scene.getMeshById("Brep.266").material=pipematerial
-    scene.getMeshById("Brep.267").material=pipematerial
-    scene.getMeshById("Brep.268").material=pipematerial
-    scene.getMeshById("Brep.269").material=pipematerial
-    scene.getMeshById("Brep.270").material=pipematerial
-    scene.getMeshById("Brep.271").material=pipematerial
-    scene.getMeshById("Brep.272").material=pipematerial
-    scene.getMeshById("Brep.273").material=pipematerial
-    scene.getMeshById("Brep.274").material=pipematerial
-    scene.getMeshById("Brep.275").material=pipematerial
-    scene.getMeshById("Brep.276").material=pipematerial
-    scene.getMeshById("Brep.277").material=pipematerial
-    scene.getMeshById("Brep.278").material=pipematerial
-    scene.getMeshById("Brep.279").material=pipematerial
-    scene.getMeshById("Brep.280").material=pipematerial
-    scene.getMeshById("Brep.281").material=pipematerial
-    scene.getMeshById("Brep.282").material=pipematerial
-    scene.getMeshById("Brep.283").material=pipematerial
-    scene.getMeshById("Brep.284").material=pipematerial
-    scene.getMeshById("Brep.285").material=pipematerial
-    scene.getMeshById("Brep.286").material=pipematerial
-    scene.getMeshById("Brep.287").material=pipematerial
-    scene.getMeshById("Brep.288").material=pipematerial
-    scene.getMeshById("Brep.289").material=pipematerial
-    scene.getMeshById("Brep.290").material=pipematerial
-    scene.getMeshById("Brep.291").material=pipematerial
-    scene.getMeshById("Brep.292").material=pipematerial
-    scene.getMeshById("Brep.293").material=pipematerial
-    scene.getMeshById("Brep.294").material=pipematerial
-    scene.getMeshById("Brep.295").material=pipematerial
-    scene.getMeshById("Brep.296").material=pipematerial
-    scene.getMeshById("Brep.297").material=pipematerial
-    scene.getMeshById("Brep.298").material=pipematerial
-    scene.getMeshById("Brep.299").material=pipematerial
-    scene.getMeshById("Brep.300").material=pipematerial
-    scene.getMeshById("Brep.301").material=pipematerial
-    scene.getMeshById("Brep.302").material=pipematerial
-    scene.getMeshById("Brep.303").material=pipematerial
-    scene.getMeshById("Brep.304").material=pipematerial
-    scene.getMeshById("Brep.305").material=pipematerial
-    scene.getMeshById("Brep.306").material=pipematerial
-    scene.getMeshById("Brep.307").material=pipematerial
-    scene.getMeshById("Brep.308").material=pipematerial
-    scene.getMeshById("Brep.309").material=pipematerial
-    scene.getMeshById("Brep.310").material=pipematerial
-    scene.getMeshById("Brep.311").material=pipematerial
-    scene.getMeshById("Brep.312").material=pipematerial
-    scene.getMeshById("Brep.313").material=pipematerial
-    scene.getMeshById("Brep.314").material=pipematerial
-    scene.getMeshById("Brep.315").material=pipematerial
-    scene.getMeshById("Brep.316").material=pipematerial
-    scene.getMeshById("Brep.317").material=pipematerial
-    scene.getMeshById("Brep.318").material=pipematerial
-    scene.getMeshById("Brep.319").material=pipematerial
-    scene.getMeshById("Brep.320").material=pipematerial
-    scene.getMeshById("Brep.321").material=pipematerial
-    scene.getMeshById("Brep.322").material=pipematerial
-    scene.getMeshById("Brep.323").material=pipematerial
-    scene.getMeshById("Brep.324").material=pipematerial
-    scene.getMeshById("Brep.325").material=pipematerial
-    scene.getMeshById("Brep.326").material=pipematerial
-    scene.getMeshById("Brep.327").material=pipematerial
-    scene.getMeshById("Brep.328").material=pipematerial
-    scene.getMeshById("Brep.329").material=pipematerial
-    scene.getMeshById("Brep.330").material=pipematerial
-    scene.getMeshById("Brep.331").material=pipematerial
-    scene.getMeshById("Brep.332").material=pipematerial
-    scene.getMeshById("Brep.333").material=pipematerial
-    scene.getMeshById("Brep.334").material=pipematerial
-    scene.getMeshById("Brep.335").material=pipematerial
-    scene.getMeshById("Brep.336").material=pipematerial
-    scene.getMeshById("Brep.337").material=pipematerial
-    scene.getMeshById("Brep.338").material=pipematerial
-    scene.getMeshById("Brep.339").material=pipematerial
-    scene.getMeshById("Brep.340").material=pipematerial
-    scene.getMeshById("Brep.341").material=pipematerial
-    scene.getMeshById("Brep.342").material=pipematerial
-    scene.getMeshById("Brep.343").material=pipematerial
-    scene.getMeshById("Brep.344").material=pipematerial
-    scene.getMeshById("Brep.345").material=pipematerial
-    scene.getMeshById("Brep.346").material=pipematerial
-    scene.getMeshById("Brep.347").material=pipematerial
-    scene.getMeshById("Brep.348").material=pipematerial
+    let Breps=[ "Brep.218",
+                "Brep.219",
+                "Brep.220",
+                "Brep.221",
+                "Brep.222",
+                "Brep.223",
+                "Brep.224",
+                "Brep.225",
+                "Brep.226",
+                "Brep.227",
+                "Brep.228",
+                "Brep.229",
+                "Brep.230",
+                "Brep.231",
+                "Brep.232",
+                "Brep.233",
+                "Brep.234",
+                "Brep.235",
+                "Brep.236",
+                "Brep.237",
+                "Brep.238",
+                "Brep.239",
+                "Brep.240",
+                "Brep.241",
+                "Brep.242",
+                "Brep.243",
+                "Brep.244",
+                "Brep.245",
+                "Brep.246",
+                "Brep.247",
+                "Brep.248",
+                "Brep.249",
+                "Brep.250",
+                "Brep.251",
+                "Brep.252",
+                "Brep.253",
+                "Brep.254",
+                "Brep.255",
+                "Brep.256",
+                "Brep.257",
+                "Brep.258",
+                "Brep.259",
+                "Brep.260",
+                "Brep.261",
+                "Brep.262",
+                "Brep.263",
+                "Brep.264",
+                "Brep.265",
+                "Brep.266",
+                "Brep.267",
+                "Brep.268",
+                "Brep.269",
+                "Brep.270",
+                "Brep.271",
+                "Brep.272",
+                "Brep.273",
+                "Brep.274",
+                "Brep.275",
+                "Brep.276",
+                "Brep.277",
+                "Brep.278",
+                "Brep.279",
+                "Brep.280",
+                "Brep.281",
+                "Brep.282",
+                "Brep.283",
+                "Brep.284",
+                "Brep.285",
+                "Brep.286",
+                "Brep.287",
+                "Brep.288",
+                "Brep.289",
+                "Brep.290",
+                "Brep.291",
+                "Brep.292",
+                "Brep.293",
+                "Brep.294",
+                "Brep.295",
+                "Brep.296",
+                "Brep.297",
+                "Brep.298",
+                "Brep.299",
+                "Brep.300",
+                "Brep.301",
+                "Brep.302",
+                "Brep.303",
+                "Brep.304",
+                "Brep.305",
+                "Brep.306",
+                "Brep.307",
+                "Brep.308",
+                "Brep.309",
+                "Brep.310",
+                "Brep.311",
+                "Brep.312",
+                "Brep.313",
+                "Brep.314",
+                "Brep.315",
+                "Brep.316",
+                "Brep.317",
+                "Brep.318",
+                "Brep.319",
+                "Brep.320",
+                "Brep.321",
+                "Brep.322",
+                "Brep.323",
+                "Brep.324",
+                "Brep.325",
+                "Brep.326",
+                "Brep.327",
+                "Brep.328",
+                "Brep.329",
+                "Brep.330",
+                "Brep.331",
+                "Brep.332",
+                "Brep.333",
+                "Brep.334",
+                "Brep.335",
+                "Brep.336",
+                "Brep.337",
+                "Brep.338",
+                "Brep.339",
+                "Brep.340",
+                "Brep.341",
+                "Brep.342",
+                "Brep.343",
+                "Brep.344",
+                "Brep.345",
+                "Brep.346",
+                "Brep.347",
+                "Brep.348"
+        ];
+    Breps.forEach(function(it){
+      let mesh = scene.getMeshById(it);
+      mesh.material= pipematerial
+    })
         //阀门回归原色
         let Equipments=["Mesh.1151","Mesh.1035","30QM013"];
         Equipments.forEach(function(it){
@@ -1612,15 +976,6 @@ export function flowProcess(ProcessName){
         objectArray[idToIndexMap1[it]].State="1-2"
         // mesh.freezeWorldMatrix();
       })
-      // 柜外管道流向改变
-      // particleSystem32.stop();//053_2
-      // particleSystem33.stop();
-      // particleSystem34.stop();
-      // particleSystem35.stop();
-      // particleSystem7.start(); //Brep053
-      // particleSystem8.start();
-      // particleSystem9.start();
-      // particleSystem10.start();
 
       // 管道变色(二氧化碳管道变氢气管道)
       let pipe3=scene.getMeshById("Brep.053");
@@ -1676,16 +1031,6 @@ export function flowProcess(ProcessName){
       objectArray[idToIndexMap1[it]].State="1-3"
       // mesh.freezeWorldMatrix();
     })
-    //柜外管道流向改变
-    // particleSystem7.stop(); //Brep053
-    // particleSystem8.stop();
-    // particleSystem9.stop();
-    // particleSystem10.stop();
-    // particleSystem32.start();//053_2
-    // particleSystem33.start();
-    // particleSystem34.start();
-    // particleSystem35.start();
-    //管道变色(二氧化碳管道变氢气管道)
     let pipe1=scene.getMeshById("Brep.053");
     let hydrogenmaterial = new BABYLON.PBRMaterial("hydrogenmaterial", scene); //创建pbr 氢气管道材料
     hydrogenmaterial.albedoColor=new BABYLON.Color3.Green(); // 反射颜色

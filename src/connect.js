@@ -1,8 +1,6 @@
 import {
   objectArray,
-  pipeArray,
   idToIndexMap1,
-  idToIndexMap2,
   createWarningMessage,
   deleteWarningMessage,
   flowProcess,
@@ -126,22 +124,7 @@ export function getJson(labelName, property) {
     return "暂无设备信息";
   }
 }
-export function getPipeJson(labelName, property) {
-  let targetObject = pipeArray[idToIndexMap2[labelName]];
 
-  if (targetObject) {
-    if (property === "Name") {
-      return targetObject.Name;
-    } else if (property === "Info") {
-      if (targetObject.info) {
-        return targetObject.info;
-      }
-      return "暂无设备信息";
-    }
-  } else {
-    return "暂无设备信息";
-  }
-}
 export function getPDF(Manual) {
   if (Manual === "") {
     alert("暂无设备说明书");
