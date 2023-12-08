@@ -34,8 +34,9 @@
       style="
         height: 12vw;
         width: 20vw;
-        position: absolute;
-        left: 0;
+        position: fixed;
+        transform: translate(25vw, 11vw);
+        left: 30vw;
         z-index: 4;
         display: none;
       "
@@ -68,20 +69,6 @@
         <p class="info-title" id="modelSpare">备件信息:</p>
       </div>
     </dv-border-box-12>
-    <!--<div class="nav_btn" @click="sendMessage">
-      <div class="btn_right">
-        <button id="back_btn" class="back-button">
-          <img
-            src="../../public/icons/返回.png"
-            alt="Icon"
-            class="icon"
-            title="返回"
-          />
-        </button>
-      </div>
-    </div>
-    暂时去掉按钮提高美观度-->
-
     <div>
       <dv-decoration-7
         style="
@@ -127,7 +114,7 @@
             left: 0;
             background-color: rgba(0, 0, 0, 0.22);
             border-radius: 1vw;
-            margin-bottom: 2.5vw;
+            margin-bottom: 1.5vw;
           "
         >
           <div class="three">
@@ -139,7 +126,6 @@
             >
               {{ first }}
             </div>
-            <!-- <div class="one"></div> -->
             <div
               class="one"
               :style="{
@@ -158,16 +144,22 @@
             <div class="unitname">机组负荷</div>
           </div>
 
-          <div class="title">
-            <!-- 当前时间 -->
-            <!-- <dv-decoration-6 style="width: 250px; height: 60px" /> -->
-          </div>
+          <div class="title"></div>
 
           <UnitPanel></UnitPanel>
           <SystemPanel></SystemPanel>
           <UnitPower></UnitPower>
         </dv-border-box-12>
-
+        <dv-border-box-12
+          style="
+            width: 100%;
+            height: 8.19647vw;
+            background-color: rgba(0, 0, 0, 0.22);
+            margin-bottom: 1vw;
+            border-radius: 1vw;
+          "
+          ><WarnInfo></WarnInfo
+        ></dv-border-box-12>
         <!-- 第二部分 -->
         <dv-border-box-12
           style="
@@ -226,35 +218,31 @@
         <dv-border-box-12
           style="
             width: 100%;
-            height: 14.9629vw;
+            height: 19.9629vw;
             background-color: rgba(0, 0, 0, 0.22);
             border-radius: 1vw;
             margin-bottom: 2.5vw;
           "
-          ><dv-scroll-board
-            class="place"
-            :config="status"
-            ref="scrollBoard"
+          ><div
             style="
               width: 97%;
               height: 93%;
-              top: 8px;
+              top: 0.6vw;
+              left: 0.6vw;
               z-index: 77;
+              overflow: auto;
               position: absolute;
             "
-            @click="chooseModule"
-          />
+          >
+            <dv-scroll-board
+              class="place"
+              :config="status"
+              ref="scrollBoard"
+              :style="elementStyle"
+              @click="chooseModule"
+            />
+          </div>
         </dv-border-box-12>
-        <dv-border-box-12
-          style="
-            width: 100%;
-            height: 8.19647vw;
-            background-color: rgba(0, 0, 0, 0.22);
-            margin-bottom: 1vw;
-            border-radius: 1vw;
-          "
-          ><WarnInfo></WarnInfo
-        ></dv-border-box-12>
       </div>
 
       <!-- 下方盒子 -->
@@ -378,6 +366,11 @@ export default {
   name: "HomeView",
   data() {
     return {
+      elementStyle: {
+        width: "100%",
+        height: " 100%",
+        zIndex: "77",
+      },
       unitcolor,
       systemcolor,
       first,
@@ -392,16 +385,16 @@ export default {
         columnWidth: [203, 265],
         align: ["center", "center"],
         header: [
-          "<span style='color: #fff;font-size:15px;'>编号</span>",
-          "<span style='color: #fff;font-size:15px;'>设备名称</span>",
+          "<span style='color: #fff;font-size:1.3vw;'>编号</span>",
+          "<span style='color: #fff;font-size:1.3vw;'>设备名称</span>",
         ],
         row: "",
         rowNum: 4,
         waitTime: 5000,
         data: [
           [
-            "<span style='color: #00ffff;font-size:15px;'>10BF503</span>",
-            "<span style='color: #00ffff;font-size:15px;'>常压流量计</span>",
+            "<span style='color: #00ffff;font-size:1.3vw;'>10BF503</span>",
+            "<span style='color: #00ffff;font-size:1.3vw;'>常压流量计</span>",
           ],
         ],
       },
@@ -421,20 +414,20 @@ export default {
       formatList: [],
       resetList: [
         [
-          "<span style='color: #00ffff;font-size:15px;'>MKG10GH001</span>",
-          "<span style='color: #00ffff;font-size:15px;'>气体控制单元</span>",
+          "<span style='color: #00ffff;font-size:1.3vw;'>MKG10GH001</span>",
+          "<span style='color: #00ffff;font-size:1.3vw;'>气体控制单元</span>",
         ],
         [
-          "<span style='color: #00ffff;font-size:15px;'>MKG20GH001</span>",
-          "<span style='color: #00ffff;font-size:15px;'>氢气提纯单元</span>",
+          "<span style='color: #00ffff;font-size:1.3vw;'>MKG20GH001</span>",
+          "<span style='color: #00ffff;font-size:1.3vw;'>氢气提纯单元</span>",
         ],
         [
-          "<span style='color: #00ffff;font-size:15px;'>MKG30GH001</span>",
-          "<span style='color: #00ffff;font-size:15px;'>氢气补充单元</span>",
+          "<span style='color: #00ffff;font-size:1.3vw;'>MKG30GH001</span>",
+          "<span style='color: #00ffff;font-size:1.3vw;'>氢气补充单元</span>",
         ],
         [
-          "<span style='color: #00ffff;font-size:15px;'>MKGMesh</span>",
-          "<span style='color: #00ffff;font-size:15px;'>其它功能单元</span>",
+          "<span style='color: #00ffff;font-size:1.3vw;'>MKGMesh</span>",
+          "<span style='color: #00ffff;font-size:1.3vw;'>其它功能单元</span>",
         ],
       ],
     };
@@ -478,7 +471,7 @@ export default {
         },
       };
       return axios
-        .get("/json/HydrogenSysInfo.json",config)
+        .get("/json/HydrogenSysInfo.json", config)
         .then((response) => {
           this.searchList = response.data;
         })
@@ -519,8 +512,8 @@ export default {
         columnWidth: [203, 265],
         align: ["center", "center"],
         header: [
-          "<span style='color: #fff;font-size:15px;'>编号</span>",
-          "<span style='color: #fff;font-size:15px;'>设备名称</span>",
+          "<span style='color: #fff;font-size:1.3vw;'>编号</span>",
+          "<span style='color: #fff;font-size:1.3vw;'>设备名称</span>",
         ],
         row: "",
         rowNum: 4,
@@ -539,8 +532,8 @@ export default {
       this.displayList =
         this.idList.length > this.nameList.length ? this.idList : this.nameList;
       this.formatList = this.displayList.map((item) => [
-        `<span style='color: #00ffff;font-size:15px;'>${item.ID}</span>`,
-        `<span style='color: #00ffff;font-size:15px;'>${item.Name}</span>`,
+        `<span style='color: #00ffff;font-size:1.3vw;'>${item.ID}</span>`,
+        `<span style='color: #00ffff;font-size:1.3vw;'>${item.Name}</span>`,
       ]);
 
       this.status = {
@@ -550,8 +543,8 @@ export default {
         columnWidth: [203, 265],
         align: ["center", "center"],
         header: [
-          "<span style='color: #fff;font-size:15px;'>编号</span>",
-          "<span style='color: #fff;font-size:15px;'>设备名称</span>",
+          "<span style='color: #fff;font-size:1.3vw;'>编号</span>",
+          "<span style='color: #fff;font-size:1.3vw;'>设备名称</span>",
         ],
         row: "",
         rowNum: 4,
@@ -561,6 +554,7 @@ export default {
     },
     doReset(reset) {
       if (reset == 1) {
+        this.elementStyle.height = "100%";
         this.status = {
           headerBGC: "#3472bb",
           oddRowBGC: "transparent",
@@ -568,8 +562,8 @@ export default {
           columnWidth: [203, 265],
           align: ["center", "center"],
           header: [
-            "<span style='color: #fff;font-size:15px;'>编号</span>",
-            "<span style='color: #fff;font-size:15px;'>设备名称</span>",
+            "<span style='color: #fff;font-size:1.3vw;'>编号</span>",
+            "<span style='color: #fff;font-size:1.3vw;'>设备名称</span>",
           ],
           row: "",
           rowNum: 4,
@@ -581,44 +575,45 @@ export default {
     chooseModule(module) {
       if (
         module.row[0] ===
-          "<span style='color: #00ffff;font-size:15px;'>MKG10GH001</span>" ||
+          "<span style='color: #00ffff;font-size:1.3vw;'>MKG10GH001</span>" ||
         module.row[0] ===
-          "<span style='color: #00ffff;font-size:15px;'>MKG20GH001</span>" ||
+          "<span style='color: #00ffff;font-size:1.3vw;'>MKG20GH001</span>" ||
         module.row[0] ===
-          "<span style='color: #00ffff;font-size:15px;'>MKG30GH001</span>" ||
+          "<span style='color: #00ffff;font-size:1.3vw;'>MKG30GH001</span>" ||
         module.row[0] ===
-          "<span style='color: #00ffff;font-size:15px;'>MKGMesh</span>"
+          "<span style='color: #00ffff;font-size:1.3vw;'>MKGMesh</span>"
       ) {
         switch (module.rowIndex) {
           case 0: {
             this.formatList = this.tenList.map((item) => [
-              `<span style='color: #00ffff;font-size:15px;'>${item.ID}</span>`,
-              `<span style='color: #00ffff;font-size:15px;'>${item.Name}</span>`,
+              `<span style='color: #00ffff;font-size:1.3vw;'>${item.ID}</span>`,
+              `<span style='color: #00ffff;font-size:1.3vw;'>${item.Name}</span>`,
             ]);
             break;
           }
           case 1: {
             this.formatList = this.twentyList.map((item) => [
-              `<span style='color: #00ffff;font-size:15px;'>${item.ID}</span>`,
-              `<span style='color: #00ffff;font-size:15px;'>${item.Name}</span>`,
+              `<span style='color: #00ffff;font-size:1.3vw;'>${item.ID}</span>`,
+              `<span style='color: #00ffff;font-size:1.3vw;'>${item.Name}</span>`,
             ]);
             break;
           }
           case 2: {
             this.formatList = this.thrityList.map((item) => [
-              `<span style='color: #00ffff;font-size:15px;'>${item.ID}</span>`,
-              `<span style='color: #00ffff;font-size:15px;'>${item.Name}</span>`,
+              `<span style='color: #00ffff;font-size:1.3vw;'>${item.ID}</span>`,
+              `<span style='color: #00ffff;font-size:1.3vw;'>${item.Name}</span>`,
             ]);
             break;
           }
           case 3: {
             this.formatList = this.MeshList.map((item) => [
-              `<span style='color: #00ffff;font-size:15px;'>${item.ID}</span>`,
-              `<span style='color: #00ffff;font-size:15px;'>${item.Name}</span>`,
+              `<span style='color: #00ffff;font-size:1.3vw;'>${item.ID}</span>`,
+              `<span style='color: #00ffff;font-size:1.3vw;'>${item.Name}</span>`,
             ]);
             break;
           }
         }
+        this.elementStyle.height = `${this.formatList.length * 20}%`;
         this.status = {
           headerBGC: "#3472bb",
           oddRowBGC: "transparent",
@@ -626,18 +621,17 @@ export default {
           columnWidth: [203, 265],
           align: ["center", "center"],
           header: [
-            "<span style='color: #fff;font-size:15px;'>编号</span>",
-            "<span style='color: #fff;font-size:15px;'>设备名称</span>",
+            "<span style='color: #fff;font-size:1.3vw;'>编号</span>",
+            "<span style='color: #fff;font-size:1.3vw;'>设备名称</span>",
           ],
           row: "",
-          rowNum: 4,
+          rowNum: this.formatList.length,
           waitTime: 5000,
           data: this.formatList,
         };
       } else {
         let pattern = />([^<]+)</; // 匹配 > 和 < 之间的字母和数字
         let match = module.row[0].match(pattern);
-        console.log(module.row[0]);
         // console.log(match);
         if (match) {
           let extractedString = match[1]; // 提取匹配的部分

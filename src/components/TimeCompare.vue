@@ -39,7 +39,7 @@ export default {
         //   itemHeight: 8,
         // },
         grid: {
-          left: "10%",
+          left: "13%",
           right: "3%",
           top: "18%",
           bottom: "10%",
