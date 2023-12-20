@@ -91,8 +91,8 @@ export default {
           }),
         },
       ];
-      const minValue = Math.min(...data1[shunxu]) - 1; // 最小值减去 1
-      const maxValue = Math.max(...data1[shunxu]) + 1; // 最大值加上 1
+      const minValue = Math.min(...data1[shunxu]) - 0.5; // 最小值减去 1
+      const maxValue = Math.max(...data1[shunxu]) + 0.5; // 最大值加上 1
       option = {
         backgroundColor: "rgba(255, 255, 255, 0)",
         grid: {

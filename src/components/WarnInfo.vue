@@ -1,11 +1,23 @@
 <template>
   <div>
-    <dv-scroll-board
-      class="place"
-      :config="status"
-      style="width: 97%; height: 90%; top: 0.5vw"
-      @click="openPopup"
-    />
+    <div
+      style="
+        width: 97%;
+        height: 90%;
+       
+        left: 0.5vw;
+        z-index: 77;
+        overflow: auto;
+        position: absolute;
+      "
+    >
+      <dv-scroll-board
+        class="place"
+        :config="status"
+        :style="elementStyle"
+        @click="openPopup"
+      />
+    </div>
     <div v-if="showPopup" class="popup-overlay" @click="closePopup"></div>
 
     <div v-show="showPopup" class="popup" ref="showarea">
@@ -41,6 +53,7 @@ let alarm = connectdata[15];
 export default {
   data() {
     return {
+      elementStyle: { width: "100%", height: "100%", top: "0.5vw" },
       alarm,
       formattedAlarms: "",
       showPopup: false,
@@ -146,10 +159,11 @@ export default {
           "<span style='color: #fff;font-size:15px;'>优化建议</span>",
         ],
         row: "",
-        rowNum: 2,
+        rowNum: this.formattedAlarms.length,
         columnWidth: [159, 179, 150, 150],
         data: this.formattedAlarms,
       };
+      this.elementStyle.height = `${this.formattedAlarms.length * 40}%`;
     },
   },
   destroyed() {
@@ -167,7 +181,7 @@ export default {
   width: 350vw;
   height: 250vw;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 100!important;
+  z-index: 100 !important;
 }
 .popup {
   position: fixed;
