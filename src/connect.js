@@ -168,35 +168,27 @@ let failure = [];
 let handlingRate = [99.18, 98.99, 97.01, 99.15, 98.24, 99.01, 99.28];
 let alarm = [
   {
-    id: "B0002",
     name: "气体控制阀1",
     diagnosis: "压力过低",
-    optimization: "重启设备",
+    advice: "重启设备",
     datetime: "2023-08-11 12:30:20",
   },
   {
-    id: "B0003",
     name: "电磁阀",
     diagnosis: "压力过高",
-    optimization: "关闭设备",
+    advice: "关闭设备",
     datetime: "2023-08-11 14:30:20",
-  },{
-    id: "B0003",
+  },
+  {
     name: "电磁阀",
     diagnosis: "压力过高",
-    optimization: "关闭设备",
+    advice: "关闭设备",
     datetime: "2023-08-11 14:30:20",
-  },{
-    id: "B0003",
+  },
+  {
     name: "电磁阀",
     diagnosis: "压力过高",
-    optimization: "关闭设备",
-    datetime: "2023-08-11 14:30:20",
-  },{
-    id: "B0003",
-    name: "电磁阀",
-    diagnosis: "压力过高",
-    optimization: "关闭设备",
+    advice: "关闭设备",
     datetime: "2023-08-11 14:30:20",
   },
 ];
@@ -307,40 +299,32 @@ function handleOperationData(info) {
 
 function handlePressure(info) {
   let i = 0;
-  for (let key in info) {
-    if (info.hasOwnProperty(key)) {
-      pressure[i] = info[key];
-    }
+  while (i < info.length) {
+    pressure[i] = info[i];
     i++;
   }
 }
 
 function handlePurity(info) {
   let i = 0;
-  for (let key in info) {
-    if (info.hasOwnProperty(key)) {
-      purity[i] = info[key];
-    }
+  while (i < info.length) {
+    purity[i] = info[i];
     i++;
   }
 }
 
 function handleDew(info) {
   let i = 0;
-  for (let key in info) {
-    if (info.hasOwnProperty(key)) {
-      dew[i] = info[key];
-    }
+  while (i < info.length) {
+    dew[i] = info[i];
     i++;
   }
 }
 
 function handleFlow(info) {
   let i = 0;
-  for (let key in info) {
-    if (info.hasOwnProperty(key)) {
-      makeFlow[i] = info[key];
-    }
+  while (i < info.length) {
+    makeFlow[i] = info[i];
     i++;
   }
 }

@@ -118,7 +118,7 @@ export default {
         <p>编 号: ${alarm[module.rowIndex].id}</p>
         <p>名 称: ${alarm[module.rowIndex].name}</p>
         <p>诊断信息: ${alarm[module.rowIndex].diagnosis}</p>
-        <p>优化建议: ${alarm[module.rowIndex].optimization}</p>
+        <p>优化建议: ${alarm[module.rowIndex].advice}</p>
         </dv-border-box-12>`;
       this.showPopup = true;
       // 添加事件监听器，点击任意弹窗外内容时关闭弹窗
@@ -144,7 +144,7 @@ export default {
         `<span style='color: #00ffff;font-size:15px;'>${item.datetime}</span>`,
         `<span style='color: #00ffff;font-size:15px;'>${item.name}</span>`,
         `<span style='color: #ff0000;font-size:15px;'>${item.diagnosis}</span>`,
-        `<span style='color: #ffc700;font-size:15px;'>${item.optimization}</span>`,
+        `<span style='color: #ffc700;font-size:15px;'>${item.advice}</span>`,
       ]);
       this.status = {
         waitTime: 4000,
