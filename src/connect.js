@@ -13,6 +13,76 @@ import axios from "axios";
 let config = {};
 let initialConfig = false;
 let client;
+//初始默认值,在未进行任何更新时显示,更新后将不会再使用(被覆盖)
+let status = [1, 1, "960.18MV"];
+let healthLevel = [100, 1, 1, 1, 1, 1, 1];
+let operationData = [500.14, 98.01, -14.25, 20.15, 4.25, 50.36];
+let pressure = [500.14, 500.57, 501.56, 500.53, 501.06, 499.54, 498.18];
+let purity = [98.01, 99.12, 98.65, 98.07, 99.25, 99.37, 98.24];
+let dew = [-14.25, -14.32, -13.98, -14.78, -13.05, -13.98, -14.45];
+let makeFlow = [20.15, 19.76, 21.08, 20.98, 18.85, 19.25, 20.19];
+let energy = [4.25, 4.28, 4.78, 4.43, 4.01, 4.09, 4.01];
+let water = [50.36, 51.36, 50.18, 51.08, 51.13, 49.74, 49.35];
+let cost = [85.16, 14.84];
+let supplement = [22.06, 23.18, 22.35, 22.98, 23.01, 22.19, 22.23];
+let purification = [49.36, 55.19, 55.23, 54.42, 55.41, 48.27, 49.36];
+let economy = [];
+let occuredData = [1, 2, 3, 0, 1, 0, 0];
+let handlingData = [1, 2, 1, 1, 1, 0, 0];
+let failure = [];
+let handlingRate = [99.18, 98.99, 97.01, 99.15, 98.24, 99.01, 99.28];
+let alarm = [
+  {
+    name: "气体控制阀1",
+    diagnosis: "压力过低",
+    advice: "重启设备",
+    datetime: "2023-08-11 12:30:20",
+  },
+  {
+    name: "电磁阀",
+    diagnosis: "压力过高",
+    advice: "关闭设备",
+    datetime: "2023-08-11 14:30:20",
+  },
+  {
+    name: "电磁阀",
+    diagnosis: "压力过高",
+    advice: "关闭设备",
+    datetime: "2023-08-11 14:30:20",
+  },
+  {
+    name: "电磁阀",
+    diagnosis: "压力过高",
+    advice: "关闭设备",
+    datetime: "2023-08-11 14:30:20",
+  },
+];
+let connectdata_init = [
+  status,
+  healthLevel,
+  operationData,
+  pressure,
+  purity,
+  dew,
+  makeFlow,
+  "1",
+  "2",
+  cost,
+  supplement,
+  purification,
+  occuredData,
+  handlingData,
+  handlingRate,
+  alarm,
+];
+if (!localStorage.getItem("isInitialized")) {
+  let jsonString = JSON.stringify(connectdata_init);
+  localStorage.setItem("initData", jsonString);
+
+  localStorage.setItem("isInitialized", true);
+}
+
+let connectdata = JSON.parse(localStorage.getItem("initData"));
 axios
   .get("/json/config.json")
   .then((response) => {
@@ -58,13 +128,14 @@ axios
       );
     }
 
-    client.onConnectionLost = function (message) {
-      console.log("连接丢失", message);
-      console.log("正在尝试重新连接...");
-      setTimeout(() => {
-        client.connect(connect_options);
-      }, 1000);
-    };
+    //我不清楚为什么要有这个回调函数让我一接受消息就断连,所以我把他禁用了
+    // client.onConnectionLost = function (message) {
+    //   console.log("连接丢失", message);
+    //   console.log("正在尝试重新连接...");
+    //   setTimeout(() => {
+    //     client.connect(connect_options);
+    //   }, 1000);
+    // };
 
     //接收消息
     client.onMessageArrived = function (message) {
@@ -148,56 +219,8 @@ export function getURL(Url) {
   }
 }
 
-//初始默认值,在未进行任何更新时显示,更新后将不会再使用(被覆盖)
-let status = [1, 1, "960.18MV"];
-let healthLevel = [100, 1, 1, 1, 1, 1, 1];
-let operationData = [500.14, 98.01, -14.25, 20.15, 4.25, 50.36];
-let pressure = [500.14, 500.57, 501.56, 500.53, 501.06, 499.54, 498.18];
-let purity = [98.01, 99.12, 98.65, 98.07, 99.25, 99.37, 98.24];
-let dew = [-14.25, -14.32, -13.98, -14.78, -13.05, -13.98, -14.45];
-let makeFlow = [20.15, 19.76, 21.08, 20.98, 18.85, 19.25, 20.19];
-let energy = [4.25, 4.28, 4.78, 4.43, 4.01, 4.09, 4.01];
-let water = [50.36, 51.36, 50.18, 51.08, 51.13, 49.74, 49.35];
-let cost = [85.16, 14.84];
-let supplement = [22.06, 23.18, 22.35, 22.98, 23.01, 22.19, 22.23];
-let purification = [49.36, 55.19, 55.23, 54.42, 55.41, 48.27, 49.36];
-let economy = [];
-let occuredData = [1, 2, 3, 0, 1, 0, 0];
-let handlingData = [1, 2, 1, 1, 1, 0, 0];
-let failure = [];
-let handlingRate = [99.18, 98.99, 97.01, 99.15, 98.24, 99.01, 99.28];
-let alarm = [
-  {
-    name: "气体控制阀1",
-    diagnosis: "压力过低",
-    advice: "重启设备",
-    datetime: "2023-08-11 12:30:20",
-  },
-  {
-    name: "电磁阀",
-    diagnosis: "压力过高",
-    advice: "关闭设备",
-    datetime: "2023-08-11 14:30:20",
-  },
-  {
-    name: "电磁阀",
-    diagnosis: "压力过高",
-    advice: "关闭设备",
-    datetime: "2023-08-11 14:30:20",
-  },
-  {
-    name: "电磁阀",
-    diagnosis: "压力过高",
-    advice: "关闭设备",
-    datetime: "2023-08-11 14:30:20",
-  },
-];
-
 function handleMQTTMessage(message) {
   let messageJSON = JSON.parse(message.payloadString);
-
-  console.log(messageJSON);
-
   if (messageJSON.animation) {
     handleAnimation(messageJSON.animation);
   }
@@ -266,7 +289,6 @@ function handleAnimation(info) {
 }
 
 //页面更新部分开始
-
 function handleStatus(info) {
   let i = 0;
   for (let key in info) {
@@ -275,6 +297,11 @@ function handleStatus(info) {
     }
     i++;
   }
+  console.log(status)
+  connectdata = JSON.parse(localStorage.getItem("initData"));
+  connectdata[0] = status;
+  let jsonString = JSON.stringify(connectdata);
+  localStorage.setItem("initData", jsonString);
 }
 
 function handleHealthLevel(info) {
@@ -285,6 +312,11 @@ function handleHealthLevel(info) {
     }
     i++;
   }
+  connectdata = JSON.parse(localStorage.getItem("initData"));
+  connectdata[1] = healthLevel;
+
+  let jsonString = JSON.stringify(connectdata);
+  localStorage.setItem("initData", jsonString);
 }
 
 function handleOperationData(info) {
@@ -295,6 +327,10 @@ function handleOperationData(info) {
     }
     i++;
   }
+  connectdata = JSON.parse(localStorage.getItem("initData"));
+  connectdata[2] = operationData;
+  let jsonString = JSON.stringify(connectdata);
+  localStorage.setItem("initData", jsonString);
 }
 
 function handlePressure(info) {
@@ -303,6 +339,10 @@ function handlePressure(info) {
     pressure[i] = info[i];
     i++;
   }
+  connectdata = JSON.parse(localStorage.getItem("initData"));
+  connectdata[3] = pressure;
+  let jsonString = JSON.stringify(connectdata);
+  localStorage.setItem("initData", jsonString);
 }
 
 function handlePurity(info) {
@@ -311,6 +351,10 @@ function handlePurity(info) {
     purity[i] = info[i];
     i++;
   }
+  connectdata = JSON.parse(localStorage.getItem("initData"));
+  connectdata[4] = purity;
+  let jsonString = JSON.stringify(connectdata);
+  localStorage.setItem("initData", jsonString);
 }
 
 function handleDew(info) {
@@ -319,6 +363,10 @@ function handleDew(info) {
     dew[i] = info[i];
     i++;
   }
+  connectdata = JSON.parse(localStorage.getItem("initData"));
+  connectdata[5] = dew;
+  let jsonString = JSON.stringify(connectdata);
+  localStorage.setItem("initData", jsonString);
 }
 
 function handleFlow(info) {
@@ -327,6 +375,10 @@ function handleFlow(info) {
     makeFlow[i] = info[i];
     i++;
   }
+  connectdata = JSON.parse(localStorage.getItem("initData"));
+  connectdata[6] = makeFlow;
+  let jsonString = JSON.stringify(connectdata);
+  localStorage.setItem("initData", jsonString);
 }
 
 function handleEnergy(info) {
@@ -337,6 +389,10 @@ function handleEnergy(info) {
     }
     i++;
   }
+  connectdata = JSON.parse(localStorage.getItem("initData"));
+  connectdata[7] = energy;
+  let jsonString = JSON.stringify(connectdata);
+  localStorage.setItem("initData", jsonString);
 }
 
 function handleWater(info) {
@@ -347,6 +403,10 @@ function handleWater(info) {
     }
     i++;
   }
+  connectdata = JSON.parse(localStorage.getItem("initData"));
+  connectdata[8] = water;
+  let jsonString = JSON.stringify(connectdata);
+  localStorage.setItem("initData", jsonString);
 }
 
 function handleCost(info) {
@@ -357,6 +417,10 @@ function handleCost(info) {
     }
     i++;
   }
+  connectdata = JSON.parse(localStorage.getItem("initData"));
+  connectdata[9] = cost;
+  let jsonString = JSON.stringify(connectdata);
+  localStorage.setItem("initData", jsonString);
 }
 
 function handleEconomy(info) {
@@ -377,6 +441,11 @@ function handleEconomy(info) {
     purification[u] = economy[1][key];
     u++;
   }
+  connectdata = JSON.parse(localStorage.getItem("initData"));
+  connectdata[10] = supplement;
+  connectdata[11] = purification;
+  let jsonString = JSON.stringify(connectdata);
+  localStorage.setItem("initData", jsonString);
 }
 
 function handleFailure(info) {
@@ -397,6 +466,11 @@ function handleFailure(info) {
     occuredData[u] = failure[1][key];
     u++;
   }
+  connectdata = JSON.parse(localStorage.getItem("initData"));
+  connectdata[12] = occuredData;
+  connectdata[13] = handlingData;
+  let jsonString = JSON.stringify(connectdata);
+  localStorage.setItem("initData", jsonString);
 }
 
 function handleHandling(info) {
@@ -407,6 +481,10 @@ function handleHandling(info) {
     }
     i++;
   }
+  connectdata = JSON.parse(localStorage.getItem("initData"));
+  connectdata[12] = handlingRate;
+  let jsonString = JSON.stringify(connectdata);
+  localStorage.setItem("initData", jsonString);
 }
 
 function myHandleAlarm(info) {
@@ -415,26 +493,12 @@ function myHandleAlarm(info) {
     alarm[i] = info[i];
     i++;
   }
+  connectdata = JSON.parse(localStorage.getItem("initData"));
+  connectdata[15] = alarm;
+  let jsonString = JSON.stringify(connectdata);
+  localStorage.setItem("initData", jsonString);
 }
 
-let connectdata = [
-  status,
-  healthLevel,
-  operationData,
-  pressure,
-  purity,
-  dew,
-  makeFlow,
-  "1",
-  "2",
-  cost,
-  supplement,
-  purification,
-  occuredData,
-  handlingData,
-  handlingRate,
-  alarm,
-];
 export default connectdata;
 //页面更新部分结束
 

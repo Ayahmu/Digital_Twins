@@ -10,8 +10,8 @@
     "mqtt": {
         "host": "broker.emqx.io",
         "port": 8083,
-        "clientId": "yourClientId",
-        "topic": "ykkk"
+        "clientId": "sxz111",
+        "topic": "sssxxz"
     },
     "camera": {
         "camera_panningSensibility": 30,
