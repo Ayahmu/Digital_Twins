@@ -29,46 +29,7 @@
         ></path>
       </svg>
     </label>
-    <dv-border-box-12
-      id="info-label"
-      style="
-        height: 12vw;
-        width: 20vw;
-        position: fixed;
-        transform: translate(25vw, 11vw);
-        left: 30vw;
-        z-index: 4;
-        display: none;
-      "
-    >
-      <div
-        style="
-          position: absolute;
-          left: 5%;
-          top: 5%;
-          width: 90%;
-          height: 90%;
-          font-size: 0.8vw;
-          color: #00ffffcc;
-          word-break: normal;
-          white-space: pre-line;
-          overflow: auto;
-          user-select: none;
-        "
-      >
-        <p class="info-title" id="modelName">设备名称:</p>
-        <p class="info-title" id="modelID">设备编号:</p>
-        <p class="info-title" id="modelInfo">设备描述:</p>
-        <p class="info-title" id="modelState">设备状态:</p>
-        <p class="info-title" id="modelManual" style="cursor: pointer">
-          设备资料:
-        </p>
-        <div class="info-title" id="modelUrl" style="cursor: pointer">
-          设备说明书
-        </div>
-        <p class="info-title" id="modelSpare">备件信息:</p>
-      </div>
-    </dv-border-box-12>
+
     <div>
       <dv-decoration-7
         style="
@@ -241,6 +202,42 @@
               :style="elementStyle"
               @click="chooseModule"
             />
+          </div>
+        </dv-border-box-12>
+        <dv-border-box-12
+          id="info-label"
+          style="
+            height: 12vw;
+            width: 100%;
+            transform: translate(-13.8vw, -17.6vw);
+            z-index: 4;
+            display: none;
+          "
+        >
+          <div
+            style="
+              padding: 0.7vw;
+              width: 90%;
+              height: 90%;
+              font-size: 0.8vw;
+              color: #00ffffcc;
+              word-break: normal;
+              white-space: pre-line;
+              overflow: auto;
+              user-select: none;
+            "
+          >
+            <p class="info-title" id="modelName">设备名称:</p>
+            <p class="info-title" id="modelID">设备编号:</p>
+            <p class="info-title" id="modelInfo">设备描述:</p>
+            <p class="info-title" id="modelState">设备状态:</p>
+            <p class="info-title" id="modelManual" style="cursor: pointer">
+              设备资料:
+            </p>
+            <div class="info-title" id="modelUrl" style="cursor: pointer">
+              设备说明书
+            </div>
+            <p class="info-title" id="modelSpare">备件信息:</p>
           </div>
         </dv-border-box-12>
       </div>
