@@ -102,6 +102,7 @@ axios
       onSuccess: onConnect,
       onFailure: onConnectFailure,
       useSSL: false,
+      keepAliveInterval: 60, // 设置心跳间隔为60秒
     };
 
     client.connect(connect_options);
@@ -128,14 +129,14 @@ axios
       );
     }
 
-    //我不清楚为什么要有这个回调函数让我一接受消息就断连,所以我把他禁用了
-    // client.onConnectionLost = function (message) {
-    //   console.log("连接丢失", message);
-    //   console.log("正在尝试重新连接...");
-    //   setTimeout(() => {
-    //     client.connect(connect_options);
-    //   }, 1000);
-    // };
+    // 我不清楚为什么要有这个回调函数让我一接受消息就断连,所以我把他禁用了
+    client.onConnectionLost = function (message) {
+      console.log("连接丢失", message);
+      console.log("正在尝试重新连接...");
+      setTimeout(() => {
+        client.connect(connect_options);
+      }, 1000);
+    };
 
     //接收消息
     client.onMessageArrived = function (message) {
@@ -220,7 +221,13 @@ export function getURL(Url) {
 }
 
 function handleMQTTMessage(message) {
-  let messageJSON = JSON.parse(message.payloadString);
+  let messageJSON;
+  try {
+    messageJSON = JSON.parse(message.payloadString);
+  } catch (error) {
+    console.error("Invalid JSON:", message.payloadString);
+    return;
+  }
   if (messageJSON.animation) {
     handleAnimation(messageJSON.animation);
   }
@@ -297,7 +304,7 @@ function handleStatus(info) {
     }
     i++;
   }
-  console.log(status)
+  console.log(status);
   connectdata = JSON.parse(localStorage.getItem("initData"));
   connectdata[0] = status;
   let jsonString = JSON.stringify(connectdata);

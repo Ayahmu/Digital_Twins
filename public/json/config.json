@@ -1,20 +1,20 @@
 {
-    "设备资料储存地址,以华为页面示例":"这是注释",
-    "baseUrl":"https://www.huawei.com/cn/",
+  "设备资料储存地址,以华为页面示例": "这是注释",
+  "baseUrl": "https://www.huawei.com/cn/",
 
-    "设备说明书储存地址,以小米页面示例":"这是注释",
-    "basePath":"https://www.mi.com/",
+  "设备说明书储存地址,以小米页面示例": "这是注释",
+  "basePath": "https://www.mi.com/",
 
-    "singleLight": true,
+  "singleLight": true,
 
-    "mqtt": {
-        "host": "broker.emqx.io",
-        "port": 8083,
-        "clientId": "sxz111",
-        "topic": "sssxxz"
-    },
-    "camera": {
-        "camera_panningSensibility": 30,
-        "camera_wheelPrecision": 2.5
-    }
+  "mqtt": {
+    "host": "192.168.1.104",
+    "port": 9002,
+    "clientId": "sxz111",
+    "topic": "sssxxz"
+  },
+  "camera": {
+    "camera_panningSensibility": 30,
+    "camera_wheelPrecision": 2.5
+  }
 }

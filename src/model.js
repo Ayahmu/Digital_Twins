@@ -99,7 +99,7 @@ const targetID = "10QM001"; // 例如，查找 ID 为 "10QM001" 的对象
 // 使用哈希表查找特定 ID 对应的数组索引
 let targetIndex = idToIndexMap1[targetID];
 
-console.log("10QM001", objectArray[targetIndex]);
+// console.log("10QM001", objectArray[targetIndex]);
 
 //创建引擎，第二个参数为抗锯齿
 const engine = new BABYLON.Engine(canvas, true, { stencil: true },false);
