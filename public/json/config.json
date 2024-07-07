@@ -10,8 +10,8 @@
   "mqtt": {
     "host": "192.168.1.104",
     "port": 9002,
-    "clientId": "sxz111",
-    "topic": "sssxxz"
+    "clientId": "displayScreen",
+    "topic": "dynamicInfo"
   },
   "camera": {
     "camera_panningSensibility": 30,

@@ -32,30 +32,7 @@ let handlingData = [1, 2, 1, 1, 1, 0, 0];
 let failure = [];
 let handlingRate = [99.18, 98.99, 97.01, 99.15, 98.24, 99.01, 99.28];
 let alarm = [
-  {
-    name: "气体控制阀1",
-    diagnosis: "压力过低",
-    advice: "重启设备",
-    datetime: "2023-08-11 12:30:20",
-  },
-  {
-    name: "电磁阀",
-    diagnosis: "压力过高",
-    advice: "关闭设备",
-    datetime: "2023-08-11 14:30:20",
-  },
-  {
-    name: "电磁阀",
-    diagnosis: "压力过高",
-    advice: "关闭设备",
-    datetime: "2023-08-11 14:30:20",
-  },
-  {
-    name: "电磁阀",
-    diagnosis: "压力过高",
-    advice: "关闭设备",
-    datetime: "2023-08-11 14:30:20",
-  },
+ 
 ];
 let connectdata_init = [
   status,
@@ -277,6 +254,7 @@ function handleMQTTMessage(message) {
 }
 
 function handleAnimation(info) {
+  return
   for (let key in info) {
     if (info.hasOwnProperty(key)) {
       if (!info[key]) {
@@ -304,7 +282,6 @@ function handleStatus(info) {
     }
     i++;
   }
-  console.log(status);
   connectdata = JSON.parse(localStorage.getItem("initData"));
   connectdata[0] = status;
   let jsonString = JSON.stringify(connectdata);

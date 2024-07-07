@@ -64,29 +64,24 @@ export default {
         evenRowBGC: "rgba(122, 202, 236,0.3)",
         align: ["center"],
         header: [
-          "<span style='color: #fff;font-size:15px;'>时间</span>",
-          "<span style='color: #fff;font-size:15px;'>名称</span>",
+          "<span style='color: #fff;font-size:16px;'>时间</span>",
+          "<span style='color: #fff;font-size:16px;'>名称</span>",
           ,
-          "<span style='color: #fff;font-size:15px;'>诊断信息</span>",
+          "<span style='color: #fff;font-size:16px;'>诊断信息</span>",
           ,
-          "<span style='color: #fff;font-size:15px;'>优化建议</span>",
+          "<span style='color: #fff;font-size:16px;'>优化建议</span>",
         ],
         row: "",
         rowNum: 2,
         columnWidth: [159, 159, 159, 159],
         data: [
           [
-            "<span style='color: #00ffff;font-size:15px;'>10月10日23:18</span>",
-            "<span style='color: #00ffff;font-size:15px;'>气体控制报警</span>",
-            "<span style='color: #ff0000;font-size:15px;'>压力过低</span>",
-            "<span style='color: #ffc700;font-size:15px;'>重启设备</span>",
+            "<span style='color: #00ffff;font-size:16px;'>10月10日23:18</span>",
+            "<span style='color: #00ffff;font-size:16px;'>气体控制报警</span>",
+            "<span style='color: #ff0000;font-size:16px;'>压力过低</span>",
+            "<span style='color: #ffc700;font-size:16px;'>重启设备</span>",
           ],
-          [
-            "<span style='color: #00ffff;font-size:15px;'>Mesh.1449</span>",
-            "<span style='color: #00ffff;font-size:15px;'>净化单元报警</span>",
-            "<span style='color: #ff0000;font-size:15px;'>异常</span>",
-            "<span style='color: #ffc700;font-size:15px;'>点击查看</span>",
-          ],
+          
         ],
       },
     };
@@ -118,7 +113,7 @@ export default {
         <p>编 号: ${alarm[module.rowIndex].id}</p>
         <p>名 称: ${alarm[module.rowIndex].name}</p>
         <p>诊断信息: ${alarm[module.rowIndex].diagnosis}</p>
-        <p>优化建议: ${alarm[module.rowIndex].advice}</p>
+        <p>优化建议: ${alarm[module.rowIndex].optimization}</p>
         </dv-border-box-12>`;
       this.showPopup = true;
       // 添加事件监听器，点击任意弹窗外内容时关闭弹窗
@@ -141,10 +136,10 @@ export default {
     },
     update() {
       this.formattedAlarms = this.alarm.map((item) => [
-        `<span style='color: #00ffff;font-size:15px;'>${item.datetime}</span>`,
-        `<span style='color: #00ffff;font-size:15px;'>${item.name}</span>`,
-        `<span style='color: #ff0000;font-size:15px;'>${item.diagnosis}</span>`,
-        `<span style='color: #ffc700;font-size:15px;'>${item.advice}</span>`,
+        `<span style='color: #00ffff;font-size:16px;'>${item.datetime}</span>`,
+        `<span style='color: #00ffff;font-size:16px;'>${item.name}</span>`,
+        `<span style='color: #ff0000;font-size:16px;'>${item.diagnosis}</span>`,
+        `<span style='color: #ffc700;font-size:16px;'>${item.optimization}</span>`,
       ]);
       this.status = {
         waitTime: 4000,
@@ -153,10 +148,10 @@ export default {
         evenRowBGC: "rgba(122, 202, 236,0.3)",
         align: ["center"],
         header: [
-          "<span style='color: #fff;font-size:15px;'>时间</span>",
-          "<span style='color: #fff;font-size:15px;'>名称</span>",
-          "<span style='color: #fff;font-size:15px;'>诊断信息</span>",
-          "<span style='color: #fff;font-size:15px;'>优化建议</span>",
+          "<span style='color: #fff;font-size:16px;'>时间</span>",
+          "<span style='color: #fff;font-size:16px;'>名称</span>",
+          "<span style='color: #fff;font-size:16px;'>诊断信息</span>",
+          "<span style='color: #fff;font-size:16px;'>优化建议</span>",
         ],
         row: "",
         rowNum: this.formattedAlarms.length,
