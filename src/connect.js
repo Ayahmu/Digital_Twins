@@ -10,6 +10,8 @@ import path from "path-browserify";
 import * as MQTT from "./mqtt.js";
 import axios from "axios";
 
+
+
 let config = {};
 let initialConfig = false;
 let client;
@@ -60,6 +62,7 @@ if (!localStorage.getItem("isInitialized")) {
 }
 
 let connectdata = JSON.parse(localStorage.getItem("initData"));
+
 axios
   .get("/json/config.json")
   .then((response) => {
@@ -119,6 +122,7 @@ axios
     client.onMessageArrived = function (message) {
       console.log("收到消息:", message.destinationName, message.payloadString);
       handleMQTTMessage(message);
+      //刷新网页
     };
 
     //订阅主题成功回调函数
@@ -282,10 +286,8 @@ function handleStatus(info) {
     }
     i++;
   }
-  connectdata = JSON.parse(localStorage.getItem("initData"));
   connectdata[0] = status;
-  let jsonString = JSON.stringify(connectdata);
-  localStorage.setItem("initData", jsonString);
+  localStorage.setItem("initData", JSON.stringify(connectdata));
 }
 
 function handleHealthLevel(info) {
@@ -296,11 +298,8 @@ function handleHealthLevel(info) {
     }
     i++;
   }
-  connectdata = JSON.parse(localStorage.getItem("initData"));
   connectdata[1] = healthLevel;
-
-  let jsonString = JSON.stringify(connectdata);
-  localStorage.setItem("initData", jsonString);
+  localStorage.setItem("initData", JSON.stringify(connectdata));
 }
 
 function handleOperationData(info) {
@@ -311,10 +310,8 @@ function handleOperationData(info) {
     }
     i++;
   }
-  connectdata = JSON.parse(localStorage.getItem("initData"));
   connectdata[2] = operationData;
-  let jsonString = JSON.stringify(connectdata);
-  localStorage.setItem("initData", jsonString);
+  localStorage.setItem("initData", JSON.stringify(connectdata));
 }
 
 function handlePressure(info) {
@@ -323,10 +320,8 @@ function handlePressure(info) {
     pressure[i] = info[i];
     i++;
   }
-  connectdata = JSON.parse(localStorage.getItem("initData"));
   connectdata[3] = pressure;
-  let jsonString = JSON.stringify(connectdata);
-  localStorage.setItem("initData", jsonString);
+  localStorage.setItem("initData", JSON.stringify(connectdata));
 }
 
 function handlePurity(info) {
@@ -335,10 +330,8 @@ function handlePurity(info) {
     purity[i] = info[i];
     i++;
   }
-  connectdata = JSON.parse(localStorage.getItem("initData"));
   connectdata[4] = purity;
-  let jsonString = JSON.stringify(connectdata);
-  localStorage.setItem("initData", jsonString);
+  localStorage.setItem("initData", JSON.stringify(connectdata));
 }
 
 function handleDew(info) {
@@ -347,10 +340,8 @@ function handleDew(info) {
     dew[i] = info[i];
     i++;
   }
-  connectdata = JSON.parse(localStorage.getItem("initData"));
   connectdata[5] = dew;
-  let jsonString = JSON.stringify(connectdata);
-  localStorage.setItem("initData", jsonString);
+  localStorage.setItem("initData", JSON.stringify(connectdata));
 }
 
 function handleFlow(info) {
@@ -359,10 +350,8 @@ function handleFlow(info) {
     makeFlow[i] = info[i];
     i++;
   }
-  connectdata = JSON.parse(localStorage.getItem("initData"));
   connectdata[6] = makeFlow;
-  let jsonString = JSON.stringify(connectdata);
-  localStorage.setItem("initData", jsonString);
+  localStorage.setItem("initData", JSON.stringify(connectdata));
 }
 
 function handleEnergy(info) {
@@ -373,10 +362,8 @@ function handleEnergy(info) {
     }
     i++;
   }
-  connectdata = JSON.parse(localStorage.getItem("initData"));
   connectdata[7] = energy;
-  let jsonString = JSON.stringify(connectdata);
-  localStorage.setItem("initData", jsonString);
+  localStorage.setItem("initData", JSON.stringify(connectdata));
 }
 
 function handleWater(info) {
@@ -387,10 +374,8 @@ function handleWater(info) {
     }
     i++;
   }
-  connectdata = JSON.parse(localStorage.getItem("initData"));
   connectdata[8] = water;
-  let jsonString = JSON.stringify(connectdata);
-  localStorage.setItem("initData", jsonString);
+  localStorage.setItem("initData", JSON.stringify(connectdata));
 }
 
 function handleCost(info) {
@@ -401,10 +386,8 @@ function handleCost(info) {
     }
     i++;
   }
-  connectdata = JSON.parse(localStorage.getItem("initData"));
   connectdata[9] = cost;
-  let jsonString = JSON.stringify(connectdata);
-  localStorage.setItem("initData", jsonString);
+  localStorage.setItem("initData", JSON.stringify(connectdata));
 }
 
 function handleEconomy(info) {
@@ -425,11 +408,9 @@ function handleEconomy(info) {
     purification[u] = economy[1][key];
     u++;
   }
-  connectdata = JSON.parse(localStorage.getItem("initData"));
   connectdata[10] = supplement;
   connectdata[11] = purification;
-  let jsonString = JSON.stringify(connectdata);
-  localStorage.setItem("initData", jsonString);
+  localStorage.setItem("initData", JSON.stringify(connectdata));
 }
 
 function handleFailure(info) {
@@ -450,11 +431,9 @@ function handleFailure(info) {
     occuredData[u] = failure[1][key];
     u++;
   }
-  connectdata = JSON.parse(localStorage.getItem("initData"));
   connectdata[12] = occuredData;
   connectdata[13] = handlingData;
-  let jsonString = JSON.stringify(connectdata);
-  localStorage.setItem("initData", jsonString);
+  localStorage.setItem("initData", JSON.stringify(connectdata));
 }
 
 function handleHandling(info) {
@@ -465,10 +444,8 @@ function handleHandling(info) {
     }
     i++;
   }
-  connectdata = JSON.parse(localStorage.getItem("initData"));
   connectdata[12] = handlingRate;
-  let jsonString = JSON.stringify(connectdata);
-  localStorage.setItem("initData", jsonString);
+  localStorage.setItem("initData", JSON.stringify(connectdata));
 }
 
 function myHandleAlarm(info) {
@@ -477,10 +454,8 @@ function myHandleAlarm(info) {
     alarm[i] = info[i];
     i++;
   }
-  connectdata = JSON.parse(localStorage.getItem("initData"));
   connectdata[15] = alarm;
-  let jsonString = JSON.stringify(connectdata);
-  localStorage.setItem("initData", jsonString);
+  localStorage.setItem("initData", JSON.stringify(connectdata));
 }
 
 export default connectdata;
