@@ -1615,7 +1615,9 @@ let warningModels = new Map();
 
 export function createWarningMessage(modelID) {
   let warningModel = scene.getMeshById(modelID);
-
+  if(!warningModel){
+    window.alert("警报模型id未找到！")
+  }
   //生成报警图标
   let bellElement = document.getElementById("bell");
   let clonedIcon = bellElement.cloneNode(true);

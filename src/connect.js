@@ -9,7 +9,7 @@ import {
 import path from "path-browserify";
 import * as MQTT from "./mqtt.js";
 import axios from "axios";
-
+import vm from "./main.js"
 
 
 let config = {};
@@ -18,11 +18,11 @@ let client;
 //初始默认值,在未进行任何更新时显示,更新后将不会再使用(被覆盖)
 let status = [1, 1, "960.18MV"];
 let healthLevel = [100, 1, 1, 1, 1, 1, 1];
-let operationData = [500.14, 98.01, -14.25, 20.15, 4.25, 50.36];
+let parameters = [500.14, 98.01, -14.25, 20.15, 4.25, 50.36];
 let pressure = [500.14, 500.57, 501.56, 500.53, 501.06, 499.54, 498.18];
-let purity = [98.01, 99.12, 98.65, 98.07, 99.25, 99.37, 98.24];
-let dew = [-14.25, -14.32, -13.98, -14.78, -13.05, -13.98, -14.45];
-let makeFlow = [20.15, 19.76, 21.08, 20.98, 18.85, 19.25, 20.19];
+let density = [98.01, 99.12, 98.65, 98.07, 99.25, 99.37, 98.24];
+let humidity = [-14.25, -14.32, -13.98, -14.78, -13.05, -13.98, -14.45];
+let flow = [20.15, 19.76, 21.08, 20.98, 18.85, 19.25, 20.19];
 let energy = [4.25, 4.28, 4.78, 4.43, 4.01, 4.09, 4.01];
 let water = [50.36, 51.36, 50.18, 51.08, 51.13, 49.74, 49.35];
 let cost = [85.16, 14.84];
@@ -39,11 +39,11 @@ let alarm = [
 let connectdata_init = [
   status,
   healthLevel,
-  operationData,
+  parameters,
   pressure,
-  purity,
-  dew,
-  makeFlow,
+  density,
+  humidity,
+  flow,
   "1",
   "2",
   cost,
@@ -62,6 +62,11 @@ if (!localStorage.getItem("isInitialized")) {
 }
 
 let connectdata = JSON.parse(localStorage.getItem("initData"));
+
+function updateAllComponents(component) {
+  component.$forceUpdate();
+  component.$children.forEach(child => updateAllComponents(child));
+}
 
 axios
   .get("/json/config.json")
@@ -122,7 +127,8 @@ axios
     client.onMessageArrived = function (message) {
       console.log("收到消息:", message.destinationName, message.payloadString);
       handleMQTTMessage(message);
-      //刷新网页
+      updateAllComponents(vm.$children[0]);
+      console.log('All components updated');
     };
 
     //订阅主题成功回调函数
@@ -218,20 +224,20 @@ function handleMQTTMessage(message) {
   if (messageJSON.healthLevel) {
     handleHealthLevel(messageJSON.healthLevel);
   }
-  if (messageJSON.operationData) {
-    handleOperationData(messageJSON.operationData);
+  if (messageJSON.parameters) {
+    handleParameters(messageJSON.parameters);
   }
   if (messageJSON.pressure) {
     handlePressure(messageJSON.pressure);
   }
-  if (messageJSON.purity) {
-    handlePurity(messageJSON.purity);
+  if (messageJSON.density) {
+    handleDensity(messageJSON.density);
   }
-  if (messageJSON.dew) {
-    handleDew(messageJSON.dew);
+  if (messageJSON.humidity) {
+    handleHumidity(messageJSON.humidity);
   }
-  if (messageJSON.makeFlow) {
-    handleFlow(messageJSON.makeFlow);
+  if (messageJSON.flow) {
+    handleFlow(messageJSON.flow);
   }
   if (messageJSON.energy) {
     handleEnergy(messageJSON.energy);
@@ -302,55 +308,63 @@ function handleHealthLevel(info) {
   localStorage.setItem("initData", JSON.stringify(connectdata));
 }
 
-function handleOperationData(info) {
+function handleParameters(info) {
   let i = 0;
   for (let key in info) {
     if (info.hasOwnProperty(key)) {
-      operationData[i] = info[key];
+      parameters[i] = info[key];
     }
     i++;
   }
-  connectdata[2] = operationData;
+  connectdata[2] = parameters;
   localStorage.setItem("initData", JSON.stringify(connectdata));
 }
 
 function handlePressure(info) {
   let i = 0;
-  while (i < info.length) {
-    pressure[i] = info[i];
+  for (let key in info) {
+    if (info.hasOwnProperty(key)) {
+      pressure[i] = info[key];
+    }
     i++;
   }
   connectdata[3] = pressure;
   localStorage.setItem("initData", JSON.stringify(connectdata));
 }
 
-function handlePurity(info) {
+function handleDensity(info) {
   let i = 0;
-  while (i < info.length) {
-    purity[i] = info[i];
+  for (let key in info) {
+    if (info.hasOwnProperty(key)) {
+      density[i] = info[key];
+    }
     i++;
   }
-  connectdata[4] = purity;
+  connectdata[4] = density;
   localStorage.setItem("initData", JSON.stringify(connectdata));
 }
 
-function handleDew(info) {
+function handleHumidity(info) {
   let i = 0;
-  while (i < info.length) {
-    dew[i] = info[i];
+  for (let key in info) {
+    if (info.hasOwnProperty(key)) {
+      humidity[i] = info[key];
+    }
     i++;
   }
-  connectdata[5] = dew;
+  connectdata[5] = humidity;
   localStorage.setItem("initData", JSON.stringify(connectdata));
 }
 
 function handleFlow(info) {
   let i = 0;
-  while (i < info.length) {
-    makeFlow[i] = info[i];
+  for (let key in info) {
+    if (info.hasOwnProperty(key)) {
+      flow[i] = info[key];
+    }
     i++;
   }
-  connectdata[6] = makeFlow;
+  connectdata[6] = flow;
   localStorage.setItem("initData", JSON.stringify(connectdata));
 }
 
@@ -400,12 +414,12 @@ function handleEconomy(info) {
     }
     i++;
   }
+  // for (let key in economy[0]) {
+  //   supplement[j] = economy[0][key];
+  //   j++;
+  // }
   for (let key in economy[0]) {
-    supplement[j] = economy[0][key];
-    j++;
-  }
-  for (let key in economy[1]) {
-    purification[u] = economy[1][key];
+    purification[u] = economy[0][key];
     u++;
   }
   connectdata[10] = supplement;
@@ -462,16 +476,18 @@ export default connectdata;
 //页面更新部分结束
 
 //处理报警信息
-function handleAlarm(info) {
-  let modelID = info.id;
+function handleAlarm(infoArray) {
+  infoArray.forEach(info => {
+    let modelID = info.id;
 
-  if (!modelID) {
-    return;
-  }
+    if (!modelID) {
+      return;
+    }
 
-  if (!warningMessageArray.has(modelID)) {
-    createWarningMessage(modelID);
-  }
-  //存入模型id与计时器,存在覆盖
-  warningMessageArray.set(modelID, 0);
+    if (!warningMessageArray.has(modelID)) {
+      createWarningMessage(modelID);
+    }
+    // 存入模型id与计时器，存在覆盖
+    warningMessageArray.set(modelID, 0);
+  });
 }

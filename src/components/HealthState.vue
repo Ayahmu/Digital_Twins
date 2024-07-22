@@ -94,6 +94,45 @@ export default {
       choosecolor6,
     };
   },
+  updated(){
+    let connectdata = JSON.parse(localStorage.getItem("initData"));
+    let oldhealthlevel = healthlevel
+    healthlevel = connectdata[1]
+    number = healthlevel[0];
+    if(JSON.stringify(oldhealthlevel) !== JSON.stringify(healthlevel)){
+      this.number = number
+      if (healthlevel[1] == 0) {
+        this.choosecolor1 = "#fc2100";
+      } else if (healthlevel[1] == 1) {
+        this.choosecolor1 = "rgb(0, 158, 0)";
+      }
+      if (healthlevel[2] == 0) {
+        this.choosecolor2 = "#fc2100";
+      } else if (healthlevel[2] == 1) {
+        this.choosecolor2 = "rgb(0, 158, 0)";
+      }
+      if (healthlevel[3] == 0) {
+        this.choosecolor3 = "#fc2100";
+      } else if (healthlevel[3] == 1) {
+        this.choosecolor3 = "rgb(0, 158, 0)";
+      }
+      if (healthlevel[4] == 0) {
+        this.choosecolor4 = "#fc2100";
+      } else if (healthlevel[4] == 1) {
+        this.choosecolor4 = "rgb(0, 158, 0)";
+      }
+      if (healthlevel[5] == 0) {
+        this.choosecolor5 = "#fc2100";
+      } else if (healthlevel[5] == 1) {
+        this.choosecolor5 = "rgb(0, 158, 0)";
+      }
+      if (healthlevel[6] == 0) {
+        this.choosecolor6 = "#fc2100";
+      } else if (healthlevel[6] == 1) {
+        this.choosecolor6 = "rgb(0, 158, 0)";
+      }
+    }
+  }
 };
 </script>
 <style scoped>

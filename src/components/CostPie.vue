@@ -127,7 +127,7 @@ export default {
             itemStyle: dataStyle,
             hoverAnimation: false,
             data: [{
-                value: 14.84,
+                value: cost[1],
                 name: "",
                 itemStyle: placeHolderStyle,
               },
@@ -137,7 +137,7 @@ export default {
                 itemStyle: placeHolderStyle,
               },
               {
-                value: 85.16,
+                value: cost[0],
                 name: "能耗",
                 label: labelShow,
               },
@@ -155,11 +155,11 @@ export default {
             data: [
               
               {
-                value: 14.84,
+                value: cost[1],
                 name: "水耗",
                 label: labelShow,
               },{
-                value: 85.16,
+                value: cost[0],
                 name: "",
                 itemStyle: placeHolderStyle,
               },
@@ -192,6 +192,153 @@ export default {
       var labelSize = viewportWidth * 0.01; // 假设为视口宽度的1%
       return labelSize;
     },
+  },
+  updated(){
+    let connectdata = JSON.parse(localStorage.getItem("initData"));
+    let oldcost = cost
+    cost = connectdata[9]
+    this.option = {
+        backgroundColor: "transparent",
+
+        color: ["#2078d1", "#8a00ec"],
+        tooltip: {
+          show: false,
+          formatter: "{b} {d}%",
+        },
+        angleAxis: {
+          type: "category",
+          z: 10,
+          axisLine: {
+            color: "#fff",
+            lineStyle: {
+              width: 1,
+              color: "#fff",
+            },
+          },
+        },
+        radiusAxis: {
+          axisTick: {
+            show: false,
+          },
+          axisLabel: {
+            show: false,
+            color: "#00e3e3",
+          },
+          axisLine: {
+            show: false,
+            color: "#fff",
+            lineStyle: {
+              color: "#fff",
+            },
+          },
+          splitLine: {
+            color: "#000",
+            lineStyle: {
+              type: "dotted",
+              color: "rgba(170,170,170,.5)",
+            },
+          },
+        },
+        polar: {
+          center: ["50%", "50%"],
+          radius: 80,
+        },
+        legend: {
+          right: "0%",
+          top: "30%",
+          orient: "vertical",
+          textStyle: {
+            color: "#8ed7f6",
+            fontSize: "24",
+          },
+          itemGap: 12,
+          data: ["水耗", "能耗"],
+        },
+        series: [
+          {
+            name: "Line 1",
+            type: "pie",
+            clockWise: false,
+            radius: [35, 65],
+            itemStyle: dataStyle,
+            hoverAnimation: false,
+            data: [{
+                value: cost[1],
+                name: "",
+                itemStyle: placeHolderStyle,
+              },
+              {
+                value: 0,
+                name: "",
+                itemStyle: placeHolderStyle,
+              },
+              {
+                value: cost[0],
+                name: "能耗",
+                label: labelShow,
+              },
+              
+            ],
+          },
+          {
+            name: "Line 2",
+            type: "pie",
+            clockWise: false,
+            radius: [40, 65],
+            itemStyle: dataStyle,
+            hoverAnimation: false,
+
+            data: [
+              
+              {
+                value: cost[1],
+                name: "水耗",
+                label: labelShow,
+              },{
+                value: cost[0],
+                name: "",
+                itemStyle: placeHolderStyle,
+              },
+              {
+                value: 0,
+                name: "",
+                itemStyle: placeHolderStyle,
+              },
+            ],
+          },
+
+          {
+            type: "bar",
+            data: [0],
+            coordinateSystem: "polar",
+            name: "06a",
+            stack: "a",
+          },
+        ],
+    }
+    if(JSON.stringify(oldcost) !== JSON.stringify(cost)){
+      this.cost = cost
+      if (this.myChart) {
+      // 销毁旧的图表实例
+      this.myChart = null;
+      }
+      // 重新初始化图表实例
+      this.myChart = echarts.init(this.$refs.pie);
+
+      // 设置新的配置项
+      this.option && this.myChart.setOption(this.option);
+
+      // 设置缩放比例和缩放原点
+      const scaleRatio = 0.62;
+      this.myChart
+        .getZr()
+        .painter.getViewportRoot().style.transform = `scale(${scaleRatio})`;
+      this.myChart.getZr().painter.getViewportRoot().style.transformOrigin =
+        "left top";
+
+      // 调整图表尺寸
+      this.myChart.resize();
+    }
   },
   mounted() {
     this.myChart = echarts.init(this.$refs.pie);

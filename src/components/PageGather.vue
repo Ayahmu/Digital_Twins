@@ -52,6 +52,37 @@ export default {
       //   console.log(this.receivedMessage)
     });
   },
+  updated(){
+    let connectdata = JSON.parse(localStorage.getItem("initData"));
+    let oldpressure = pressure;
+    let olddensity = density;
+    let oldhumidity = humidity;
+    let oldflow = flow;
+    pressure = connectdata[3];
+    density = connectdata[4];
+    humidity = connectdata[5];
+    flow = connectdata[6];
+    if(JSON.stringify(oldpressure) !== JSON.stringify(pressure)){
+      this.pressure = pressure
+      this.receivedMessage = 1
+      this.init(this.receivedMessage - 1);
+    }
+    if(JSON.stringify(olddensity) !== JSON.stringify(density)){
+      this.density = density
+      this.receivedMessage = 2
+      this.init(this.receivedMessage - 1);
+    }
+    if(JSON.stringify(oldhumidity) !== JSON.stringify(humidity)){
+      this.humidity = humidity
+      this.receivedMessage = 3
+      this.init(this.receivedMessage - 1);
+    }
+    if(JSON.stringify(oldflow) !== JSON.stringify(flow)){
+      this.flow = flow
+      this.receivedMessage = 4
+      this.init(this.receivedMessage - 1);
+    }
+  },
   mounted() {
     this.myChart = echarts.init(this.$refs.picture);
 

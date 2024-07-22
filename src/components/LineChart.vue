@@ -254,6 +254,183 @@ export default {
 
     this.option && this.myChart.setOption(this.option);
   },
+  updated(){
+    let connectdata = JSON.parse(localStorage.getItem("initData"));
+    let oldSupplement = supplement
+    let oldPurification = purification
+    supplement = connectdata[10]
+    purification = connectdata[11]
+    if(JSON.stringify(oldSupplement) !== JSON.stringify(supplement) || JSON.stringify(oldPurification) !== JSON.stringify(purification)){
+      this.supplement = supplement
+      this.purification = purification
+      this.option = {
+        backgroundColor: "transparent",
+
+        tooltip: {
+          trigger: "axis",
+          axisPointer: {
+            type: "line",
+            lineStyle: {
+              color: {
+                type: "linear",
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [
+                  {
+                    offset: 0,
+                    color: "rgba(0, 255, 233,0)",
+                  },
+                  {
+                    offset: 0.5,
+                    color: "rgba(255, 255, 255,1)",
+                  },
+                  {
+                    offset: 1,
+                    color: "rgba(0, 255, 233,0)",
+                  },
+                ],
+                global: false,
+              },
+            },
+          },
+        },
+
+        grid: {
+          top: "24%",
+          left: "6%",
+          right: "6%",
+          bottom: "22%",
+          // containLabel: true
+        },
+        xAxis: [
+          {
+            type: "category",
+            axisLine: {
+              show: true,
+            },
+            // splitArea: {
+            //   // show: true,
+            //   color: "#f00",
+            //   lineStyle: {
+            //     color: "#f00",
+            //   },
+            // },
+            axisLabel: {
+              color: "#4ed2fd",
+              interval: 0,
+              fontSize: 15,
+            },
+            splitLine: {
+              show: false,
+            },
+            boundaryGap: false,
+            data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+          },
+        ],
+
+        yAxis: [
+          {
+            type: "value",
+            min: function (value) {
+              return value.min - 10;
+            },
+            max: function (value) {
+              return value.max + 10;
+            },
+            // max: 140,
+            splitNumber: 4,
+            splitLine: {
+              show: true,
+              lineStyle: {
+                color: "rgba(255,255,255,0.1)",
+              },
+            },
+            axisLine: {
+              show: false,
+            },
+            axisLabel: {
+              show: false,
+              margin: 20,
+              textStyle: {
+                color: "#d1e6eb",
+              },
+            },
+            axisTick: {
+              show: false,
+            },
+          },
+        ],
+        series: [
+          {
+            name: "氢气提纯",
+            type: "line",
+            // smooth: true, //是否平滑
+            showAllSymbol: true,
+            // symbol: 'image://./static/images/guang-circle.png',
+            symbol: "circle",
+            symbolSize: 9,
+            lineStyle: {
+              normal: {
+                color: "#2c8cfe",
+                shadowColor: "rgba(0, 0, 0, .3)",
+                shadowBlur: 0,
+                shadowOffsetY: 4,
+                shadowOffsetX: 4,
+              },
+            },
+            label: {
+              show: true,
+              position: "top",
+              textStyle: {
+                color: "#4ed2fd",
+              },
+            },
+
+            itemStyle: {
+              color: "#2c8cfe",
+              borderColor: "#fff",
+              borderWidth: 3,
+              shadowColor: "rgba(0, 0, 0, .3)",
+              shadowBlur: 0,
+              shadowOffsetY: 2,
+              shadowOffsetX: 2,
+            },
+            tooltip: {
+              show: true,
+            },
+            areaStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(
+                  0,
+                  0,
+                  0,
+                  1,
+                  [
+                    {
+                      offset: 0,
+                      color: "rgba(44, 140, 254,0.3)",
+                    },
+                    {
+                      offset: 1,
+                      color: "rgba(44, 140, 254,0)",
+                    },
+                  ],
+                  false
+                ),
+                shadowColor: "rgba(0,202,149, 0.9)",
+                shadowBlur: 20,
+              },
+            },
+            data: purification,
+          },
+        ],
+      }
+      this.myChart = echarts.init(this.$refs.line);
+      this.option && this.myChart.setOption(this.option);
+    }
+  }
 };
 </script>
 <style scoped>

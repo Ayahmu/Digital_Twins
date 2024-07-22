@@ -111,6 +111,11 @@ export default {
   mounted() {
     this.init(status[1]);
   },
+  updated(){
+    let connectdata = JSON.parse(localStorage.getItem("initData"));
+    status = connectdata[0]
+    this.init(status[1]);
+  },
   methods: {
     init(givendata) {
       if (givendata == 0) {

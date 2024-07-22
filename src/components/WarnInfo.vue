@@ -89,6 +89,16 @@ export default {
   mounted() {
     this.update();
   },
+  updated(){
+    let connectdata = JSON.parse(localStorage.getItem("initData"));
+    let oldalarm = alarm
+    alarm = connectdata[15];
+    if (JSON.stringify(oldalarm) !== JSON.stringify(alarm)) {
+    this.alarm = alarm
+    // 数据已更新，执行相应操作
+    this.update();
+    }
+  },
   methods: {
     openPopup(module) {
       console.log();

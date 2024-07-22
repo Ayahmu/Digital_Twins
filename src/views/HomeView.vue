@@ -444,6 +444,31 @@ export default {
     this.$bus.$off("fn", this.FormEvent);
     this.$bus.$off("reset", this.doReset);
   },
+  updated(){
+    connectdata = JSON.parse(localStorage.getItem("initData"));
+    status = connectdata[0];
+    if (status[0] == 0) {
+      first.value = "停止";
+      this.unitcolor = "#ff7b82";
+    } else if (status[0] == 1) {
+      first.value = "运行";
+      this.unitcolor = "#78f4ad";
+    } else if (status[0] == 2) {
+      first.value = "盘车";
+      this.unitcolor = "#ffe161";
+    }
+    if (status[1] == 0) {
+      second.value = "停止";
+      this.systemcolor = "#ff7b82";
+    } else if (status[1] == 1) {
+      second.value = "运行";
+      this.systemcolor = "#78f4ad";
+    } else if (status[1] == 2) {
+      second.value = "置换";
+      this.systemcolor = "#ffe161";
+    }
+    three.value = status[2];
+  },
   methods: {
     updateDateTime() {
       const now = new Date();

@@ -37,7 +37,15 @@ let parameters = connectdata[2];
 export default {
   data(){
     return{
-  parameters
+      parameters
+    }
+  },
+  updated(){
+    let connectdata = JSON.parse(localStorage.getItem("initData"));
+    let oldParameters = parameters
+    parameters = connectdata[2]
+    if(JSON.stringify(oldParameters) !== JSON.stringify(parameters)){
+      this.parameters = parameters
     }
   },
   methods: {
